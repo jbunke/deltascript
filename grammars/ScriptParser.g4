@@ -116,11 +116,12 @@ expr
 | a=expr op=(OR | AND) b=expr               #LogicBinExpression
 | cond=expr QUESTION if=expr
   COLON else=expr                           #TernaryExpression
-| LCURLY k_v_pairs? RCURLY                  #ExplicitMapExpression
+| LCURLY k_v_pairs RCURLY                   #ExplicitMapExpression
 | LBRACKET elements? RBRACKET               #ExplicitArrayExpression
 | LT elements? GT                           #ExplicitListExpression
 | LCURLY elements? RCURLY                   #ExplicitSetExpression
 | type LBRACKET expr RBRACKET               #NewArrayExpression
+| LCURLY kt=type COLON vt=type RCURLY       #NewMapExpression
 | assignable                                #AssignableExpression
 | literal                                   #LiteralExpression
 ;
