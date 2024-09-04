@@ -18,6 +18,7 @@ COMMA: ',';
 PERIOD: '.';
 PIPE: '|';
 QUESTION: '?';
+IT_SEP: COLON | IN;
 
 // Assignment
 ASSIGN: '=';
@@ -75,7 +76,10 @@ IF: 'if';
 ELSE: 'else';
 TRUE: 'true';
 FALSE: 'false';
-NEW: 'new';
+WHEN: 'when';
+IS: 'is';
+PASSES: 'passes';
+OTHERWISE: 'otherwise';
 
 // numbers
 fragment DIGIT: '0'..'9';
