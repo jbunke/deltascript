@@ -18,7 +18,6 @@ COMMA: ',';
 PERIOD: '.';
 PIPE: '|';
 QUESTION: '?';
-IT_SEP: COLON | IN;
 
 // Assignment
 ASSIGN: '=';
@@ -59,7 +58,7 @@ SIZE: '#|';
 // negative handled as minus
 
 // Keywords
-IN: 'in';
+IN: 'in' | ':';
 FINAL: 'final' | '~';
 BOOL: 'bool';
 FLOAT: 'float';

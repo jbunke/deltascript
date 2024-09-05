@@ -68,7 +68,7 @@ loop_stat
 ;
 
 iteration_def: FOR LPAREN 
-iterator_declaration IT_SEP expr RPAREN;
+iterator_declaration IN expr RPAREN;
 
 iterator_declaration
 : declaration                               #ExplicitDeclaration
