@@ -120,8 +120,8 @@ expr
 | LBRACKET elements? RBRACKET               #ExplicitArrayExpression
 | LT elements? GT                           #ExplicitListExpression
 | LCURLY elements? RCURLY                   #ExplicitSetExpression
-| type LBRACKET expr RBRACKET               #NewArrayExpression
-| LCURLY kt=type COLON vt=type RCURLY       #NewMapExpression
+| NEW type LBRACKET expr RBRACKET           #NewArrayExpression
+| NEW LCURLY kt=type COLON vt=type RCURLY   #NewMapExpression
 | assignable                                #AssignableExpression
 | literal                                   #LiteralExpression
 ;

@@ -70,6 +70,7 @@ IMAGE: 'image';
 STRING: 'string';
 RETURN: 'return';
 DO: 'do';
+NEW: 'new';
 WHILE: 'while';
 FOR: 'for';
 IF: 'if';
