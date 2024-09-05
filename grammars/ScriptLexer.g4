@@ -58,7 +58,7 @@ SIZE: '#|';
 // negative handled as minus
 
 // Keywords
-IN: 'in' | ':';
+IN: 'in';
 FINAL: 'final' | '~';
 BOOL: 'bool';
 FLOAT: 'float';
