@@ -11,6 +11,11 @@ DeltaScript is a lightweight scripting language skeleton that is designed to be 
 
 The main implementation of DeltaScript is an interpreter targetting Java. It can be found in the `script` module of [Delta Time](https://github.com/jbunke/delta-time), a general-purpose Java framework for developing GUI programs and games that is in active development.
 
+## Use cases
+
+DeltaScript is used in the following projects:
+* [Stipple Effect](https://github.com/jbunke/stipple-effect) - scriptable pixel art editor [**\[API\]**](https://github.com/jbunke/se-api)
+
 ## Overview
 
 DeltaScript is the result of a vision of a concise, yet statically typed C-style scripting language.
@@ -122,8 +127,3 @@ red(~ color c -> color) -> rgba(c.r, 0, 0, c.a)
 green(~ color c -> color) -> rgba(0, c.g, 0, c.a)
 blue(~ color c -> color) -> rgba(0, 0, c.b, c.a)
 ```
-
-## Use cases
-
-DeltaScript is used in the following projects:
-* [Stipple Effect](https://github.com/jbunke/stipple-effect) - scriptable pixel art editor

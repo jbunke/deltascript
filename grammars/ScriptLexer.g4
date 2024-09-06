@@ -69,13 +69,17 @@ IMAGE: 'image';
 STRING: 'string';
 RETURN: 'return';
 DO: 'do';
+NEW: 'new';
 WHILE: 'while';
 FOR: 'for';
 IF: 'if';
 ELSE: 'else';
 TRUE: 'true';
 FALSE: 'false';
-NEW: 'new';
+WHEN: 'when';
+IS: 'is';
+PASSES: 'passes';
+OTHERWISE: 'otherwise';
 
 // numbers
 fragment DIGIT: '0'..'9';

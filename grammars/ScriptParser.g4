@@ -49,7 +49,7 @@ body
 stat
 : loop_stat                                 #LoopStatement
 | if_stat                                   #IfStatement
-// match_stat
+| when_stat                                 #WhenStatement
 | var_def SEMICOLON                         #VarDefStatement
 | assignment SEMICOLON                      #AssignmentStatement
 | return_stat                               #ReturnStatement
@@ -67,8 +67,13 @@ loop_stat
 | DO body while_def SEMICOLON               #DoWhileLoop
 ;
 
-iteration_def: FOR LPAREN
-declaration IN expr RPAREN;
+iteration_def: FOR LPAREN 
+iterator_declaration IN expr RPAREN;
+
+iterator_declaration
+: declaration                               #ExplicitDeclaration
+| ident                                     #ImplicitDeclaration
+;
 
 while_def: WHILE LPAREN expr RPAREN;
 
@@ -80,8 +85,21 @@ if_stat: if_def (ELSE if_def)*
 
 if_def: IF LPAREN cond=expr RPAREN body;
 
+when_stat: WHEN LPAREN 
+control=expr RPAREN when_body;
+
+when_body: LCURLY case+ otherwise? RCURLY;
+
+case
+: IS expr ARROW body                        #IsCase
+| PASSES expr ARROW body                    #PassesCase
+;
+
+otherwise: OTHERWISE ARROW body;
+
 expr
 : LPAREN expr RPAREN                        #NestedExpression
+| lambda_params lambda_body                 #LambdaFunctionExpression
 | ident args                                #FunctionCallExpression
 | namespace args                            #ExtFuncCallExpression
 | namespace                                 #ExtPropertyExpression
@@ -99,22 +117,33 @@ expr
 | cond=expr QUESTION if=expr
   COLON else=expr                           #TernaryExpression
 | LCURLY k_v_pairs RCURLY                   #ExplicitMapExpression
-| LBRACKET expr (COMMA expr)* RBRACKET      #ExplicitArrayExpression
-| LT expr (COMMA expr)* GT                  #ExplicitListExpression
-| LCURLY expr (COMMA expr)* RCURLY          #ExplicitSetExpression
+| LBRACKET elements? RBRACKET               #ExplicitArrayExpression
+| LT elements? GT                           #ExplicitListExpression
+| LCURLY elements? RCURLY                   #ExplicitSetExpression
 | NEW type LBRACKET expr RBRACKET           #NewArrayExpression
-| NEW type LT GT                            #NewListExpression
-| NEW type LCURLY RCURLY                    #NewSetExpression
 | NEW LCURLY kt=type COLON vt=type RCURLY   #NewMapExpression
 | assignable                                #AssignableExpression
 | literal                                   #LiteralExpression
+;
+
+lambda_params
+: LPAREN RPAREN                             #NoLambdaParams
+| ident                                     #OneLambdaParam
+| LPAREN ident (COMMA ident)+ RPAREN        #MultLambdaParams
+;
+
+lambda_body
+: ARROW body                                #StandardLambdaBody
+| ARROW expr                                #ExprLambdaBody
 ;
 
 k_v_pairs: k_v_pair (COMMA k_v_pair)*;
 
 k_v_pair: key=expr COLON val=expr;
 
-args: LPAREN (expr (COMMA expr)*)? RPAREN;
+args: LPAREN elements? RPAREN;
+
+elements: expr (COMMA expr)*;
 
 assignment
 : assignable ASSIGN expr                    #StandardAssignment
