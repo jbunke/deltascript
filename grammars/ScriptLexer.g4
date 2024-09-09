@@ -78,6 +78,7 @@ TRUE: 'true';
 FALSE: 'false';
 WHEN: 'when';
 IS: 'is';
+MATCHES: 'matches';
 PASSES: 'passes';
 OTHERWISE: 'otherwise';
 

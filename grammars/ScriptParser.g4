@@ -92,6 +92,7 @@ when_body: LCURLY case+ otherwise? RCURLY;
 
 case
 : IS elements ARROW body                    #IsCase
+| MATCHES expr ARROW body                   #MatchesCase
 | PASSES expr ARROW body                    #PassesCase
 ;
 
