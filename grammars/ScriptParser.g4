@@ -91,7 +91,7 @@ control=expr RPAREN when_body;
 when_body: LCURLY case+ otherwise? RCURLY;
 
 case
-: IS expr ARROW body                        #IsCase
+: IS elements ARROW body                    #IsCase
 | PASSES expr ARROW body                    #PassesCase
 ;
 
