@@ -65,6 +65,21 @@ The core specification of *DeltaScript* and its implementations, in contrast to 
 
 ## L
 
+### Length
+
+The number of characters in a string or the number of elements in an array. When referring to the number of elements in a list or a set, the term [size![](../assets/definition.png)](#size) is used instead.
+
+The length/size operator in *DeltaScript* is `#|`.
+
+**Example:**
+
+```js
+() {
+    string word = "foo";
+    print(#|word); // Prints "3"
+}
+```
+
 ## M
 
 ### Member function
@@ -109,6 +124,24 @@ In this example, [`red`](./color-sl.md#red) is a property defined by the type [`
 ### Semantic equivalence
 
 Two or more expressions that have the same **meaning** and **behaviour** under the hood.
+
+### Size
+
+The number of elements in a list or a set. When referring to the number of elements in an array, or the number of characters in a `string`, the term [length![](../assets/definition.png)](#length) is used instead.
+
+The size/length operator in *DeltaScript* is `#|`.
+
+**Example:**
+
+```js
+() {
+    string<> words = < "quick", "brown" >; // initializes a list of strings
+    print(#|words); // Prints "2"
+    words.add("A", 0);
+    words.add("fox");
+    print(#|words); // Prints "4"
+}
+```
 
 ## T
 

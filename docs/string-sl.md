@@ -18,27 +18,36 @@ STR.at(int index) -> char
 
 **Description:**
 
-<!-- TODO -->
+Returns the character at `index` in `STR`.
 
 **Triggers runtime error(s):**
 
-<!-- TODO -->
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `index < 0`
+* `index >= #|STR`: `index` is greater than or equal to the [length![](../assets/definition.png)](./glossary.md#length) of `STR`
+
+**Note:**
+
+*DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 ### `has`
 
 1.  ```js
     STR.has(char c) -> bool
     ```
+
     **Description:**
-    
-    <!-- TODO -->
+
+    Returns `true` if the character `c` is found in `STR`, otherwise returns `false`.
 
 2.  ```js
     STR.has(string substring) -> bool
     ```
+
     **Description:**
 
-    <!-- TODO -->
+    Returns `true` if the substring `substring` is found in `STR`, otherwise returns `false`.
 
 ### `sub`
 
@@ -48,4 +57,16 @@ STR.sub(int beg, int end_ex) -> string
 
 **Description:**
 
-<!-- TODO -->
+Returns a substring of `STR` starting from the index `beg` and ending at `end_ex`. `end_ex` is an exclusive bound, so the final character included in the substring will be the character at index `end_ex - 1` in `STR`.
+
+**Triggers runtime error(s):**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `beg < 0`
+* `end_ex > #|STR`: `end_ex` is greater than the [length![](../assets/definition.png)](./glossary.md#length) of `STR`
+* `beg >= end_ex`
+
+**Note:**
+
+*DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
