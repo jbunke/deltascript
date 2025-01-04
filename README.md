@@ -5,7 +5,7 @@
 ## Documentation
 
 * [Language specification](./docs/lang-spec.md): a formal document outlining the rules governing *DeltaScript*'s intended behaviour
-* [Standard library](./docs/sl.md): descriptions of *DeltaScript*'s built-in functions
+* [Standard library](./docs/std-lib.md): descriptions of *DeltaScript*'s built-in functions
 
 ## Implementation
 
