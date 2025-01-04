@@ -40,10 +40,33 @@
 * Variable scope
 
 ### 4 – Expressions
+* Precedence
+* Function calls
+* Helper function references
+* Operators
+  * Unary operators
+  * Binary operators
+  * Ternary operator
+  * Compound assignment operators
+* Variables and other assignables
+* Literals
+  * `bool` literals
+  * `char` literals
+  * `color` literals
+  * `int` literals
+    * Decimal literals
+    * Hexadecimal literals
+  * `float` literals
+    * Decimal point notation
+    * `f` notation
+  * `string` literals
+
+<!-- TODO -->
 
 ### 5 – Statements
 * Declaration statements
 * Assignments
+* Void function calls
 * Conditional statements
   * `if`
   * `when`
@@ -53,9 +76,38 @@
   * `for`
   * enhanced `for` / iterator
 * `return`
-  * Typed `return`
+  * Value `return`
   * Void `return`
 
-### Glossary
+### 6 – Functions
+* Header functions
+* Helper functions
+* Type signatures
+  * Value-returning functions
+  * Void functions
+* Anonymous functions
+* Referencing functions
+
+### 7 – Execution
+* Type checking
+* Errors
+  * Syntax errors
+  * Semantic errors
+  * Runtime errors
 
 <!-- TODO -->
+
+### ? – Official implementation
+
+### ? – Extensions
+* Types
+  * New types
+  * Extending built-in types
+* Namespaces
+* Extending the official implementation
+  * Interpreter
+    * Overriding I/O functions
+  * Visitor
+  * AST nodes
+
+### [Glossary](./glossary.md)
