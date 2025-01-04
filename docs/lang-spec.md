@@ -109,5 +109,8 @@
     * Overriding I/O functions
   * Visitor
   * AST nodes
+    * Types
+    * Expressions
+    * Statements
 
 ### [Glossary](./glossary.md)

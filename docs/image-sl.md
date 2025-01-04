@@ -50,7 +50,7 @@ IMG.dot(color c, int x, int y);
 
 **Description:**
 
-<!-- TODO -->
+Sets the pixel at the position `x`, `y` in `IMG` to the color `c`.
 
 ### `draw`
 
@@ -60,7 +60,11 @@ IMG.draw(image superimposed, int x, int y);
 
 **Description:**
 
-<!-- TODO -->
+Draws the `superimposed` image onto `IMG` at the position `x`, `y`. The top-left corner of the `superimposed` image will be placed at the coordinates `x`, `y` of `IMG`.
+
+**Note:**
+
+The position `x`, `y` may be outside of the bounds of `IMG`, and `superimposed` may extend beyond the bounds of `IMG`.
 
 ### `fill`
 
@@ -70,17 +74,30 @@ IMG.fill(color c, int x, int y, int width, int height);
 
 **Description:**
 
-<!-- TODO -->
+Fills a rectangular area of `IMG` with the color `c`. The rectangle is defined by its top-left corner at `x`, `y` and its dimensions `width` and `height`.
+
+**Fails:**
+
+This function will fail and be skipped over if any of the following conditions are met:
+
+* `width <= 0`
+* `height <= 0`
 
 ### `line`
 
 ```js
-IMG.line(color c, int x1, int y1, int x2, int y2);
+IMG.line(color c, float breadth, int x1, int y1, int x2, int y2);
 ```
 
 **Description:**
 
-<!-- TODO -->
+Draws a straight line of the color `c` with a breadth of `breadth` pixels from `x1`, `y1` to `x2`, `y2` onto `IMG`.
+
+**Fails:**
+
+This function will fail and be skipped over if any of the following conditions are met:
+
+* `breadth < 0.0`
 
 ### `pixel`
 
@@ -90,7 +107,17 @@ IMG.pixel(int x, int y) -> color
 
 **Description:**
 
-<!-- TODO -->
+Returns the color of the pixel at the position `x`, `y` in `IMG`.
+
+
+**Triggers runtime error(s):**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `x < 0`
+* `y < 0`
+* `x >= IMG.width`: `x` is greater than or equal to the width of `IMG` in pixels
+* `y >= IMG.height`: `y` is greater than or equal to the height of `IMG` in pixels
 
 ### `section`
 
@@ -100,4 +127,13 @@ IMG.section(int x, int y, int width, int height) -> image
 
 **Description:**
 
-<!-- TODO -->
+Extracts and returns a subsection of `IMG` as a new image. The subsection is defined by the rectangle starting at the position `x`, `y` with the specified `width` and `height`.
+
+The rectangle may include pixels that are out of bounds of `IMG`. Such pixels in the returned image will simply be transparent.
+
+**Triggers runtime error(s):**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `width <= 0`
+* `height <= 0`
