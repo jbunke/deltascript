@@ -110,7 +110,7 @@ clamp(int min, int value, int max) -> int
 
 **Description:**
 
-<!-- TODO -->
+Returns `value` if it is between `min` and `max`. If `value` is less than `min`, returns `min`. If `value` is greater than `max`, returns `max`.
 
 ### `max`
 
@@ -142,9 +142,7 @@ clamp(int min, int value, int max) -> int
 
     **Description:**
     
-    Here
-
-<!-- TODO -->
+    Returns the greater of the two values `a` and `b`.
 
 ### `min`
 
@@ -176,9 +174,7 @@ clamp(int min, int value, int max) -> int
 
     **Description:**
     
-    Here
-
-<!-- TODO -->
+    Returns the lesser of the two values `a` and `b`.
 
 ## Color constructors
 
@@ -189,7 +185,21 @@ rgb(int r, int g, int b) -> color
 ```
 **Description:**
 
-<!-- TODO -->
+Creates a 32-bit RGBA `color` from its red, green, and blue components. The alpha/opacity channel is allocated a value of 255, which represents a fully opaque color.
+
+**Parameters:**
+
+* `int r` - The red color channel. An integer between 0 and 255 (inclusive).
+* `int g` - The green color channel. An integer between 0 and 255 (inclusive).
+* `int b` - The blue color channel. An integer between 0 and 255 (inclusive).
+
+**Triggers runtime error(s):**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `r < 0` or `r > 255`
+* `g < 0` or `g > 255`
+* `b < 0` or `b > 255`
 
 **Note:**
 
@@ -202,7 +212,23 @@ rgba(int r, int g, int b, int alpha) -> color
 ```
 **Description:**
 
-<!-- TODO -->
+Creates a 32-bit RGBA `color` from its red, green, blue, and alpha/opacity components.
+
+**Parameters:**
+
+* `int r` - The red color channel. An integer between 0 and 255 (inclusive).
+* `int g` - The green color channel. An integer between 0 and 255 (inclusive).
+* `int b` - The blue color channel. An integer between 0 and 255 (inclusive).
+* `int alpha` - The alpha (opacity) channel. An integer between 0 and 255 (inclusive).
+
+**Triggers runtime error(s):**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `r < 0` or `r > 255`
+* `g < 0` or `g > 255`
+* `b < 0` or `b > 255`
+* `alpha < 0` or `alpha > 255`
 
 ## Image constructors
 
@@ -213,11 +239,19 @@ new_image_of(int width, int height) -> image
 ```
 **Description:**
 
-<!-- TODO -->
+Creates a new image with the specified `width` and `height`.
+
+**Parameters:**
+
+* `int width` - The width of the new image in pixels.
+* `int height` - The height of the new image in pixels.
 
 **Triggers runtime error(s):**
 
-<!-- TODO -->
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `width <= 0`
+* `height <= 0`
 
 ### `read_image`
 
@@ -226,7 +260,13 @@ read_image(string filepath) -> image
 ```
 **Description:**
 
-<!-- TODO -->
+Reads an image from the specified `filepath` and returns it as an `image` object.
+
+**Triggers runtime error(s):**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `filepath` does not point to a readable raster image in the local file system
 
 ## I/O functions
 
@@ -239,7 +279,11 @@ print(T message);
 
 **Description:**
 
-<!-- TODO -->
+Prints `message` to the standard output on its own line.
+
+**Parameters:**
+
+* `T message` - The message to be printed. Can be of any type; converted to `string` internally. However, keep in mind that objects of certain types – functional types, notably – are not always suitable for textual representation.
 
 ### `prompt`
 
@@ -250,7 +294,11 @@ prompt(T message) -> string
 
 **Description:**
 
-<!-- TODO -->
+Displays `message` to the user and waits for input. Returns the input as a `string`.
+
+**Parameters:**
+
+* `T message` - The message to be displayed. Can be of any type; converted to `string` internally. However, keep in mind that objects of certain types – functional types, notably – are not always suitable for textual representation.
 
 ### `read`
 
@@ -259,7 +307,11 @@ read() -> string
 ```
 **Description:**
 
-<!-- TODO -->
+Reads a line of input from the standard input and returns it as a `string`.
+
+**Note:**
+
+This function waits for the user to press <kbd>Enter</kbd> before returning the input.
 
 ---
 
@@ -274,8 +326,9 @@ read() -> string
 ### `N`
 
 `N` represents a numeric type, whether `float` or `int`. Repeated uses of `N` in the same function type signature suggest that:
-1. the same numeric type must be provided for each argument of type `N`
-2. the return type will match the argument type
+
+* the same numeric type must be provided for each argument of type `N`
+* the return type will match the argument type
 
 ### `C`
 
