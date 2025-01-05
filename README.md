@@ -61,7 +61,7 @@ random_letter(-> char) {
 
 <!-- TODO - link to type checking in the language specification -->
 
-*DeltaScript* is statically typed, so [type checking](#) is performed at compile-time.
+*DeltaScript* is statically typed, so [type checking](#) is performed before scripts are executed.
 
 ### Clear, concise syntax
 
@@ -73,11 +73,11 @@ For example, the various [collection data types](#) supported by the language ar
 
 For collections with elements of type `T`:
 
+* **Array**: `T[]` - ordered collection of fixed length
 * **List**: `T<>` - ordered collection that can grow and shrink
-* **Array**: `T[]` - ordered collection of fixed size
 * **Set**: `T{}` - unordered collection that can grow and shrink
 
-A **map/dictionary** with keys of type `K` and values of type `V`: `{ K : V }`
+A **map/dictionary** with keys of type `K` and values of type `V`: `{K:V}`
 
 ### Syntactical shorthands
 
@@ -102,32 +102,32 @@ Functions can be stored as variables in *DeltaScript*.
 // accepts an input color as a parameter
 // returns a list of colors transformed from input in various ways
 (~ color input -> color<>) {
-    ~ (color -> color) color_functions = [
-         ::red, ::green, ::blue, ::greyscale, ::random_color, ::white
+    ~ (color -> color)[] color_functions = [
+         c -> rgba(c.r, 0, 0, c.a),     // isolate red channel
+         c -> rgba(0, c.g, 0, c.a),     // isolate green channel
+         ::iso_blue,                    // reference to function "iso_blue"
+         c -> {
+            int avg = (c.r + c.g + c.b) / 3;
+            return rgba(avg, avg, avg, c.a);
+         },                             // greyscale of color
+         c -> rgb(rc(), rc(), rc()),    // random opaque color
+         c -> #ffffff                   // the color white
     ];
-    ~ color<> channels = new color<>;
+    ~ color<> channels = <>;            // initializes an empty list of colors
 
-    for ((color -> color) f in color_functions)
+    // iterates through the (color -> color) functions in color_functions
+    // calls each function with "input" as input and appends its
+    //   return value to "channels"
+    for (f in color_functions)
         channels.add(f.call(input));
 
     return channels;
 }
 
-// helper functions that transform a color
-greyscale(~ color c -> color) {
-    int avg = (c.r + c.g + c.b) / 3;
-    return rgba(avg, avg, avg, c.a);
-}
+// helper function to isolate the blue channel of a color
+iso_blue(~ color c -> color) -> rgba(0, 0, c.b, c.a)
 
-// white(), random_color() match signature of other helpers but ignore parameter
-// uses the hex code color literal #ffffff - white - RGB[255, 255, 255]
-white(~ color c -> color) -> #ffffff;
-random_color(~ color c -> color) -> rgba(rc(), rc(), rc(), 0xff)
-// uses the hexadecimal integer literal 0x100 = 256
+// helper function to generate a random color channel value
+// uses the hexadecimal integer literal 0x100 (= 256)
 rc(-> int) -> rand(0, 0x100)
-
-// isolate a color's RGB channels
-red(~ color c -> color) -> rgba(c.r, 0, 0, c.a)
-green(~ color c -> color) -> rgba(0, c.g, 0, c.a)
-blue(~ color c -> color) -> rgba(0, 0, c.b, c.a)
 ```

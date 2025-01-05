@@ -109,7 +109,6 @@ IMG.pixel(int x, int y) -> color
 
 Returns the color of the pixel at the position `x`, `y` in `IMG`.
 
-
 **Triggers runtime error(s):**
 
 This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:

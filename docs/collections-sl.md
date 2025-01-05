@@ -2,7 +2,13 @@
 
 # Collection types
 
-<!-- TODO -->
+**Collection types** in *DeltaScript* are data structures that contain elements of particular types. There are three types of basic collections:
+
+* [**Arrays**](#array): ordered collection of fixed [length![](../assets/definition.png)](./glossary.md#length)
+* [**Lists**](#list): ordered collection with dynamic [size![](../assets/definition.png)](./glossary.md#size)
+* [**Sets**](#set): unordered collection with dynamic size
+
+Additionally, *DeltaScript* supports [**maps**](#mapdictionary) or **dictionaries**. A map is an associative collection that pairs **keys** of a given type with **values** of a given type. Values can be retrieved from a map by providing the matching key.
 
 ## Array
 
@@ -14,7 +20,7 @@
 * `color<>[]` - array of lists of colors
 * `(string -> char)[]` - array of string to character functions
 
-Definitions in this section will use `ARR` to represent an arbitrary array `T[]` with elements of an arbitrary type `T`.
+Definitions in this section will use `ARR` to represent an arbitrary array of type `T[]` with elements of an arbitrary type `T`.
 
 ---
 
@@ -24,9 +30,9 @@ Definitions in this section will use `ARR` to represent an arbitrary array `T[]`
 ARR.has(T check) -> bool
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Checks if `ARR` contains the element `check`. Returns `true` if `ARR` contains `check`, otherwise returns `false`.
 
 ## List
 
@@ -38,7 +44,7 @@ ARR.has(T check) -> bool
 * `color[]<>` - list of arrays of colors
 * `(string -> char)[]` - list of string to character functions
 
-Definitions in this section will use `LST` to represent an arbitrary list `T<>` with elements of an arbitrary type `T`.
+Definitions in this section will use `LST` to represent an arbitrary list of type `T<>` with elements of an arbitrary type `T`.
 
 ---
 
@@ -48,9 +54,9 @@ Definitions in this section will use `LST` to represent an arbitrary list `T<>` 
     LST.add(T element);
     ```
     
-    **Definition:**
+    **Description:**
     
-    <!-- TODO -->
+    Appends `element` to the end of `LST`.
 
 2.  ```js
     LST.add(T element, int index);
@@ -58,7 +64,12 @@ Definitions in this section will use `LST` to represent an arbitrary list `T<>` 
 
     **Description:**
 
-    <!-- TODO -->
+    Inserts `element` at the specified `index` in `LST`. The elements at and after the specified `index` will be shifted to the right to make space for the new element.
+    
+    **Note:**
+    
+    *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
+
 
 ### `has`
 
@@ -66,13 +77,32 @@ Definitions in this section will use `LST` to represent an arbitrary list `T<>` 
 LST.has(T check) -> bool
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Checks if `LST` contains the element `check`. Returns `true` if `LST` contains `check`, otherwise returns `false`.
 
 ### `remove`
 
-<!-- TODO -->
+```js
+LST.remove(int index);
+```
+
+**Description:**
+
+Removes the element at the specified `index` from `LST`. The elements that follow the removed element will be shifted to the left to fill the gap.
+
+**Fails:**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `index < 0`
+* `index >= #|LST`: `index` is greater than or equal to the size of `LST`
+
+**Note:**
+
+*DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
+
+<!-- TODO - LST.remove(T element); -->
 
 ## Set
 
@@ -84,7 +114,7 @@ LST.has(T check) -> bool
 * `color[]{}` - set of arrays of colors
 * `(string -> char){}` - set of string to character functions
 
-Definitions in this section will use `SET` to represent an arbitrary set `T{}` with elements of an arbitrary type `T`.
+Definitions in this section will use `SET` to represent an arbitrary set of type `T{}` with elements of an arbitrary type `T`.
 
 ---
 
@@ -94,9 +124,9 @@ Definitions in this section will use `SET` to represent an arbitrary set `T{}` w
 SET.add(T element);
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Adds `element` to `SET` if `SET` does not already contain `element`.
 
 ### `has`
 
@@ -104,9 +134,11 @@ SET.add(T element);
 SET.has(T check) -> bool
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Checks if `SET` contains the element `check`. Returns `true` if `SET` contains `check`, otherwise returns `false`.
+
+<!-- TODO - SET.remove(T element); -->
 
 ## Map/dictionary
 
@@ -117,7 +149,7 @@ SET.has(T check) -> bool
 * `{string:int}` - map with strings as keys and integers as values
 * `{int:(-> color)}` - map with integers as keys and color-returning functions with no parameters as values
 
-Definitions in this section will use `MAP` to represent an arbitrary map `{K:V}` with keys of an arbitrary type `K` and values of an arbitrary type `V`.
+Definitions in this section will use `MAP` to represent an arbitrary map of type `{K:V}` with keys of an arbitrary type `K` and values of an arbitrary type `V`.
 
 ---
 
@@ -127,9 +159,9 @@ Definitions in this section will use `MAP` to represent an arbitrary map `{K:V}`
 MAP.define(K key, V value);
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Associates the specified `key` with the specified `value` in `MAP`. If `MAP` previously contained a mapping for `key`, the old value is replaced by `value`.
 
 ### `has`
 
@@ -137,9 +169,9 @@ MAP.define(K key, V value);
 MAP.has(K key) -> bool
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Checks if `MAP` contains a mapping for the specified `key`. Returns `true` if `MAP` contains `key`, otherwise returns `false`.
 
 ### `keys`
 
@@ -147,9 +179,9 @@ MAP.has(K key) -> bool
 MAP.keys() -> K{}
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Returns a set of all keys contained in `MAP`.
 
 ### `lookup`
 
@@ -157,6 +189,12 @@ MAP.keys() -> K{}
 MAP.lookup(K key) -> V
 ```
 
-**Definition:**
+**Description:**
 
-<!-- TODO -->
+Retrieves the value associated with the specified `key` from `MAP`.
+
+**Triggers runtime error(s):**
+
+This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+
+* `!MAP.has(key)`: `MAP` does not contain a mapping for `key`
