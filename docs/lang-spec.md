@@ -8,16 +8,28 @@
 | :-----: | :-------: | :----: | :------------: |
 | alpha-0.1 | January 6, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
 
-<!-- TODO -->
+*DeltaScript* is a lightweight scripting language skeleton that is designed to be easily extended for the specification and implementation of [domain-specific languages![](../assets/external.png)](https://en.wikipedia.org/wiki/Domain-specific_language).
+
+The language is in active development. As it is already in production as the scripting language used by [*Stipple Effect*](https://github.com/jbunke/stipple-effect), it became necessary to publish a specification for the language.
+
+*DeltaScript* is technically **platform-agnostic**. It can be implemented as a compiled language or an interpreted language that targets any other programming language. However, the official implementation (latest version linked above) is an interpreter that targets Java.
+
+This semi-formal document aims to provide an exhaustive description of how the language is intended to work, including its **syntax**, **semantics**, **execution**, and **extension possibilities**. A strong mathematics and/or computer science background is helpful but not required.
+
+For a more beginner-friendly overview of the language, please see the [guides section](./guides.md) of the documentation.
 
 ## Contents
 
 ### Introduction
 * Motivation
+* Notation
+* Overview of the specification
 
 ### 1 – Syntax and grammar
-* Notation
-* Grammar
+* Grammar notation
+* Grammars
+  * Lexical grammar
+  * Syntax grammar
 * Notes on syntax
   * Shorthands
 
@@ -80,13 +92,14 @@
   * Void `return`
 
 ### 6 – Functions
-* Header functions
-* Helper functions
 * Type signatures
   * Value-returning functions
   * Void functions
-* Anonymous functions
-* Referencing functions
+* Types of functions
+  * Header functions
+  * Helper functions
+  * Anonymous functions
+* Function references
 
 ### 7 – Execution
 * Type checking
@@ -97,20 +110,12 @@
 
 <!-- TODO -->
 
-### ? – Official implementation
-
 ### ? – Extensions
 * Types
   * New types
   * Extending built-in types
 * Namespaces
-* Extending the official implementation
-  * Interpreter
-    * Overriding I/O functions
-  * Visitor
-  * AST nodes
-    * Types
-    * Expressions
-    * Statements
+
+### ? – Official implementation
 
 ### [Glossary](./glossary.md)
