@@ -83,26 +83,32 @@ Checks if `LST` contains the element `check`. Returns `true` if `LST` contains `
 
 ### `remove`
 
-```js
-LST.remove(int index);
-```
+1.  ```js
+    LST.remove(int index);
+    ```
+    
+    **Description:**
+    
+    Removes the element at the specified `index` from `LST`. The elements that follow the removed element will be shifted to the left to fill the gap.
+    
+    **Fails:**
+    
+    This function will fail and be skipped over if any of the following conditions are met:
+    
+    * `index < 0`
+    * `index >= #|LST`: `index` is greater than or equal to the size of `LST`
+    
+    **Note:**
+    
+    *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
-**Description:**
+2.  ```js
+    LST.remove(T element);
+    ```
 
-Removes the element at the specified `index` from `LST`. The elements that follow the removed element will be shifted to the left to fill the gap.
+    **Description:**
 
-**Fails:**
-
-This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
-
-* `index < 0`
-* `index >= #|LST`: `index` is greater than or equal to the size of `LST`
-
-**Note:**
-
-*DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
-
-<!-- TODO - LST.remove(T element); -->
+    Removes the first occurrence of `element` from `LST`. The elements that follow the removed element will be shifted to the left to fill the gap.
 
 ## Set
 
@@ -138,7 +144,15 @@ SET.has(T check) -> bool
 
 Checks if `SET` contains the element `check`. Returns `true` if `SET` contains `check`, otherwise returns `false`.
 
-<!-- TODO - SET.remove(T element); -->
+### `remove`
+
+```js
+SET.remove(T element);
+```
+
+**Description:**
+
+Removes `element` from `SET` if it is present.
 
 ## Map/dictionary
 
