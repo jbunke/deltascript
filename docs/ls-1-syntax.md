@@ -9,7 +9,9 @@
   * [**1.2.1**](#121--lexical-grammar) – Lexical grammar
   * [**1.2.2**](#122--syntax-grammar) – Syntax grammar
 * [**1.3**](#13--notes-on-syntax) – Notes on syntax
-  * [**1.3.1**](#131--shorthands) – Shorthands
+  * [**1.3.1**](#131--comments) – Comments
+  * [**1.3.2**](#132--whitespace) – Whitespace
+  * [**1.3.3**](#133--shorthands) – Shorthands
 
 ---
 
@@ -23,25 +25,103 @@
 
 <!-- TODO -->
 
-**Note:**
-
-For the sake of clarity, names of rules may have been renamed from those found in the `grammars/ScriptLexer.g4` and `grammars/ScriptParser.g4` source files.
-
 ### 1.2.1 – Lexical grammar
 
 <!-- TODO -->
 
+**Note:**
+
+For the sake of clarity, rules may have been adapted, renamed or rearranged from those found in the [`grammars/ScriptLexer.g4`](../grammars/ScriptLexer.g4) source file.
+
+---
+
+**<i id="lg-final">FINAL</i>:** `final` | `~`
+
+> Description
+
+**<i id="lg-identifier">IDENTIFIER</i>:** [LEADOFF](#lg-leadoff) [FOLLOWING](#lg-following)\*
+
+> Description
+
+**<i id="lg-leadoff">LEADOFF</i>:** `_` | `A..Z` | `a..z`
+
+> Description
+
+**<i id="lg-following">FOLLOWING</i>:** `_` | `A..Z` | `a..z` | [DIGIT](#lg-digit)
+
+> Description
+
+**<i id="lg-subident">SUBIDENT</i>:** `.` [IDENTIFIER](#lg-identifier)
+
+> Description
+
+**<i id="lg-digit">DIGIT</i>:** `0..9`
+
+> Description
+
+**<i id="lg-hexdigit">HEX_DIGIT</i>:** [DIGIT](#lg-digit) | `a..f` | `A..F`
+
+> Description
+
+**<i id="lg-floatlit">FLOAT_LIT</i>:**
+* [DIGIT](#lg-digit)\+ `.` [DIGIT](#lg-digit)\+
+* [DIGIT](#lg-digit)\+ `f`
+
+> Description
+
+**<i id="lg-declit">DEC_LIT</i>:** [DIGIT](#lg-digit)\+
+
+> Description
+
+**<i id="lg-hexlit">HEX_LIT</i>:** `0x` [HEX_DIGIT](#lg-hexdigit)\+
+
+> Description
+
+**<i id="lg-channel">CHANNEL</i>:** [HEX_DIGIT](#lg-hexdigit) [HEX_DIGIT](#lg-hexdigit)
+
+> Description
+
+**<i id="lg-colorhexlit">COLOR_HEX_LIT</i>:** `#` [CHANNEL](#lg-channel) [CHANNEL](#lg-channel) [CHANNEL](#lg-channel) [CHANNEL](#lg-channel)?
+
+> Description
+
+**<i id="lg-escapechar">ESCAPE_CHAR</i>:** `\` ( `0` | `b` | `t` | `n` | `f` | `r` | `"` | `'` | `\` )
+
+> Description
+
+**<i id="lg-restrictedcharset">RESTRICTED_CHARSET</i>:** ~( `\` | `'` | `"` )
+
+> Description
+
+**<i id="lg-character">CHARACTER</i>:** [RESTRICTED_CHARSET](#lg-restrictedcharset) | [ESCAPE_CHAR](#lg-escapechar)
+
+> Description
+
+**<i id="lg-charlit">CHAR_LIT</i>:** `'` [CHARACTER](#lg-character) `'`
+
+> Description
+
+**<i id="lg-stringlit">STRING_LIT</i>:** `"` ( [CHARACTER](#lg-character) | `'` ) `"`
+
+> Description
+
 ### 1.2.2 – Syntax grammar
 
-> The outermost rule. The contents of the entire script file must match *headRule* in order for the script to be syntactically correct.
+<!-- TODO -->
+
+**Note:**
+
+For the sake of clarity, rules may have been adapted, renamed or rearranged from those found in the [`grammars/ScriptParser.g4`](../grammars/ScriptParser.g4) and [`grammars/ScriptLexer.g4`](../grammars/ScriptLexer.g4) source files.
+
+---
 
 **<i id="sg-headrule">headRule</i>:** [signature](#sg-signature) [funcBody](#sg-funcbody) [helper](#sg-helper)\*
 
-> Description
+> The outermost rule. The contents of the entire script file must match *headRule* in order for the script to be syntactically correct.
 
 **<i id="sg-helper">helper</i>:** [ident](#sg-ident) [signature](#sg-signature) [funcBody](#sg-funcbody)
 
-> Description
+> The matching rule for a [helper function](). <!-- TODO - link to specification -->
 
 **<i id="sg-funcbody">funcBody</i>:**
 * [body](#sg-body)
@@ -59,7 +139,7 @@ For the sake of clarity, names of rules may have been renamed from those found i
 
 > Description
 
-**<i id="sg-declaration">declaration</i>:** FINAL? [type](#sg-type) [ident](#sg-ident)
+**<i id="sg-declaration">declaration</i>:** [FINAL](#lg-final)? [type](#sg-type) [ident](#sg-ident)
 
 > Description
 
@@ -172,111 +252,121 @@ For the sake of clarity, names of rules may have been renamed from those found i
 * [expr](#sg-expr) [subident](#sg-subident)
 * ( `-` | `!` | `#|` ) [expr](#sg-expr)
 * `(` [type](#sg-type) `)` [expr](#sg-expr)
-* expr ( `+` | `-` ) expr
-* expr ( `*` | `/` | `%` ) expr
-* expr `^` expr
-* expr ( `==` | `!=` | `>` | `<` | `>=` | `<=` ) expr
-* expr ( `||` | `&&` ) expr
-* expr `?` expr `:` expr
-* `{` kvPairs `}`
-* `[` elements? `]`
-* `<` elements? `>`
-* `{` elements? `}`
-* `new` type `[` expr `]`
-* `new` `{` type `:` type `}`
-* assignable
-* literal
+* [expr](#sg-expr) ( `+` | `-` ) [expr](#sg-expr)
+* [expr](#sg-expr) ( `*` | `/` | `%` ) [expr](#sg-expr)
+* [expr](#sg-expr) `^` [expr](#sg-expr)
+* [expr](#sg-expr) ( `==` | `!=` | `>` | `<` | `>=` | `<=` ) [expr](#sg-expr)
+* [expr](#sg-expr) ( `||` | `&&` ) [expr](#sg-expr)
+* [expr](#sg-expr) `?` [expr](#sg-expr) `:` [expr](#sg-expr)
+* `{` [kvPairs](#sg-kvpairs) `}`
+* `[` [elements](#sg-elements)? `]`
+* `<` [elements](#sg-elements)? `>`
+* `{` [elements](#sg-elements)? `}`
+* `new` [type](#sg-type) `[` [expr](#sg-expr) `]`
+* `new` `{` [type](#sg-type) `:` [type](#sg-type) `}`
+* [assignable](#sg-assignable)
+* [literal](#sg-literal)
 
 > Description
 
 **<i id="sg-lambdaparams">lambdaParams</i>:**
 * `(` `)`
-* ident
-* `(` ident ( `,` ident )\+ `)`
+* [ident](#sg-ident)
+* `(` [ident](#sg-ident) ( `,` [ident](#sg-ident) )\+ `)`
 
 > Description
 
-**<i id="sg-lambdabody">lambdaBody</i>:** `->` ( body | expr )
+**<i id="sg-lambdabody">lambdaBody</i>:** `->` ( [body](#sg-body) | [expr](#sg-expr) )
 
 > Description
 
-**<i id="sg-kvpairs">kvPairs</i>:** kvPair ( `,` kvPair )\*
+**<i id="sg-kvpairs">kvPairs</i>:** [kvPair](#sg-kvpair) ( `,` [kvPair](#sg-kvpair) )\*
 
 > Description
 
-**<i id="sg-kvpair">kvPair</i>:** expr `:` expr
+**<i id="sg-kvpair">kvPair</i>:** [expr](#sg-expr) `:` [expr](#sg-expr)
 
 > Description
 
-**<i id="sg-args">args</i>:** `(` elements? `)`
+**<i id="sg-args">args</i>:** `(` [elements](#sg-elements)? `)`
 
 > Description
 
-**<i id="sg-elements">elements</i>:** expr ( `,` expr )\*
+**<i id="sg-elements">elements</i>:** [expr](#sg-expr) ( `,` [expr](#sg-expr) )\*
 
 > Description
 
 **<i id="sg-assignment">assignment</i>:**
-* assignable `=` expr
-* assignable `++`
-* assignable `--`
-* assignable `+=` expr
-* assignable `-=` expr
-* assignable `*=` expr
-* assignable `/=` expr
-* assignable `%=` expr
-* assignable `&=` expr
-* assignable `|=` expr
+* [assignable](#sg-assignable) `=` [expr](#sg-expr)
+* [assignable](#sg-assignable) `++`
+* [assignable](#sg-assignable) `--`
+* [assignable](#sg-assignable) `+=` [expr](#sg-expr)
+* [assignable](#sg-assignable) `-=` [expr](#sg-expr)
+* [assignable](#sg-assignable) `*=` [expr](#sg-expr)
+* [assignable](#sg-assignable) `/=` [expr](#sg-expr)
+* [assignable](#sg-assignable) `%=` [expr](#sg-expr)
+* [assignable](#sg-assignable) `&=` [expr](#sg-expr)
+* [assignable](#sg-assignable) `|=` [expr](#sg-expr)
 
 > Description
 
-**<i id="sg-varinit">varInit</i>:** declaration `=` expr
+**<i id="sg-varinit">varInit</i>:** [declaration](#sg-declaration) `=` [expr](#sg-expr)
 
 > Description
 
-**<i id="sg-vardef">varDef</i>:** declaration | varInit
+**<i id="sg-vardef">varDef</i>:** [declaration](#sg-declaration) | [varInit](#sg-varinit)
 
 > Description
 
 **<i id="sg-assignable">assignable</i>:**
-* ident
-* ident `<` expr `>`
-* ident `[` expr `]`
+* [ident](#sg-ident)
+* [ident](#sg-ident) `<` [expr](#sg-expr) `>`
+* [ident](#sg-ident) `[` [expr](#sg-expr) `]`
 
 > Description
 
-**<i id="sg-ident">ident</i>:** IDENTIFIER
+**<i id="sg-ident">ident</i>:** [IDENTIFIER](#lg-identifier)
 
 > Description
 
-**<i id="sg-subident">subident</i>:** SUB_IDENT
+**<i id="sg-subident">subident</i>:** [SUB_IDENT](#lg-subident)
 
 > Description
 
-**<i id="sg-namespaceident">namespaceIdent</i>:** `$` ident subident
+**<i id="sg-namespaceident">namespaceIdent</i>:** `$` [ident](#sg-ident) [subident](#sg-subident)
 
 > Description
 
 **<i id="sg-literal">literal</i>:**
-* STRING_LIT
-* CHAR_LIT
-* COLOR_HEX_LIT
-* intLiteral
-* FLOAT_LIT
-* boolLiteral
+* [STRING_LIT](#lg-stringlit)
+* [CHAR_LIT](#lg-charlit)
+* [COLOR_HEX_LIT](#lg-colorhexlit)
+* [intLiteral](#sg-intliteral)
+* [FLOAT_LIT](#lg-floatlit)
+* [boolLiteral](#sg-boolliteral)
 
 > Description
 
-**<i id="sg-intliteral">intLiteral</i>:** HEX_LIT | DEC_LIT
+**<i id="sg-intliteral">intLiteral</i>:** [HEX_LIT](#lg-hexlit) | [DEC_LIT](#lg-declit)
 
 > Description
 
 **<i id="sg-boolliteral">boolLiteral</i>:** `true` | `false`
 
+> Description
+
 ## 1.3 – Notes on syntax
 
 <!-- TODO -->
 
-### 1.3.1 – Shorthands
+### 1.3.1 – Comments
+
+<!-- TODO -->
+
+### 1.3.2 – Whitespace
+
+<!-- TODO -->
+
+### 1.3.3 – Shorthands
 
 <!-- TODO -->
