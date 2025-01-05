@@ -23,229 +23,208 @@
 
 <!-- TODO -->
 
+**Note:**
+
+For the sake of clarity, names of rules may have been renamed from those found in the `grammars/ScriptLexer.g4` and `grammars/ScriptParser.g4` source files.
+
 ### 1.2.1 – Lexical grammar
 
 <!-- TODO -->
 
-```ascii
-```
-
 ### 1.2.2 – Syntax grammar
 
-<!-- TODO -->
+> The outermost rule. The contents of the entire script file must match *headRule* in order for the script to be syntactically correct.
 
-[test](#headrule)
+**<i id="sg-headrule">headRule</i>:** [signature](#sg-signature) [funcBody](#sg-funcbody) [helper](#sg-helper)\*
 
-**Note:**
+> Description
 
-For the sake of clarity, names of rules may have been renamed from those found in the `grammars/ScriptParser.g4` source file.
+**<i id="sg-helper">helper</i>:** ident signature funcBody
 
->> The outermost rule. The entire script must match *headRule* to be syntactically correct.
-> 
-> **<i id="headrule">headRule</i>:** [signature](#headRule) [funcBody]() [helper]()\*
-> 
->> Description
-> 
-> **_here_:** comp\+ comp? comp\*
-> 
->> Description
-> 
-> **_here_:**
-> * prod1
-> * prod2
+> Description
 
-```g4
-head_rule: signature func_body helper*;
+**<i id="sg-funcbody">funcBody</i>:**
+* body
+* `->` expr
 
-helper: ident signature func_body;
+> Description
 
-func_body: body                             #StandardFuncBody
-| ARROW expr                                #FunctionalFuncBody
-;
+**<i id="sg-signature">signature</i>:**
+* `(` paramList? `)`
+* `(` paramList? `->` type `)`
 
-signature
-: LPAREN param_list? RPAREN                 #VoidReturnSignature
-| LPAREN param_list? ARROW type RPAREN      #TypeReturnSignature
-;
+> Description
 
-param_list: declaration (COMMA declaration)*;
+**<i id="sg-paramlist">paramList</i>:** declaration (`,` declaration)\*
 
-declaration: FINAL? type ident;
+> Description
 
-type
-: BOOL                                      #BoolType
-| INT                                       #IntType
-| FLOAT                                     #FloatType
-| CHAR                                      #CharType
-| STRING                                    #StringType
-| IMAGE                                     #ImageType
-| COLOR                                     #ColorType
-| type LBRACKET RBRACKET                    #ArrayType
-| type LT GT                                #ListType
-| type LCURLY RCURLY                        #SetType
-| LCURLY key=type COLON val=type RCURLY     #MapType
-| LPAREN func_type RPAREN                   #FunctionType
-| ident                                     #ExtensionType
-;
+**<i id="sg-declaration">declaration</i>:** FINAL? type ident
 
-func_type: param_types ARROW ret=type;
+> Description
 
-param_types: (type (COMMA type)*)?;
+**<i id="sg-type">type</i>:**
+* `bool`
+* `char`
+* `color`
+* `float`
+* `image`
+* `int`
+* `string`
+* type `[]`
+* type `<>`
+* type `{}`
+* `{` type `:` type `}`
+* `(` funcType `)`
 
-body
-: stat                                      #SingleStatBody
-| LCURLY stat* RCURLY                       #ComplexBody
-;
+> Description
 
-stat
-: loop_stat                                 #LoopStatement
-| if_stat                                   #IfStatement
-| when_stat                                 #WhenStatement
-| var_def SEMICOLON                         #VarDefStatement
-| assignment SEMICOLON                      #AssignmentStatement
-| return_stat                               #ReturnStatement
-| expr subident args SEMICOLON              #ScopedFuncCallStatement
-| ident args SEMICOLON                      #FunctionCallStatement
-| namespace args SEMICOLON                  #ExtFuncCallStatement
-;
+**<i id="sg-functype">funcType</i>:** paramTypes `->` type
 
-return_stat: RETURN expr? SEMICOLON;
+> Description
 
-loop_stat
-: while_def body                            #WhileLoop
-| iteration_def body                        #IteratorLoop
-| for_def body                              #ForLoop
-| DO body while_def SEMICOLON               #DoWhileLoop
-;
+**<i id="sg-paramtypes">paramTypes</i>:** (type (`,` type)\*)?
 
-iteration_def: FOR LPAREN 
-iterator_declaration IN expr RPAREN;
+> Description
 
-iterator_declaration
-: declaration                               #ExplicitDeclaration
-| ident                                     #ImplicitDeclaration
-;
+**<i id="sg-body">body</i>:**
+* stat
+* `{` stat\* `}`
 
-while_def: WHILE LPAREN expr RPAREN;
+> Description
 
-for_def: FOR LPAREN var_init SEMICOLON
-expr SEMICOLON assignment RPAREN;
+**<i id="sg-stat">stat</i>:**
+* loopStat
+* ifStat
+* whenStat
+* varDef `;`
+* assignment `;`
+* returnStat
+* expr subident args `;`
+* ident args `;`
+* namespaceIdent args `;`
 
-if_stat: if_def (ELSE if_def)*
-(ELSE elseBody=body)?;
+> Description
 
-if_def: IF LPAREN cond=expr RPAREN body;
+**<i id="sg-returnstat">returnStat</i>:** `return` expr? `;`
 
-when_stat: WHEN LPAREN 
-control=expr RPAREN when_body;
+> Description
 
-when_body: LCURLY case+ otherwise? RCURLY;
+**<i id="sg-loopstat">loopStat</i>:**
+* whileDef body
+* iterationDef body
+* forDef body
+* `do` body whileDef `;`
 
-case
-: IS elements ARROW body                    #IsCase
-| MATCHES expr ARROW body                   #MatchesCase
-| PASSES expr ARROW body                    #PassesCase
-;
+> Description
 
-otherwise: OTHERWISE ARROW body;
+**<i id="sg-iterationdef">iterationDef</i>:** `for` `(` iteratorDeclaration `in` expr `)`
 
-expr
-: LPAREN expr RPAREN                        #NestedExpression
-| lambda_params lambda_body                 #LambdaFunctionExpression
-| ident args                                #FunctionCallExpression
-| namespace args                            #ExtFuncCallExpression
-| namespace                                 #ExtPropertyExpression
-| DEF ident                                 #HOFuncExpression
-| expr subident args                        #ScopedFuncCallExpression
-| expr subident                             #PropertyExpression
-| op=(MINUS | NOT | SIZE) expr              #UnaryExpression
-| LPAREN type RPAREN expr                   #CastExpression
-| a=expr op=(PLUS | MINUS) b=expr           #ArithmeticBinExpression
-| a=expr op=(TIMES | DIVIDE | MOD) b=expr   #MultBinExpression
-| a=expr RAISE b=expr                       #PowerBinExpression
-| a=expr op=(EQUAL | NOT_EQUAL |
-  GT | LT | GEQ | LEQ) b=expr               #ComparisonBinExpression
-| a=expr op=(OR | AND) b=expr               #LogicBinExpression
-| cond=expr QUESTION if=expr
-  COLON else=expr                           #TernaryExpression
-| LCURLY k_v_pairs RCURLY                   #ExplicitMapExpression
-| LBRACKET elements? RBRACKET               #ExplicitArrayExpression
-| LT elements? GT                           #ExplicitListExpression
-| LCURLY elements? RCURLY                   #ExplicitSetExpression
-| NEW type LBRACKET expr RBRACKET           #NewArrayExpression
-| NEW LCURLY kt=type COLON vt=type RCURLY   #NewMapExpression
-| assignable                                #AssignableExpression
-| literal                                   #LiteralExpression
-;
+> Description
 
-lambda_params
-: LPAREN RPAREN                             #NoLambdaParams
-| ident                                     #OneLambdaParam
-| LPAREN ident (COMMA ident)+ RPAREN        #MultLambdaParams
-;
+**<i id="sg-iteratordeclaration">iteratorDeclaration</i>:**
+* declaration
+* ident
 
-lambda_body
-: ARROW body                                #StandardLambdaBody
-| ARROW expr                                #ExprLambdaBody
-;
+> Description
 
-k_v_pairs: k_v_pair (COMMA k_v_pair)*;
+**<i id="sg-whiledef">whileDef</i>:** `while` `(` expr `)`
 
-k_v_pair: key=expr COLON val=expr;
+> Description
 
-args: LPAREN elements? RPAREN;
+**<i id="sg-fordef">forDef</i>:** `for` `(` varInit `;` expr `;` assignment `)`
 
-elements: expr (COMMA expr)*;
+> Description
 
-assignment
-: assignable ASSIGN expr                    #StandardAssignment
-| assignable INCREMENT                      #IncrementAssignment
-| assignable DECREMENT                      #DecrementAssignment
-| assignable ADD_ASSIGN expr                #AddAssignment
-| assignable SUB_ASSIGN expr                #SubAssignment
-| assignable MUL_ASSIGN expr                #MultAssignment
-| assignable DIV_ASSIGN expr                #DivAssignmnet
-| assignable MOD_ASSIGN expr                #ModAssignment
-| assignable AND_ASSIGN expr                #AndAssignment
-| assignable OR_ASSIGN expr                 #OrAssignment
-;
+**<i id="sg-ifstat">ifStat</i>:** ifDef (`else` ifDef)\* (`else` body)?
 
-var_init: declaration ASSIGN expr;
+> Description
 
-var_def
-: declaration                               #ImplicitVarDef
-| var_init                                  #ExplicitVarDef
-;
+**<i id="sg-ifdef">ifDef</i>:** `if` `(` expr `)` body
 
-assignable
-: ident                                     #SimpleAssignable
-| ident LT expr GT                          #ListAssignable
-| ident LBRACKET expr RBRACKET              #ArrayAssignable
-;
+> Description
 
-ident: IDENTIFIER;
+**<i id="sg-whenstat">whenStat</i>:** `when` `(` expr `)` whenBody
 
-subident: SUB_IDENT;
+> Description
 
-namespace: EXTENSION ident subident;
+**<i id="sg-whenbody">whenBody</i>:** `{` whenCase\+ otherwiseCase? `}`
 
-literal
-: STRING_LIT                                #StringLiteral
-| CHAR_LIT                                  #CharLiteral
-| COL_LIT                                   #ColorLiteral
-| int_lit                                   #IntLiteral
-| FLOAT_LIT                                 #FloatLiteral
-| bool_lit                                  #BoolLiteral
-;
+> Description
 
-int_lit: HEX_LIT                            #Hexadecimal
-| DEC_LIT                                   #Decimal
-;
+**<i id="sg-whencase">whenCase</i>:**
 
-bool_lit: TRUE                              #True
-| FALSE                                     #False
-;
-```
+> Description
+
+**<i id="sg-otherwisecase">otherwiseCase</i>:**
+
+> Description
+
+**<i id="sg-expr">expr</i>:**
+
+> Description
+
+**<i id="sg-lambdaparams">lambdaParams</i>:**
+
+> Description
+
+**<i id="sg-lambdabody">lambdaBody</i>:**
+
+> Description
+
+**<i id="sg-kvpairs">kvPairs</i>:**
+
+> Description
+
+**<i id="sg-kvpair">kvPair</i>:**
+
+> Description
+
+**<i id="sg-args">args</i>:**
+
+> Description
+
+**<i id="sg-elements">elements</i>:**
+
+> Description
+
+**<i id="sg-assignment">assignment</i>:**
+
+> Description
+
+**<i id="sg-varinit">varInit</i>:**
+
+> Description
+
+**<i id="sg-vardef">varDef</i>:**
+
+> Description
+
+**<i id="sg-assignable">assignable</i>:**
+
+> Description
+
+**<i id="sg-ident">ident</i>:**
+
+> Description
+
+**<i id="sg-subident">subident</i>:**
+
+> Description
+
+**<i id="sg-namespaceident">namespaceIdent</i>:**
+
+> Description
+
+**<i id="sg-literal">literal</i>:**
+
+> Description
+
+**<i id="sg-intliteral">intLiteral</i>:**
+
+> Description
+
+**<i id="sg-boolliteral">boolLiteral</i>:**
 
 ## 1.3 – Notes on syntax
 
