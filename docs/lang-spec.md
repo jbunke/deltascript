@@ -26,13 +26,18 @@ For a more beginner-friendly overview of the language, please see the [guides se
   * Notation and conventions
   * Overview of the specification
 
-### 1 – Syntax and grammar
-* Grammar notation
-* Grammars
-  * Lexical grammar
-  * Syntax grammar
-* Notes on syntax
-  * Shorthands
+### [1 – Syntax and grammar](./ls-1-syntax.md)
+* [**1.1**](./ls-1-syntax.md#11--notation-and-terminology) – Notation and terminology
+  * [**1.1.1**](./ls-1-syntax.md#111--extended-backusnaur-form) – Extended Backus–Naur Form
+  * [**1.1.2**](./ls-1-syntax.md#112--terminology) – Terminology
+  * [**1.1.3**](./ls-1-syntax.md#113--notation) – Notation
+* [**1.2**](./ls-1-syntax.md#12--grammars) – Grammars
+  * [**1.2.1**](./ls-1-syntax.md#121--lexical-grammar) – Lexical grammar
+  * [**1.2.2**](./ls-1-syntax.md#122--syntax-grammar) – Syntax grammar
+* [**1.3**](./ls-1-syntax.md#13--notes-on-syntax) – Notes on syntax
+  * [**1.3.1**](./ls-1-syntax.md#131--comments) – Comments
+  * [**1.3.2**](./ls-1-syntax.md#132--whitespace) – Whitespace
+  * [**1.3.3**](./ls-1-syntax.md#133--shorthands) – Shorthands
 
 ### 2 – Types
 * Simple types
