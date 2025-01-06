@@ -35,6 +35,8 @@
 **Production rule:**
 
 > A **production rule**, or simply a **rule**, defines a replacement from a label, known as a **rule name** (non-terminal symbol), to one or more **productions**.
+> 
+> In the grammars, rules are distinguished from terminals by being enclosed in &lt;angle brackets&gt;.
 
 **Production:**
 
@@ -53,6 +55,8 @@
 **Terminal:**
 
 > A **terminal** is a symbol that represents a concrete value or token in the language and cannot be replaced further by any production rule.
+> 
+> In the grammars, terminals are written in `this monospace font`.
 
 **Rule name:**
 
