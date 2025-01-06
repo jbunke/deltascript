@@ -6,7 +6,7 @@
 
 * [Language specification](./docs/lang-spec.md): a formal document outlining the rules governing *DeltaScript*'s behaviour
 * [Standard library](./docs/std-lib.md): descriptions of *DeltaScript*'s built-in functions
-* [Guides](./docs/guides.md): hands-on help to get started writing scripts in *DeltaScript*
+* [Guides](./docs/guides.md): hands-on guides and examples to help get started writing code with *DeltaScript*
 
 ## Implementation
 
@@ -19,7 +19,7 @@ The official implementation of *DeltaScript* is an interpreter targetting Java. 
 
 ## Overview
 
-*DeltaScript* is the fruition of my vision of a concise, statically typed scripting language with a C-style syntax.
+*DeltaScript* is the fruition of a vision of a concise, statically typed scripting language with a [C-like syntax![](./assets/definition.png)](./glossary.md#c-like-syntax).
 
 ### Extensibility
 
@@ -100,7 +100,7 @@ A **map/dictionary** with keys of type `K` and values of type `V`: `{K:V}`
 Functions can be stored as variables in *DeltaScript*.
 
 ```js
-// accepts an input color as a parameter
+// accepts an input "input" color as a parameter
 // returns a list of colors transformed from input in various ways
 (~ color input -> color<>) {
     ~ (color -> color)[] color_functions = [

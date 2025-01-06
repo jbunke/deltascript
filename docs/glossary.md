@@ -43,6 +43,15 @@ The core specification of *DeltaScript* and its implementations, in contrast to 
 
 ## C
 
+### C-like syntax
+
+A programming language that uses many of the syntactical conventions pioneered by and/or associated with [C![](../assets/external.png)](https://en.wikipedia.org/wiki/C_(programming_language)), such as: 
+* semicolons `;` as statement terminators
+* function parameters delimited by parentheses `()`
+* code blocks / scopes delimited by curly brackets `{}`
+
+A list of such languages can be found [here![](../assets/external.png)](https://en.wikipedia.org/wiki/List_of_C-family_programming_languages).
+
 ## D
 
 ## E
@@ -123,7 +132,7 @@ In this example, [`red`](./color-sl.md#red) is a property defined by the type [`
 
 ### Semantic equivalence
 
-Two or more expressions that have the same **meaning** and **behaviour** under the hood.
+Two or more expressions or units of code that have the same **meaning** and **behaviour** under the hood.
 
 ### Size
 

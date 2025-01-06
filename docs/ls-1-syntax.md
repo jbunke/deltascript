@@ -18,19 +18,19 @@
 
 ---
 
-<!-- TODO -->
+This chapter describes the syntax of *DeltaScript* using **formal grammars**.
+
+**Syntax** can be understood to mean the rules that govern the language's structure. A *DeltaScript* program that is syntactically correct abides by the rules described in the language's grammars.
 
 ## 1.1 – Notation and terminology
 
-<!-- TODO -->
-
 ### 1.1.1 – Extended Backus–Naur Form
 
-<!-- TODO -->
+Grammars in this document are written in an adapted version of [Extended Backus-Naur Form![](../assets/external.png)](https://en.wikipedia.org/wiki/Extended_Backus%E2%80%93Naur_form) (EBNF). You may want to read up on [context-free grammars![](../assets/external.png)](https://en.wikipedia.org/wiki/Context-free_grammar) if you do not have much experience with them.
 
 ### 1.1.2 – Terminology
 
-<!-- TODO -->
+The following terms are important in order to understand the grammars.
 
 **Production rule:**
 
@@ -120,19 +120,25 @@ The following symbols and conventions are used in productions in the grammars.
 
 **~ (complement):**<sup>[a](#fn-a)</sup>
 
-> A tilde (~) preceding a character or an enclosed union/choice of characters represents the [**complement**![](../assets/external.png)](https://en.wikipedia.org/wiki/Complement_(set_theory)) of its scope, whether a single character or a union. This means **everything except for its scope**. The [universe![](../assets/external.png)](https://en.wikipedia.org/wiki/Universe_(mathematics)) can be understood to be all of the characters encoded by [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8).
+> A tilde (~) preceding a production unit represents the [**complement**![](../assets/external.png)](https://en.wikipedia.org/wiki/Complement_(set_theory)) of the unit. Complement means **everything that is not part of the production unit**. The [universe![](../assets/external.png)](https://en.wikipedia.org/wiki/Universe_(mathematics)), which means all possible things being considered, can be understood to be all of the characters encoded under [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8).
+
+**`\n`, `\r` (line terminators):**<sup>[a](#fn-a)</sup>
+
+> The newline (`\n`) and carriage return (`\r`) characters are used to denote the end of a line. In the context of the lexical grammar, they are treated as line terminators and are used to handle line breaks in the source code. They are represented in the grammar as their escape character counterparts; however, in the source code, **these characters are not visible**.
+
+**◯ (anything):**<sup>[a](#fn-a)</sup>
+
+> A large circle (◯) represents **any character**. It is used in the lexical grammar to denote that any character, except for those explicitly excluded, can be matched.
 
 ## 1.2 – Grammars
 
 The syntax of *DeltaScript* is formally expressed by a lexical grammar and a syntax grammar.
 
-The lexical grammar is responsible for the tokenization of *DeltaScript* code; that is, for the correct identification of tokens: the atomic symbols of the program.
+The lexical grammar is responsible for the tokenization of *DeltaScript* code; that is, for the correct identification of **tokens**: the basic building blocks of the program.
 
-Conversely, the syntax grammar is responsible for parsing those tokens and understanding how they fit into the larger, more complex structures of the language.
+Conversely, the syntax grammar is responsible for parsing those tokens and understanding how they fit into the larger, more complex structures of the language, such as loops<sup>[§TODO]()</sup> or functions<sup>[§TODO]()</sup>.
 
 Lexical production rule names are ***&lt;CAPITALIZED&gt;***, whereas syntactical production rule names are written in ***&lt;snake_case&gt;***.
-
-<!-- TODO -->
 
 ### 1.2.1 – Lexical grammar
 
@@ -140,15 +146,27 @@ The lexical grammar contains the production rules that pertain to the tokenizati
 * keywords
 * punctuation (types of brackets, semicolons, etc.)
 * identifiers
-* literal expressions
+* [literals![](../assets/external.png)](https://en.wikipedia.org/wiki/Literal_(computer_programming))
 
-The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b)</sup>. Handling of comments<sup>[§1.3.1](#131--comments)</sup> and whitespace<sup>[§1.3.2](#132--whitespace)</sup> have also been excluded.
-
-**Note:**
-
-For the sake of clarity, rules may have been adapted, renamed or rearranged from those found in the [`grammars/ScriptLexer.g4`](../grammars/ScriptLexer.g4) source file.
+The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity and clarity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b)</sup>.
 
 ---
+
+**<i id="lg-whitespace">&lt;WHITESPACE&gt;</i>:** ( ` ` | `\t` | `\n` )\+
+
+> ` ` (space), `\t` (tab) and `\n` (newline) are all types of **whitespace**. Tab and newline are represented in the grammar as their escape character counterparts for the sake of clarity.
+> 
+> This rule is matched by the grammar, but its tokens are ignored.
+
+**<i id="lg-linecomment">&lt;LINECOMMENT&gt;</i>:** `//` ( ~( `\r` `\n` ) )\*
+
+> `\n` (newline) and `\r` (carriage return) are escape characters that represent line terminators. They are represented in the grammar as their escape character counterparts; however, in the source code, **these characters are not visible**.
+> 
+> This rule is matched by the grammar, but its tokens are ignored.
+
+**<i id="lg-multilinecomment">&lt;MULTILINECOMMENT&gt;</i>:** `/*` ◯\* `*/`
+
+> This rule is matched by the grammar, but its tokens are ignored.
 
 **<i id="lg-final">&lt;FINAL&gt;</i>:** `final` | `~`
 
@@ -220,11 +238,7 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 
 ### 1.2.2 – Syntax grammar
 
-<!-- TODO -->
-
-**Note:**
-
-For the sake of clarity, rules may have been adapted, renamed or rearranged from those found in the [`grammars/ScriptParser.g4`](../grammars/ScriptParser.g4) and [`grammars/ScriptLexer.g4`](../grammars/ScriptLexer.g4) source files.
+The syntax grammar is responsible for arranging the tokens produced by lexical grammar into a hierarchy that reflects the grammatical structure of the programming language.
 
 ---
 
@@ -234,15 +248,15 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 
 **<i id="sg-helper">&lt;helper&gt;</i>:** [&lt;ident&gt;](#sg-ident) [&lt;signature&gt;](#sg-signature) [&lt;func_body&gt;](#sg-funcbody)
 
-> The matching rule for a [helper function](#TODO). <!-- TODO - link to specification -->
+> The matching rule for a helper function<sup>[§TODO]()</sup>.
 
 **<i id="sg-funcbody">&lt;func_body&gt;</i>:**
 * [&lt;body&gt;](#sg-body)
 * `->` [&lt;expr&gt;](#sg-expr)
 
-> The function body is everything associated with the function besides its signature and its name, in the case of a helper function.
+> The function body is everything associated with the function besides its signature and its name (in the case of a helper function; header functions<sup>[§TODO]()</sup> have no name).
 > 
-> The second production is a [shorthand](#133--shorthands) for a function body that consists of a single [value `return`](#TODO) statement.
+> The second production is a [shorthand](#133--shorthands) for a function body that consists of a single value `return` statement<sup>[§TODO]()</sup>.
 
 **<i id="sg-signature">&lt;signature&gt;</i>:**
 * `(` [&lt;param_list&gt;](#sg-paramlist)? `)`
@@ -267,7 +281,7 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 * `(` [&lt;func_type&gt;](#sg-functype) `)`
 * [&lt;ident&gt;](#sg-ident)
 
-> The last production represents [extension types](#TODO).
+> The last production represents extension types<sup>[§TODO]()</sup>.
 
 **<i id="sg-functype">&lt;func_type&gt;</i>:** [&lt;param_types&gt;](#sg-paramtypes)? `->` [&lt;type&gt;](#sg-type)
 
@@ -298,7 +312,7 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 
 **<i id="sg-iterationdef">&lt;iteration_def&gt;</i>:** `for` `(` [&lt;iterator_declaration&gt;](#sg-iteratordeclaration) `in` [&lt;expr&gt;](#sg-expr) `)`
 
-> Represents a [foreach / iterator / enhanced for loop](#TODO).
+> Represents a foreach / iterator / enhanced for loop<sup>[§TODO]()</sup>.
 
 **<i id="sg-iteratordeclaration">&lt;iterator_declaration&gt;</i>:** [&lt;declaration&gt;](#sg-declaration) | [&lt;ident&gt;](#sg-ident)
 
@@ -312,7 +326,7 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 
 **<i id="sg-whenstat">&lt;when_stat&gt;</i>:** `when` `(` [&lt;expr&gt;](#sg-expr) `)` [&lt;when_body&gt;](#sg-whenbody)
 
-> Represents a [when](#TODO) statement, which is similar to a [switch![](../assets/external.png)](https://en.wikipedia.org/wiki/Switch_statement) statement in some other programming languages.
+> Represents a when statement<sup>[§TODO]()</sup>, which is similar to a [switch![](../assets/external.png)](https://en.wikipedia.org/wiki/Switch_statement) statement in some other programming languages.
 
 **<i id="sg-whenbody">&lt;when_body&gt;</i>:** `{` [&lt;when_case&gt;](#sg-whencase)\+ [&lt;otherwise_case&gt;](#sg-otherwisecase)? `}`
 
@@ -393,7 +407,7 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 
 **<i id="sg-namespaceident">&lt;namespace_ident&gt;</i>:** `$` [&lt;ident&gt;](#sg-ident) [&lt;sub_ident&gt;](#sg-subident)
 
-> Represents an identifier of a constant or function in an [extension namespace](#TODO).
+> Represents an identifier of a constant or function in an extension namespace<sup>[§TODO]()</sup>.
 
 **<i id="sg-literal">&lt;literal&gt;</i>:**
 * [&lt;STRING_LIT&gt;](#lg-stringlit)
@@ -409,19 +423,148 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 
 ## 1.3 – Notes on syntax
 
-<!-- TODO -->
-
 ### 1.3.1 – Comments
 
-<!-- TODO -->
+**Comments** are optional sections of source files that are ignored by interpreters or compilers implementing *DeltaScript*. Comments are intended to serve as human-readable annotations that make code easier to understand or provide additional context, such as authorship of a program, for example.
+
+Comments in *DeltaScript* are identical to comments in most programming languages with [C-like syntax![](../assets/definition.png)](./glossary.md#c-like-syntax):
+
+* **line comments** are initiated with `//` and run to the end of the line
+* **multi-line comments** are opened with `/*` and closed with `*/`, capturing everything in between
+
+```js
+// This is a line comment.
+() {
+  int x = 5; // This is also a line comment.
+
+  /*
+    This is a multi-line comment.
+
+    You can write entire paragraphs this way.
+  */
+  print(x);
+  
+  /* Although it only occupies one line, this is also a multi-line comment. */
+  print(x * 2);
+
+  print(/* You can put comments amongst code! */ "Hello world");
+}
+```
 
 ### 1.3.2 – Whitespace
 
-<!-- TODO -->
+Unlike programming languages like [Python![](../assets/external.png)](https://en.wikipedia.org/wiki/Python_(programming_language)), where indentation is used to specify the scope of code, whitespace (spaces, tabs, newlines) in *DeltaScript* has no bearing on the behaviour of a program.
+
+**Note:**
+
+There are two notable exceptions to this:
+
+1. Whitespace within a multi-character token (like a keyword) will lead to syntax errors.
+
+```js
+// This program can be compiled / interpreted.
+() {
+  if (flip_coin())
+    print("Heads");
+  else
+    print("Tails");
+}
+```
+
+```js
+// This program has a syntax error and cannot be compiled / interpreted.
+() {
+  if (flip_coin())
+    print("Heads");
+  el se
+    print("Tails");
+}
+```
+
+2. Whitespace inside a string literal **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
 
 ### 1.3.3 – Shorthands
 
-<!-- TODO -->
+*DeltaScript* supports a few types of shorthands. A **shorthand** is a way of expressing something [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) using less code than it would otherwise take.
+
+**Immutability:**
+
+Like in [Java![](../assets/external.png)](https://en.wikipedia.org/wiki/Java_(programming_language)), *DeltaScript* uses the keyword `final` to declare a variable as immutable<sup>[§TODO]()</sup>. The tilde `~` is a shorthand that can be used instead.
+
+The following lines of code are semantically equivalent:
+
+```js
+final string name = "John Doe";
+```
+
+```js
+~ string name = "John Doe";
+```
+
+**Single expression function bodies:**
+
+Sometimes, a function body consists of a single return statement:
+
+```js
+red_channel(color c -> int) {
+  return c.red;
+}
+```
+
+Using the shorthand syntax, this can be expressed the following way:
+
+```js
+red_channel(color c -> int) -> c.red
+```
+
+Generally, for a function of the form:
+
+```js
+function_name(params? -> return_type) {
+  return expression;
+}
+```
+
+It can be equivalently expressed as:
+
+```js
+function_name(params? -> return_type) -> expression
+```
+
+**Note:**
+
+`params` is optional.
+
+**Property abbreviations:**
+
+Certain types define properties<sup>[§TODO]()</sup>. Some of these properties can be accessed by an abbreviation.
+
+These are all of the property abbreviations available in the [base language![](../assets/definition.png)](./glossary.md#base-language), though extensions<sup>[§TODO]()</sup> may define additional ones:
+
+| Type | Property | Abbreviation |
+| :--: | :------: | :----------: |
+| `color` | [`red`](./color-sl.md#red) | `r` |
+| `color` | [`green`](./color-sl.md#green) | `g` |
+| `color` | [`blue`](./color-sl.md#blue) | `b` |
+| `color` | [`alpha`](./color-sl.md#alpha) | `a` |
+| `image` | [`width`](./image-sl.md#width) | `w` |
+| `image` | [`height`](./image-sl.md#height) | `h` |
+
+The following programs are semantically equivalent:
+
+```js
+() {
+  image blank = new_image_of(300, 200);
+  print(blank.width); // Prints "300"
+}
+```
+
+```js
+() {
+  image blank = new_image_of(300, 200);
+  print(blank.w); // Prints "300"
+}
+```
 
 ---
 
@@ -429,7 +572,3 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 
 * <sup id="fn-a">a</sup> – This symbol/convention is only used in the lexical grammar.
 * <sup id="fn-b">b</sup> – The exception is the keyword `final`, which is included in the abridged lexical grammar. This is because `final` has a shorthand equivalent ( `~` ), and thus cannot be trivially represented as a terminal in the syntax grammar.
-* <sup id="fn-a">a</sup> – Here
-* <sup id="fn-a">a</sup> – Here
-
-<!-- TODO -->
