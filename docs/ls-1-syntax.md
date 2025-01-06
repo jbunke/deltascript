@@ -5,6 +5,9 @@
 ## Contents
 
 * [**1.1**](#11--notation-and-terminology) – Notation and terminology
+  * [**1.1.1**](#111--extended-backusnaur-form) – Extended Backus–Naur Form
+  * [**1.1.2**](#112--terminology) – Terminology
+  * [**1.1.3**](#113--notation) – Notation
 * [**1.2**](#12--grammars) – Grammars
   * [**1.2.1**](#121--lexical-grammar) – Lexical grammar
   * [**1.2.2**](#122--syntax-grammar) – Syntax grammar
@@ -21,17 +24,86 @@
 
 <!-- TODO -->
 
+### 1.1.1 – Extended Backus–Naur Form
+
+<!-- TODO -->
+
+### 1.1.2 – Terminology
+
+<!-- TODO -->
+
+**Production rule:**
+
+> A **production rule**, or simply a **rule**, defines a replacement from a label, known as a **rule name** (non-terminal symbol), to one or more **productions**.
+
+**Production:**
+
+> A **production** refers to a complete replacement of a production rule by other rules (non-terminal symbols) and/or terminals. A production rule may define more than one production.
+> 
+> **Example:**
+>> **_&lt;when_body&gt;_:** `{` &lt;when_case&gt;\+ &lt;otherwise_case&gt;? `}`
+>> 
+>> **_&lt;when_case&gt;_:**
+>> * `is` &lt;elements&gt; `->` &lt;body&gt;
+>> * `matches` &lt;expr&gt; `->` &lt;body&gt;
+>> * `passes` &lt;expr&gt; `->` &lt;body&gt;
+> 
+> The rule &lt;when_body&gt; defines a single production, whereas the rule &lt;when_case&gt; defines three.
+
+**Terminal:**
+
+> A **terminal** is a symbol that represents a concrete value or token in the language and cannot be replaced further by any production rule.
+
+**Rule name:**
+
+> A **rule name** refers to the label at the beginning of a production rule's definition. It may also be referred to as the left-hand side (LHS) of a production rule.
+> 
+> In the grammars, rule names are ***bolded and italicized***.
+
+**Rule occurrence:**
+
+> A **rule occurrence**, or simply an **occurrence**, refers to a situation when a rule appears as part of a production of another rule.
+> 
+> **Example:**
+>> **_&lt;IDENTIFIER&gt;_:** &lt;LEADOFF&gt; &lt;FOLLOWING&gt;\*
+> 
+> This production rule features an occurrence of &lt;LEADOFF&gt; and of &lt;FOLLOWING&gt;.
+
+**Production unit:**
+
+> A **production unit** is a catchall term that can refer to:
+> * a rule occurrence
+> * a terminal
+> * multiple production units (including any attached symbols present) enclosed in parentheses
+
+### 1.1.3 – Notation
+
+The following symbols and conventions are used in productions in the grammars.
+
 **? (optional):**
 
-> A question mark following a production unit means that the unit is **optional**; it may be excluded or included once.
+> A question mark following a production unit means that the unit is **optional**; it may be **excluded** or **included once**.
 
 **\+ (one or more):**
 
-> A plus symbol following a production unit means that the unit is **repeatable**; it may occur once or multiple times in a row.
+> A plus symbol following a production unit means that the unit is **repeatable**; it may occur **once** or **multiple times in a row**.
 
 **\* (zero or more):**
 
-> An asterisk (\*) following a production unit means that the unit is **optional and repeatable**; it may be omitted or occur once, or multiple times in a row.
+> An asterisk (\*) following a production unit means that the unit is **optional and repeatable**; it may be **omitted**, or occur **once**, or **multiple times in a row**.
+
+**| (choice):**
+
+> Two or more production units separated by a pipe / vertical bar ( | ) represent a **choice**; any one of the units can be supplied as a valid match.
+> 
+> The choice symbol can also be used for entire productions.
+>
+> **Example:**
+>> **_&lt;LEADOFF&gt;_:** `_` | `A..Z` | `a..z`
+> 
+> The rule &lt;LEADOFF&gt; has three productions.
+> 
+> Complex rules with several productions, or with productions with several units, may use bullets instead of vertical bars to show their productions on individual lines.
 
 **`a..z` (range):**<sup>[a](#fn-a)</sup>
 
@@ -54,6 +126,8 @@ The lexical grammar is responsible for the tokenization of *DeltaScript* code; t
 
 Conversely, the syntax grammar is responsible for parsing those tokens and understanding how they fit into the larger, more complex structures of the language.
 
+Lexical production rule names are ***&lt;CAPITALIZED&gt;***, whereas syntactical production rule names are written in ***&lt;snake_case&gt;***.
+
 <!-- TODO -->
 
 ### 1.2.1 – Lexical grammar
@@ -64,7 +138,7 @@ The lexical grammar contains the production rules that pertain to the tokenizati
 * identifiers
 * literal expressions
 
-The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b)</sup>.
+The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b)</sup>. Handling of comments<sup>[§1.3.1](#131--comments)</sup> and whitespace<sup>[§1.3.2](#132--whitespace)</sup> have also been excluded.
 
 **Note:**
 
@@ -100,7 +174,7 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 * [&lt;DIGIT&gt;](#lg-digit)\+ `.` [&lt;DIGIT&gt;](#lg-digit)\+
 * [&lt;DIGIT&gt;](#lg-digit)\+ `f`
 
-> Floating-point number literals have two forms: decimal point notation (e.g. `2.0`) and "f" notation (`1f`).
+> Floating-point number literals have two forms: decimal point notation (e.g. `2.0`) and "f" notation (`2f`).
 > 
 > **Note:**
 > 
@@ -353,3 +427,5 @@ For the sake of clarity, rules may have been adapted, renamed or rearranged from
 * <sup id="fn-b">b</sup> – The exception is the keyword `final`, which is included in the abridged lexical grammar. This is because `final` has a shorthand equivalent ( `~` ), and thus cannot be trivially represented as a terminal in the syntax grammar.
 * <sup id="fn-a">a</sup> – Here
 * <sup id="fn-a">a</sup> – Here
+
+<!-- TODO -->
