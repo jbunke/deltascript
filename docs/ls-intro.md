@@ -82,7 +82,7 @@ At various points throughout the specification are superscripted links with sect
 
 **Code snippets:**
 
-Code snippets are multi-line segments of the specification that appear in monospaced font. These usually contain *DeltaScript* code.
+Code snippets are multi-line segments of the specification that appear in monospaced font. Unless otherwise specified, code inside a code snippet is written in *DeltaScript*. Unless a particular language extension is referenced, the code can be assumed to be written in the [base language![](../assets/definition.png)](./glossary.md#base-language).
 
 ```js
 () {
@@ -104,8 +104,10 @@ These are the general guidelines that inform how text is styled in this specific
 *DeltaScript* is still in active development and has not been released. While it is my aim that future changes to the language do not break programs written in earlier language versions, I cannot guarantee it.
 
 Throughtout the specification and standard library, language features or standard library functions may be listed as:
-* deprecated - still a part of the language, but **discouraged and flagged for future removal**
-* experimental - likely to change or be removed in a future language version
+
+* **Deprecated** - still a part of the language, but **discouraged and flagged for future removal**
+* **Experimental** - likely to change or be removed in a future language version
+* **Planned** - likely to be implemented in an impending language version
 
 ### Overview of the specification
 

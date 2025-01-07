@@ -6,7 +6,7 @@
 
 | Version | Published | Author | Implementation |
 | :-----: | :-------: | :----: | :------------: |
-| alpha-0.1 | January 6, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
+| 0.1.0 | January 6, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
 
 *DeltaScript* is a lightweight scripting language skeleton that is designed to be easily extended for the specification and implementation of [domain-specific languages![](../assets/external.png)](https://en.wikipedia.org/wiki/Domain-specific_language).
 
@@ -38,17 +38,27 @@ For a more beginner-friendly overview of the language, please see the [guides se
 * [**1.3**](./ls-1-syntax.md#13--notes-on-syntax) – Notes on syntax
   * [**1.3.1**](./ls-1-syntax.md#131--comments) – Comments
   * [**1.3.2**](./ls-1-syntax.md#132--whitespace) – Whitespace
-  * [**1.3.3**](./ls-1-syntax.md#133--shorthands) – Shorthands
+  * [**1.3.3**](./ls-1-syntax.md#133--keywords) – Keywords
+  * [**1.3.4**](./ls-1-syntax.md#134--shorthands) – Shorthands
 
 ### [2 – Types](./ls-2-types.md)
-* Simple types
-  * Built-in types
-* Collection types
-  * Arrays
-  * Lists
-  * Sets
-  * Maps/dictionaries
-* Functional types
+* [**2.1**](./ls-2-types.md#21--type-system) – Type system
+  * [**2.1.1**](./ls-2-types.md#211--type-safety) – Type safety
+  * [**2.1.2**](./ls-2-types.md#212--type-inference) – Type inference
+  * [**2.1.3**](./ls-2-types.md#213--extensibility) – Extensibility
+* [**2.2**](./ls-2-types.md#22--simple-types) – Simple types
+  * [**2.2.1**](./ls-2-types.md#221--built-in-types) – Built-in types
+  * [**2.2.2**](./ls-2-types.md#222--primitive-vs-composite-types) – Primitive vs. composite types
+* [**2.3**](./ls-2-types.md#23--collection-types) – Collection types
+  * [**2.3.1**](./ls-2-types.md#231--arrays) – Arrays
+  * [**2.3.2**](./ls-2-types.md#232--lists) – Lists
+  * [**2.3.3**](./ls-2-types.md#233--sets) – Sets
+  * [**2.3.4**](./ls-2-types.md#234--mapsdictionaries) – Maps/dictionaries
+* [**2.4**](./ls-2-types.md#24--functional-types) – Functional types
+  * [**2.4.1**](./ls-2-types.md#241--parsing-complex-types) – Parsing complex types
+* [**2.5**](./ls-2-types.md#25--type-conversion) – Type conversion
+  * [**2.5.1**](./ls-2-types.md#251--implicit-type-conversion) – Implicit type conversion
+  * [**2.5.2**](./ls-2-types.md#252--explicit-type-conversion-casting) – Explicit type conversion (casting)
 
 ### [3 – Variables and declarations](./ls-3-vars.md)
 * Declarations

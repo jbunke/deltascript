@@ -41,6 +41,10 @@ This page provides succinct definitions for terms used throughout the documentat
 
 The core specification of *DeltaScript* and its implementations, in contrast to extensions of the language.
 
+### Built-in
+
+Included in the [base language![](../assets/definition.png)](#base-language)
+
 ## C
 
 ### C-like syntax
@@ -67,6 +71,10 @@ A list of such languages can be found [here![](../assets/external.png)](https://
 ## H
 
 ## I
+
+### Identifier
+
+The name of a variable, helper function, function parameter, extension type, extension type property, member function, or extension namespace.
 
 ## J
 

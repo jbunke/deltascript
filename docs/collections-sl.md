@@ -12,7 +12,7 @@ Additionally, *DeltaScript* supports [**maps**](#mapdictionary) or **dictionarie
 
 ## Array
 
-**Arrays** in *DeltaScript* are represented by **square brackets** `[]`. An array of elements of an arbitrary type `T` would be declared with the type `T[]`.
+**Arrays** in *DeltaScript* are represented by **square brackets** `[]`. An array of elements of an arbitrary type `T` would be declared with the type identifier `T[]`.
 
 **Examples:**
 
@@ -36,7 +36,7 @@ Checks if `ARR` contains the element `check`. Returns `true` if `ARR` contains `
 
 ## List
 
-**Lists** in *DeltaScript* are represented by **angle brackets** `<>`. A list of elements of an arbitrary type `T` would be declared with the type `T<>`.
+**Lists** in *DeltaScript* are represented by **angle brackets** `<>`. A list of elements of an arbitrary type `T` would be declared with the type identifier `T<>`.
 
 **Examples:**
 
@@ -112,7 +112,7 @@ Checks if `LST` contains the element `check`. Returns `true` if `LST` contains `
 
 ## Set
 
-**Sets** in *DeltaScript* are represented by **curly brackets / braces** `{}`. A set of elements of an arbitrary type `T` would be declared with the type `T{}`.
+**Sets** in *DeltaScript* are represented by **curly brackets / braces** `{}`. A set of elements of an arbitrary type `T` would be declared with the type identifier `T{}`.
 
 **Examples:**
 
@@ -156,7 +156,7 @@ Removes `element` from `SET` if it is present.
 
 ## Map/dictionary
 
-**Maps**, also known as **dictionaries**, are a collection type consisting of associations between **keys** and **values**. In *DeltaScript*, they are represented by **curly brackets / braces** and a **colon** separating their key and value types. A map of keys of an arbitrary type `K` and values of an arbitrary type `V` would be declared with the type `{K:V}`.
+**Maps**, also known as **dictionaries**, are a collection type consisting of associations between **keys** and **values**. In *DeltaScript*, they are represented by **curly brackets / braces** and a **colon** separating their key and value types. A map of keys of an arbitrary type `K` and values of an arbitrary type `V` would be declared with the type identifier `{K:V}`.
 
 **Examples:**
 

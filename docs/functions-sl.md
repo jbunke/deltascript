@@ -325,7 +325,7 @@ This function waits for the user to press <kbd>Enter</kbd> before returning the 
 
 ### `N`
 
-`N` represents a numeric type, whether `float` or `int`. Repeated uses of `N` in the same function type signature suggest that:
+`N` represents a numeric type, whether `float` or `int`. Repeated use of `N` in the same function type signature means that:
 
 * arguments of the same numeric type must be provided for each parameter of type `N`
 * the return type `N` will match the parameter type `N`

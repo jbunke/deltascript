@@ -14,7 +14,8 @@
 * [**1.3**](#13--notes-on-syntax) – Notes on syntax
   * [**1.3.1**](#131--comments) – Comments
   * [**1.3.2**](#132--whitespace) – Whitespace
-  * [**1.3.3**](#133--shorthands) – Shorthands
+  * [**1.3.3**](#133--keywords) – Keywords
+  * [**1.3.4**](#134--shorthands) – Shorthands
 
 ---
 
@@ -143,10 +144,10 @@ Lexical production rule names are ***&lt;CAPITALIZED&gt;***, whereas syntactical
 ### 1.2.1 – Lexical grammar
 
 The lexical grammar contains the production rules that pertain to the tokenization of *DeltaScript* code. This includes correctly identifying:
-* keywords
-* punctuation (types of brackets, semicolons, etc.)
-* identifiers
-* [literals![](../assets/external.png)](https://en.wikipedia.org/wiki/Literal_(computer_programming))
+* Keywords<sup>[§1.3.3](#133--keywords)</sup>
+* Punctuation (types of brackets, semicolons, etc.)
+* [Identifiers![](../assets/definition.png)](./glossary.md#identifier)
+* [Literals![](../assets/external.png)](https://en.wikipedia.org/wiki/Literal_(computer_programming))
 
 The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity and clarity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b)</sup>.
 
@@ -407,7 +408,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 **<i id="sg-namespaceident">&lt;namespace_ident&gt;</i>:** `$` [&lt;ident&gt;](#sg-ident) [&lt;sub_ident&gt;](#sg-subident)
 
-> Represents an identifier of a constant or function in an extension namespace<sup>[§TODO]()</sup>.
+> Represents an identifier of a constant or function in an extension namespace<sup>[§TODO - extension namespace]()</sup>.
 
 **<i id="sg-literal">&lt;literal&gt;</i>:**
 * [&lt;STRING_LIT&gt;](#lg-stringlit)
@@ -481,9 +482,44 @@ There are two notable exceptions to this:
 }
 ```
 
-2. Whitespace inside a string literal **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
+2. Whitespace inside a string literal<sup>[§TODO - string literal]()</sup> **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
 
-### 1.3.3 – Shorthands
+### 1.3.3 – Keywords
+
+*DeltaScript* utilizes the following keywords. **These are not to be used as [identifiers![](../assets/definition.png)](./glossary.md#identifier).**
+
+* `bool`
+* `char`
+* `color`
+* `do`
+* `else`
+* `false`
+* `final`
+* `float`
+* `for`
+* `if`
+* `image`
+* `in`
+* `int`
+* `is`
+* `matches`
+* `new`
+* `otherwise`
+* `passes`
+* `return`
+* `string`
+* `true`
+* `when`
+* `while`
+
+> **Planned:**
+> 
+> These keywords are associated with planned language features. To avoid having programs written in the current language version break in the future, the use of these keywords as identifiers is also discouraged.
+> * `break`
+> * `next`
+> * `stop`
+
+### 1.3.4 – Shorthands
 
 *DeltaScript* supports a few types of shorthands. A **shorthand** is a way of expressing something [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) using less code than it would otherwise take.
 

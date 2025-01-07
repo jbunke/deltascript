@@ -6,7 +6,7 @@
 
 | Version | Published | Author | Implementation |
 | :-----: | :-------: | :----: | :------------: |
-| alpha-0.1 | January 6, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
+| 0.1.0 | January 6, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
 
 The **standard library** describes the built-in functions that are included in the *DeltaScript* [base language![](../assets/definition.png)](./glossary.md#base-language). Functions in the standard library are either global, or member functions of a built-in type or a collection type.
 
