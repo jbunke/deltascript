@@ -195,15 +195,15 @@ In these examples, the "outermost" type is bolded:
 These are all the type conversions that are possible in *DeltaScript*:
 
 | From |  To  | Value conversion |
-| :--: | :--: | :--------------: |
+| :--- | :--- | :--------------- |
 | `bool` | `string` | `true` values converted to `"true"`, `false` values to `"false"` |
-| `char` | `int` | converts a character to its [Unicode![](../assets/external.png)](https://en.wikipedia.org/wiki/List_of_Unicode_characters) decimal (base-10) value |
-| `char` | `string` | converts a character to the equivalent one-character string |
-| `float` | `int` | truncates a `float` to its integer component |
-| `float` | `string` | represents a `float` as a string in decimal point notation |
-| `int` | `char` | derives a character from its Unicode decimal value |
-| `int` | `float` | trivial |
-| `int` | `string` | trivial |
+| `char` | `int` | Converts a character to its [Unicode![](../assets/external.png)](https://en.wikipedia.org/wiki/List_of_Unicode_characters) decimal (base-10) value |
+| `char` | `string` | Converts a character to the equivalent one-character string |
+| `float` | `int` | Truncates a `float` to its integer component |
+| `float` | `string` | Represents a `float` as a string in decimal point notation |
+| `int` | `char` | Derives a character from its Unicode decimal value |
+| `int` | `float` | Trivial |
+| `int` | `string` | Trivial |
 
 ### 2.5.1 – Implicit type conversion
 
