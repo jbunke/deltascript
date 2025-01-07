@@ -40,7 +40,7 @@ For a more beginner-friendly overview of the language, please see the [guides se
   * [**1.3.2**](./ls-1-syntax.md#132--whitespace) – Whitespace
   * [**1.3.3**](./ls-1-syntax.md#133--shorthands) – Shorthands
 
-### 2 – Types
+### [2 – Types](./ls-2-types.md)
 * Simple types
   * Built-in types
 * Collection types
@@ -50,7 +50,7 @@ For a more beginner-friendly overview of the language, please see the [guides se
   * Maps/dictionaries
 * Functional types
 
-### 3 – Variables and declarations
+### [3 – Variables and declarations](./ls-3-vars.md)
 * Declarations
   * Scope
   * Initialization
@@ -58,10 +58,11 @@ For a more beginner-friendly overview of the language, please see the [guides se
 * Variable names
 * Variable scope
 
-### 4 – Expressions
+### [4 – Expressions](./ls-4-expr.md)
 * Precedence
 * Function calls
 * Helper function references
+* Lambda expressions
 * Operators
   * Unary operators
   * Binary operators
@@ -82,7 +83,7 @@ For a more beginner-friendly overview of the language, please see the [guides se
 
 <!-- TODO -->
 
-### 5 – Statements
+### [5 – Statements](./ls-5-stat.md)
 * Declaration statements
 * Assignments
 * Void function calls
@@ -98,7 +99,7 @@ For a more beginner-friendly overview of the language, please see the [guides se
   * Value `return`
   * Void `return`
 
-### 6 – Functions
+### [6 – Functions](./ls-6-func.md)
 * Type signatures
   * Value-returning functions
   * Void functions
@@ -108,7 +109,7 @@ For a more beginner-friendly overview of the language, please see the [guides se
   * Anonymous functions
 * Function references
 
-### 7 – Execution
+### [7 – Execution](./ls-7-exec.md)
 * Type checking
 * Errors
   * Syntax errors
@@ -117,13 +118,13 @@ For a more beginner-friendly overview of the language, please see the [guides se
 
 <!-- TODO -->
 
-### 8 – Extensions
+### [8 – Extensions](./ls-8-ext.md)
 * Types
   * New types
   * Extending built-in types
 * Namespaces
 
-### 9 – Official implementation
+### [9 – Official implementation](./ls-9-impl.md)
 
 ### [Standard Library](./std-lib.md)
 

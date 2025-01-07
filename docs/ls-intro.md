@@ -109,6 +109,6 @@ Throughtout the specification and standard library, language features or standar
 
 ### Overview of the specification
 
-This specification aims to provide an exhaustive description of how the language is designed, including its **syntax**, **semantics**, **execution**, and **extension possibilities**. Someone looking to write a compiler or interpreter for *DeltaScript* should be able to do so without requiring additional information after having read the specification.
+This specification aims to provide an exhaustive description of how the language is designed, including its **syntax**, **semantics**, **execution**, and **extension possibilities**. After reading the specification, someone looking to write a compiler or interpreter for *DeltaScript* should be able to do so without requiring additional information about the language.
 
-The specification has been sequenced in a way that concepts from earlier chapters inform the broader concepts discussed in later chapters. Concepts are itemized as much as possible, allowing the reader to jump ahead or refer back to concepts at will.
+The specification has been sequenced in a way that concepts from earlier chapters inform the broader concepts discussed in later chapters. Concepts are itemized and encapsulated as much as possible, allowing the reader to easily jump ahead or refer back to individual sections.
