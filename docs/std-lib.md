@@ -20,11 +20,7 @@ The **standard library** describes the built-in functions that are included in t
 
 **Note:**
 
-*DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with functions and/or [properties![](../assets/definition.png)]() in the base language<sup>1</sup>.
-
-<!-- TODO - link to specification -->
-
-<sup>1</sup> - [Extensions]() of the language may provide additional functionality in the form of properties or member functions to these types, as well as to other built-in types of the base language.
+*DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with functions and/or [properties![](../assets/definition.png)]() in the base language<sup>[a](#fn-a)</sup>.
 
 ### [Collection types](./collections-sl.md)
 
@@ -49,3 +45,11 @@ The **standard library** describes the built-in functions that are included in t
 * [`read_image`](./functions-sl.md#read_image)
 * [`rgb`](./functions-sl.md#rgb)
 * [`rgba`](./functions-sl.md#rgba)
+
+---
+
+## Footnotes
+
+<!-- TODO - link to specification -->
+
+<sup id="fn-a">1</sup> - [Extensions]() of the language may provide additional functionality in the form of properties or member functions to these types, as well as to other built-in types of the base language.

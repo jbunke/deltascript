@@ -10,21 +10,22 @@
 
 *DeltaScript* is a lightweight scripting language skeleton that is designed to be easily extended for the specification and implementation of [domain-specific languages![](../assets/external.png)](https://en.wikipedia.org/wiki/Domain-specific_language).
 
-The language is in active development. As it is already in production as the scripting language used by [*Stipple Effect*](https://github.com/jbunke/stipple-effect), it became necessary to publish a specification for the language.
+The language is in active development. As it is already in production as the scripting language used by [*Stipple Effect*![](../assets/external.png)](https://github.com/jbunke/stipple-effect), it became necessary to publish a specification for the language.
 
 *DeltaScript* is technically **platform-agnostic**. It can be implemented as a compiled language, or an interpreted language that targets any other programming language. However, the official implementation (latest version linked above) is an **interpreter that targets Java**.
 
-This specification aims to provide an exhaustive description of how the language is designed, including its **syntax**, **semantics**, **execution**, and **extension possibilities**. Parts of this document employ advanced mathematical concepts, alongside formal mathematical notation and language. However, thorough explanations and external resources linked from within should ensure that it is still comprehensible for a layperson. A strong mathematics and/or computer science background is certainly helpful, but not required.
+This specification aims to provide an exhaustive description of how the language is designed, including its **syntax**, **semantics**, **execution**, and **extension possibilities**. Parts of this document employ advanced mathematical concepts, alongside formal mathematical notation and language. However, thorough explanations and external resources linked from within should ensure that the content remains accessible to non-experts. A strong mathematics and/or computer science background is helpful, but not required.
 
 For a more beginner-friendly overview of the language, please see the [guides section](./guides.md) of the documentation.
 
 ## Contents
 
-### Introduction
-* Motivation
-* About the specification
-  * Notation and conventions
-  * Overview of the specification
+### [Introduction](./ls-intro.md)
+* [Motivation](./ls-intro.md#motivation)
+* [About the specification](./ls-intro.md#about-the-specification)
+  * [Notation and conventions](./ls-intro.md#notation-and-conventions)
+  * [Language status and compatibility](./ls-intro.md#language-status-and-compatibility)
+  * [Overview of the specification](./ls-intro.md#overview-of-the-specification)
 
 ### [1 – Syntax and grammar](./ls-1-syntax.md)
 * [**1.1**](./ls-1-syntax.md#11--notation-and-terminology) – Notation and terminology
@@ -116,12 +117,14 @@ For a more beginner-friendly overview of the language, please see the [guides se
 
 <!-- TODO -->
 
-### ? – Extensions
+### 8 – Extensions
 * Types
   * New types
   * Extending built-in types
 * Namespaces
 
-### ? – Official implementation
+### 9 – Official implementation
+
+### [Standard Library](./std-lib.md)
 
 ### [Glossary](./glossary.md)
