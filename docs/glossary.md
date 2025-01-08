@@ -43,7 +43,7 @@ The core specification of *DeltaScript* and its implementations, in contrast to 
 
 ### Built-in
 
-Included in the [base language![](../assets/definition.png)](#base-language)
+Included in the [base language![](../assets/definition.png)](#base-language).
 
 ## C
 

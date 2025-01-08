@@ -119,7 +119,7 @@ The following symbols and conventions are used in productions in the grammars.
 > * `A..Z` - the 26 uppercase letters of the Latin alphabet
 > * `0..9` - the 10 numerical digits of the base 10 numbering system
 
-**~ (complement):**<sup>[a](#fn-a)</sup>
+**\~ (complement):**<sup>[a](#fn-a)</sup>
 
 > A tilde (~) preceding a production unit represents the [**complement**![](../assets/external.png)](https://en.wikipedia.org/wiki/Complement_(set_theory)) of the unit. Complement means **everything that is not part of the production unit**. The [universe![](../assets/external.png)](https://en.wikipedia.org/wiki/Universe_(mathematics)), which means all possible things being considered, can be understood to be all of the characters encoded under [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8).
 

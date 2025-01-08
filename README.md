@@ -15,7 +15,7 @@ The official implementation of *DeltaScript* is an interpreter targetting Java. 
 ## Use cases
 
 *DeltaScript* is notably used and extended in the following projects:
-* [*Stipple Effect*![](./assets/external.png)](https://github.com/jbunke/stipple-effect) - scriptable pixel art editor [**\[ extension specification \]**![](./assets/external.png)](https://jbunke.github.io/se/api)
+* [*Stipple Effect*![](./assets/external.png)](https://github.com/stipple-effect/stipple-effect) - scriptable pixel art editor [**\[ extension specification \]**![](./assets/external.png)](https://stipple-effect.github.io/api)
 
 ## Overview
 
@@ -25,7 +25,7 @@ The official implementation of *DeltaScript* is an interpreter targetting Java. 
 
 *DeltaScript*'s design ensures that it can be easily extended by the programs that use it additional with **types** and **built-in functions organized in namespaces**.
 
-Consider the [*Stipple Effect* scripting API specification![](./assets/external.png)](https://jbunke.github.io/se/api) for an example of an extension to the DeltaScript base language.
+Consider the [*Stipple Effect* scripting API specification![](./assets/external.png)](https://stipple-effect.github.io/api) for an example of an extension to the DeltaScript base language.
 
 ### Single source file execution instances
 

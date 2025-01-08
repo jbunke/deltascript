@@ -12,7 +12,7 @@
 
 ## Motivation
 
-*DeltaScript* was first developed as a domain-specific scripting language for [*Stipple Effect*![](../assets/external.png)](https://github.com/jbunke/stipple-effect), a pixel art editor that makes extensive use of scripting for automation and transforming projects.
+*DeltaScript* was first developed as a domain-specific scripting language for [*Stipple Effect*![](../assets/external.png)](https://github.com/stipple-effect/stipple-effect), a pixel art editor that makes extensive use of scripting for automation and transforming projects.
 
 Eventually, the *Stipple Effect* codebase was extensively refactored. The core of the scripting language implementation was ripped out and reimplemented in the underlying library that served as an external dependency for *Stipple Effect*, and the language features deemed specific to the context of *Stipple Effect* were implemented in its codebase as an extension to the [base language![](../assets/definition.png)](./glossary.md#base-language). The idea was that, this way, the base language would be reuseable for multiple projects, with application-specific behaviours and features implemented as extensions.
 
@@ -20,7 +20,7 @@ There are other programs in a similar niche as *Stipple Effect* that support scr
 
 Moreover, *DeltaScript* is **not a general-purpose programming language**. It is intended for writing scripts in particular application contexts. Thus, it can be extremely [high-level![](../assets/external.png)](https://en.wikipedia.org/wiki/High-level_programming_language).
 
-These are real examples of scripts in the [*Stipple Effect* extension dialect![](../assets/external.png)](https://jbunke.github.io/se/api) of *DeltaScript*:
+These are real examples of scripts in the [*Stipple Effect* extension dialect![](../assets/external.png)](https://stipple-effect.github.io/api) of *DeltaScript*:
 
 1.  Add a black background layer to every project that is open in the program
     ```js

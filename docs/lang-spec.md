@@ -10,7 +10,7 @@
 
 *DeltaScript* is a lightweight scripting language skeleton that is designed to be easily extended for the specification and implementation of [domain-specific languages![](../assets/external.png)](https://en.wikipedia.org/wiki/Domain-specific_language).
 
-The language is in active development. As it is already in production as the scripting language used by [*Stipple Effect*![](../assets/external.png)](https://github.com/jbunke/stipple-effect), it became necessary to publish a specification for the language.
+The language is in active development. As it is already in production as the scripting language used by [*Stipple Effect*![](../assets/external.png)](https://github.com/stipple-effect/stipple-effect), it became necessary to publish a specification for the language.
 
 *DeltaScript* is technically **platform-agnostic**. It can be implemented as a compiled language, or an interpreted language that targets any other programming language. However, the official implementation (latest version linked above) is an **interpreter that targets Java**.
 
