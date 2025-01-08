@@ -70,7 +70,7 @@ This language specification makes use of several conventions that are worth ment
 
 **Link icons:**
 
-Some links in the specification are followed by a small, white superscript icon.
+Some links in the specification are followed by small, blue superscript icons.
 
 The question mark icon ( ![](../assets/definition.png) ) indicates that the link leads to the **[glossary](./glossary.md) entry** for the highlighted term. These are terms that are used repeatedly throughout the specification that warrant a definition. The glossary link will usually appear when such a term is used for the first time in a given section.
 
