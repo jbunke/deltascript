@@ -456,33 +456,33 @@ Comments in *DeltaScript* are identical to comments in most programming language
 
 Unlike programming languages like [Python![](../assets/external.png)](https://en.wikipedia.org/wiki/Python_(programming_language)), where indentation is used to specify the scope of code, whitespace (spaces, tabs, newlines) in *DeltaScript* has no bearing on the behaviour of a program.
 
-**Note:**
-
-There are two notable exceptions to this:
-
-1. Whitespace within a multi-character token (like a keyword) will lead to syntax errors.
-
-```js
-// This program can be compiled / interpreted.
-() {
-  if (flip_coin())
-    print("Heads");
-  else
-    print("Tails");
-}
-```
-
-```js
-// This program has a syntax error and cannot be compiled / interpreted.
-() {
-  if (flip_coin())
-    print("Heads");
-  el se
-    print("Tails");
-}
-```
-
-2. Whitespace inside a string literal<sup>[§TODO - string literal]()</sup> **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
+> **Note:**
+> 
+> There are two notable exceptions to this:
+> 
+> 1. Whitespace within a multi-character token (like a keyword) will lead to syntax errors.
+> 
+> ```js
+> // This program can be compiled / interpreted.
+> () {
+>   if (flip_coin())
+>     print("Heads");
+>   else
+>     print("Tails");
+> }
+> ```
+> 
+> ```js
+> // This program has a syntax error and cannot be compiled / interpreted.
+> () {
+>   if (flip_coin())
+>     print("Heads");
+>   el se
+>     print("Tails");
+> }
+> ```
+> 
+> 2. Whitespace inside a string literal<sup>[§TODO - string literal]()</sup> **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
 
 ### 1.3.3 – Keywords
 
@@ -527,15 +527,14 @@ There are two notable exceptions to this:
 
 Like in [Java![](../assets/external.png)](https://en.wikipedia.org/wiki/Java_(programming_language)), *DeltaScript* uses the keyword `final` to declare a variable as immutable<sup>[§TODO]()</sup>. The tilde `~` is a shorthand that can be used instead.
 
-The following lines of code are semantically equivalent:
-
-```js
-final string name = "John Doe";
-```
-
-```js
-~ string name = "John Doe";
-```
+> The following lines of code are semantically equivalent:
+> 
+> 1.  ```js
+>     final string name = "John Doe";
+>     ```
+> 2.  ```js
+>     ~ string name = "John Doe";
+>     ```
 
 **Single expression function bodies:**
 
@@ -586,21 +585,20 @@ These are all of the property abbreviations available in the [base language![](.
 | `image` | [`width`](./image-sl.md#width) | `w` |
 | `image` | [`height`](./image-sl.md#height) | `h` |
 
-The following programs are semantically equivalent:
+The following scripts are semantically equivalent:
 
-```js
-() {
-  image blank = new_image_of(300, 200);
-  print(blank.width); // Prints "300"
-}
-```
-
-```js
-() {
-  image blank = new_image_of(300, 200);
-  print(blank.w); // Prints "300"
-}
-```
+1.  ```js
+    () {
+      image blank = new_image_of(300, 200);
+      print(blank.width); // Prints "300"
+    }
+    ```
+2.  ```js
+    () {
+      image blank = new_image_of(300, 200);
+      print(blank.w); // Prints "300"
+    }
+    ```
 
 ---
 
