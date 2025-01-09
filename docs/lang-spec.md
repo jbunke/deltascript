@@ -61,12 +61,13 @@ For a more beginner-friendly overview of the language, please see the [guides se
   * [**2.5.2**](./ls-2-types.md#252--explicit-type-conversion-casting) – Explicit type conversion (casting)
 
 ### [3 – Variables and declarations](./ls-3-vars.md)
-* Declarations
-  * Scope
-  * Initialization
-  * Immutability
-* Variable names
-* Variable scope
+* [**3.1**](./ls-3-vars.md#31--variables) – Variables
+* [**3.2**](./ls-3-vars.md#32--declarations) – Declarations
+  * [**3.2.1**](./ls-3-vars.md#321--variable-names) – Variable names
+  * [**3.2.2**](./ls-3-vars.md#322--initialization) – Initialization
+  * [**3.2.3**](./ls-3-vars.md#323--immutability) – Immutability
+* [**3.3**](./ls-3-vars.md#33--function-parameters) – Function parameters
+* [**3.4**](./ls-3-vars.md#34--variable-scope) – Variable scope
 
 ### [4 – Expressions](./ls-4-expr.md)
 * Precedence

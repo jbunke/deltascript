@@ -35,6 +35,17 @@ This page provides succinct definitions for terms used throughout the documentat
 
 ## A
 
+### Append
+
+To insert/attach after or at the end.
+
+> **Example:**
+> 
+> **Appending** the letter "s" to the word "farm" results in the word "farms".
+
+> **See also:**
+> * [Prepend](#prepend)
+
 ## B
 
 ### Base language
@@ -55,6 +66,10 @@ A programming language that uses many of the syntactical conventions pioneered b
 * code blocks / scopes delimited by curly brackets `{}`
 
 A list of such languages can be found [here![](../assets/external.png)](https://en.wikipedia.org/wiki/List_of_C-family_programming_languages).
+
+### Control flow
+
+<!-- TODO -->
 
 ## D
 
@@ -130,6 +145,17 @@ Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<
 How **opaque** a color is. Opacity is the complementary property to transparency, just as darkness is to brightness.
 
 ## P
+
+### Prepend
+
+To insert/attach prior or at the beginning.
+
+> **Example:**
+> 
+> **Prepending** the letter "a" to the word "blaze" results in the word "ablaze".
+
+> **See also:**
+> * [Append](#append)
 
 ### Property
 
