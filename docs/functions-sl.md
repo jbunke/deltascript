@@ -36,21 +36,18 @@ Functions of the form `name(params*);` are **void functions** (functions that pe
 ```js
 flip_coin() -> bool
 ```
-**Description:**
 
 Has an equal chance of returning `true` or `false`.
 
-**Note:**
-
-`flip_coin()` is [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) to [`prob(0.5)`](#prob).
+> **Note:**
+> 
+> `flip_coin()` is [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) to [`prob(0.5)`](#prob).
 
 ### `prob`
 
 ```js
 prob(float p) -> bool
 ```
-
-**Description:**
 
 Generates a random value ranging from 0 to 1. Returns `true` if and only if `p` is greater than the value generated, `false` otherwise.
 
@@ -59,7 +56,6 @@ Generates a random value ranging from 0 to 1. Returns `true` if and only if `p` 
 1.  ```js
     rand() -> float
     ```
-    **Description:**
 
     Generates and returns a random `float` ranging from `0.0` to `1.0`.
 
@@ -72,13 +68,11 @@ Generates a random value ranging from 0 to 1. Returns `true` if and only if `p` 
     ```
     **Conventions:** [`N`](#n)
 
-    **Description:**
-
     Generates and returns a random value ranging from `min` to `max_ex`.
 
-    **Note:**
-
-    `max_ex` is an **exclusive** maximum bound. `rand(min, max_ex)` will never return `max_ex`.
+    > **Note:**
+    > 
+    > `max_ex` is an **exclusive** maximum bound. `rand(min, max_ex)` will never return `max_ex`.
 
 ## Other mathematical functions
 
@@ -93,8 +87,6 @@ abs(int value) -> int
 ```
 **Conventions:** [`N`](#n)
 
-**Description:**
-
 Returns the absolute value (magnitude) of `value`.
 
 ### `clamp`
@@ -107,8 +99,6 @@ clamp(float min, float value, float max) -> float
 clamp(int min, int value, int max) -> int
 ```
 **Conventions:** [`N`](#n)
-
-**Description:**
 
 Returns `value` if it is between `min` and `max`. If `value` is less than `min`, returns `min`. If `value` is greater than `max`, returns `max`.
 
@@ -127,8 +117,6 @@ Returns `value` if it is between `min` and `max`. If `value` is less than `min`,
     ```
     **Conventions:** [`C`](#c), [`N`](#n)
 
-    **Description:**
-    
     Returns the element from `collection` with the highest value.
 
 2.  ```js
@@ -140,8 +128,6 @@ Returns `value` if it is between `min` and `max`. If `value` is less than `min`,
     ```
     **Conventions:** [`N`](#n)
 
-    **Description:**
-    
     Returns the greater of the two values `a` and `b`.
 
 ### `min`
@@ -159,8 +145,6 @@ Returns `value` if it is between `min` and `max`. If `value` is less than `min`,
     ```
     **Conventions:** [`C`](#c), [`N`](#n)
 
-    **Description:**
-    
     Returns the element from `collection` with the lowest value.
 
 2.  ```js
@@ -171,8 +155,6 @@ Returns `value` if it is between `min` and `max`. If `value` is less than `min`,
     min(int a, int b) -> int
     ```
     **Conventions:** [`N`](#n)
-
-    **Description:**
     
     Returns the lesser of the two values `a` and `b`.
 
@@ -183,7 +165,6 @@ Returns `value` if it is between `min` and `max`. If `value` is less than `min`,
 ```js
 rgb(int r, int g, int b) -> color
 ```
-**Description:**
 
 Creates a 32-bit RGBA `color` from its red, green, and blue components. The alpha/opacity channel is allocated a value of 255, which represents a fully opaque color.
 
@@ -193,24 +174,23 @@ Creates a 32-bit RGBA `color` from its red, green, and blue components. The alph
 * `int g` - The green color channel. An integer between 0 and 255 (inclusive).
 * `int b` - The blue color channel. An integer between 0 and 255 (inclusive).
 
-**Triggers runtime error(s):**
+> **Triggers runtime error(s):**
+> 
+> This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+> 
+> * `r < 0` or `r > 255`
+> * `g < 0` or `g > 255`
+> * `b < 0` or `b > 255`
 
-This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
-
-* `r < 0` or `r > 255`
-* `g < 0` or `g > 255`
-* `b < 0` or `b > 255`
-
-**Note:**
-
-`rgb(r, g, b)` is [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) to [`rgba(r, g, b, 255)`](#rgba).
+> **Note:**
+> 
+> `rgb(r, g, b)` is [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) to [`rgba(r, g, b, 255)`](#rgba).
 
 ### `rgba`
 
 ```js
 rgba(int r, int g, int b, int alpha) -> color
 ```
-**Description:**
 
 Creates a 32-bit RGBA `color` from its red, green, blue, and alpha/opacity components.
 
@@ -221,14 +201,14 @@ Creates a 32-bit RGBA `color` from its red, green, blue, and alpha/opacity compo
 * `int b` - The blue color channel. An integer between 0 and 255 (inclusive).
 * `int alpha` - The alpha (opacity) channel. An integer between 0 and 255 (inclusive).
 
-**Triggers runtime error(s):**
-
-This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
-
-* `r < 0` or `r > 255`
-* `g < 0` or `g > 255`
-* `b < 0` or `b > 255`
-* `alpha < 0` or `alpha > 255`
+> **Triggers runtime error(s):**
+> 
+> This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+> 
+> * `r < 0` or `r > 255`
+> * `g < 0` or `g > 255`
+> * `b < 0` or `b > 255`
+> * `alpha < 0` or `alpha > 255`
 
 ## Image constructors
 
@@ -237,7 +217,6 @@ This function will trigger a runtime error that will terminate script execution 
 ```js
 new_image_of(int width, int height) -> image
 ```
-**Description:**
 
 Creates a new image with the specified `width` and `height`.
 
@@ -246,27 +225,26 @@ Creates a new image with the specified `width` and `height`.
 * `int width` - The width of the new image in pixels.
 * `int height` - The height of the new image in pixels.
 
-**Triggers runtime error(s):**
-
-This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
-
-* `width <= 0`
-* `height <= 0`
+> **Triggers runtime error(s):**
+> 
+> This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+> 
+> * `width <= 0`
+> * `height <= 0`
 
 ### `read_image`
 
 ```js
 read_image(string filepath) -> image
 ```
-**Description:**
 
 Reads an image from the specified `filepath` and returns it as an `image` object.
 
-**Triggers runtime error(s):**
-
-This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
-
-* `filepath` does not point to a readable raster image in the local file system
+> **Triggers runtime error(s):**
+> 
+> This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+> 
+> * `filepath` does not point to a readable raster image in the local file system
 
 ## I/O functions
 
@@ -276,8 +254,6 @@ This function will trigger a runtime error that will terminate script execution 
 print(T message);
 ```
 **Conventions:** [`T`](#t)
-
-**Description:**
 
 Prints `message` to the standard output on its own line.
 
@@ -292,8 +268,6 @@ prompt(T message) -> string
 ```
 **Conventions:** [`T`](#t)
 
-**Description:**
-
 Displays `message` to the user and waits for input. Returns the input as a `string`.
 
 **Parameters:**
@@ -305,13 +279,12 @@ Displays `message` to the user and waits for input. Returns the input as a `stri
 ```js
 read() -> string
 ```
-**Description:**
 
 Reads a line of input from the standard input and returns it as a `string`.
 
-**Note:**
-
-This function waits for the user to press <kbd>Enter</kbd> before returning the input.
+> **Note:**
+> 
+> This function waits for the user to press <kbd>Enter</kbd> before returning the input.
 
 ---
 
@@ -319,9 +292,7 @@ This function waits for the user to press <kbd>Enter</kbd> before returning the 
 
 ### `T`
 
-<!-- TODO - links to language specification -->
-
-`T` represents an arbitrary type. Note that `T` **can theoretically be ANY type**. This includes [simple types](), [collection types](), or [functional types]().
+`T` represents an arbitrary type. Note that `T` **can theoretically be ANY type**. This includes [simple types](./ls-2-types.md#22--simple-types), [collection types](./ls-2-types.md#23--collection-types), or [functional types](./ls-2-types.md#24--functional-types).
 
 ### `N`
 
