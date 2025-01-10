@@ -149,6 +149,8 @@ Lists are represented by **angle brackets** `[]`. A list of elements of an arbit
 
 Like a list, a **set** is a collection of dynamic size. However, unlike a list, a set is **unordered**. Elements in a set have no order, and thus cannot be retrieved from an index.
 
+Unlike arrays and lists, each element in a [set![](../assets/external.png)](https://en.wikipedia.org/wiki/Set_(mathematics)) is unique; a set cannot contain two elements of the same value or object.
+
 Sets are represented by **curly brackets / braces** `{}`. A set of elements of an arbitrary type `T` would be declared with the type identifier `T{}`.
 
 ### 2.3.4 – Maps/dictionaries

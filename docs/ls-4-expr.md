@@ -13,6 +13,7 @@
   * [**4.3.4**](#434--int-literals) – `int` literals
   * [**4.3.5**](#435--float-literals) – `float` literals
   * [**4.3.6**](#436--string-literals) – `string` literals
+  * [**4.3.7**](#437--escape-sequences) – Escape sequences
 * [**4.4**](#44--variables-as-expressions) – Variables as expressions
 * [**4.5**](#45--operators) – Operators
   * [**4.5.1**](#451--unary-operators) – Unary operators
@@ -72,17 +73,15 @@ Expressions are matched in this order by the following production rule from the 
 > 
 > Definitions for production rules with occurrences in &lt;expr&gt; may be provided in later sections of the chapter.
 
-> **Example:**
-> 
-> Consider the following expression:
-> 
-> ```cpp
-> (int) 12f * 2 + 14
-> ```
-> 
-> This is the [parse tree![](../assets/external.png)](https://en.wikipedia.org/wiki/Parse_tree) for the expression according to the [precedence![](../assets/external.png)](https://en.wikipedia.org/wiki/Order_of_operations) order of the productions of &lt;expr&gt;:
-> 
-> ![](../assets/expression-parse-tree.png)
+Consider the following expression:
+
+```cpp
+(int) 12f * 2 + 14
+```
+
+This is the [parse tree![](../assets/external.png)](https://en.wikipedia.org/wiki/Parse_tree) for the expression according to the [precedence![](../assets/external.png)](https://en.wikipedia.org/wiki/Order_of_operations) order of the productions of &lt;expr&gt;:
+
+![](../assets/expression-parse-tree.png)
 
 ## 4.2 – Nested expressions
 
@@ -164,7 +163,7 @@ The optional fourth color channel represents the alpha/[opacity![](../assets/def
 
 > **Note:**
 > 
-> Negative numbers (e.g. `-2`) are not treated as literals by *DeltaScript*, but rather as an application of the negation operator<sup>[§4.5.1](#arithmetic-negation--)</sup> to a positive number literal. This is also true for `float` literals (e.g. `-2.0` or `-2f`).
+> Negative numbers (e.g. `-2`) are not treated as literals by *DeltaScript*, but rather as an application of the arithmetic negation operator<sup>[§4.5.1](#arith-neg)</sup> to a positive number literal. This is also true for `float` literals (e.g. `-2.0` or `-2f`).
 
 `int` literals take two forms: decimal (base 10) literals and hexadecimal (base 16) literals. They are matched by the following production rules.
 
@@ -258,27 +257,110 @@ This is the full set of escape sequences supported by *DeltaScript*:
 
 ## 4.5 – Operators
 
-<!-- TODO -->
+**Operators** are syntactical tokens that accept one or more expressions of certain types as **operands**, and produce a return value of a certain type. This specification categorizes operators based on how many operands they accept:
+
+* Unary operators<sup>[§4.5.1](#451--unary-operators)</sup> - 1 operand
+* Binary operators<sup>[§4.5.2](#452--binary-operators)</sup> - 2 operands
+* The ternary operator<sup>[§4.5.3](#453--ternary-operator)</sup> - 3 operands
 
 ### 4.5.1 – Unary operators
 
-<!-- TODO -->
+Unary operators consist of one of the **unary operators** `!`, `-`, `#|` followed by an expression of a valid type.
 
-#### Logical negation (not) (`!`)
+From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-<!-- TODO -->
+> **_&lt;expr&gt;_:**
+> * (... prior productions)
+> * ( `-` | `!` | `#|` ) &lt;expr&gt;
+> * (... following productions)
 
-#### Arithmetic negation (`-`)
+<br>
 
-<!-- TODO -->
+[**Logical negation**![](../assets/external.png)](https://en.wikipedia.org/wiki/Negation) or **not** is represented by the operator `!`. It can only be applied to expressions that evaluate to values of the type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>.
 
-#### Length / size (`#|`)
+This is the [truth table![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_table) for `!` operations with an arbitrary operand `P` of type `bool`:
 
-<!-- TODO -->
+| Value of `P` | Value of `!P` |
+| :----------: | :-----------: |
+| `true` | `false` |
+| `false` | `true` |
+
+<br>
+
+<b id="arith-neg">Arithmetic negation</b> is represented by the operator `-`. It can only be applied to expressions that evaluate to values of a numeric type: either `float`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> or `int`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>.
+
+Applying `-` to an arbitrary numeric type expression `P` yields the [additive inverse![](../assets/external.png)](https://en.wikipedia.org/wiki/Additive_inverse) of `P`. For `P` of type `float`, `-P` can be conceptualized as `0.0 - P`, while for `P` of type `int`, `-P` can be conceptualized as `0 - P`. The return type of the operation `-P` will be the same type as the operand `P`.
+
+<br>
+
+The `#|` operator represents **length** or **size**. It can be applied to expressions of types `string`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, array<sup>[§2.3.1](./ls-2-types.md#231--arrays)</sup> `T[]`, list<sup>[§2.3.2](./ls-2-types.md#232--lists)</sup> `T<>`, set<sup>[§2.3.3](./ls-2-types.md#233--sets)</sup> `T{}` and map<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> `{K:V}`.
+
+The [length![](../assets/definition.png)](./glossary.md#length) of a `string` is the **number of characters in the string**.
+
+The length of an array `T[]`<sup>[a](#fn-a)</sup> is the **number of elements allotted to the array**.
+
+The [size![](../assets/definition.png)](./glossary.md#size) of a list `T<>`<sup>[a](#fn-a)</sup> or set `T{}`<sup>[a](#fn-a)</sup> is the **number of elements in the collection**.
+
+The size of a map `{K:V}`<sup>[b](#fn-b)</sup> is the **number of mappings or key-value pairs contained in the map**.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   ~ color BLACK = #000000;
+>   ~ color PINK = #f5a0a0;
+> 
+>   color{} cs = { BLACK, PINK };
+> 
+>   print(#|"Test phrase"); // prints "11"
+>   print(#|[ 1, 2, 3, 4, 5 ]); // prints "5"
+>   print(#|{ 'a' : 1, 'j' : 10, 'z' : 26 }); // prints "3"
+> 
+>   print(#|cs); // prints "2"
+>   cs.add(rgb(0, 0, 0));
+>   print(#|cs); // prints "2" again; cs already contained the color defined by rgb(0, 0, 0)
+>   cs.add(rgb(0xff, 0, 0));
+>   print(#|cs); // prints "3"
+>   cs.remove(BLACK);
+>   cs.remove(PINK);
+>   print(#|cs); // prints "1"
+> }
+> ```
+> 
+> This script will produce the following output:
+> 
+> ```
+> 11
+> 5
+> 3
+> 2
+> 2
+> 3
+> 1
+> ```
 
 ### 4.5.2 – Binary operators
 
-<!-- TODO -->
+Binary operations consist of two operand expressions separated by a **binary operator**. Binary operators can be categorized into the following categories based on their precedence in the [order of operations![](../assets/external.png)](https://en.wikipedia.org/wiki/Order_of_operations):
+
+* Exponent (`^`) - highest precedence, **deprecated**
+* **Multiplicative operators** (`*`, `/`, `%`)
+* **Additive operators** (`+`, `-`)
+* **Comparison operators** (`==`, `!=`, `>` `>=`, `<=`, `<`)
+* **Logic operators** (`&&`, `||`) - lowest precedence
+
+From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... prior productions)
+> * &lt;expr&gt; `^` &lt;expr&gt;
+> * &lt;expr&gt; ( `*` | `/` | `%` ) &lt;expr&gt;
+> * &lt;expr&gt; ( `+` | `-` ) &lt;expr&gt;
+> * &lt;expr&gt; ( `==` | `!=` | `>` | `<` | `>=` | `<=` ) &lt;expr&gt;
+> * &lt;expr&gt; ( `||` | `&&` ) &lt;expr&gt;
+> * (... following productions)
+
+<br>
 
 #### Additive operators
 
@@ -438,4 +520,5 @@ This is the full set of escape sequences supported by *DeltaScript*:
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Here
+* <sup id="fn-a">a</sup> - `T` represents an arbitrary element type
+* <sup id="fn-b">b</sup> - `K` represents an arbitrary type for keys of the map, while `V` represents an arbitrary type for values of the map
