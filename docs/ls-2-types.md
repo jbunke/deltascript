@@ -44,33 +44,35 @@ While *DeltaScript* requires explicit type declarations in many cases, it also s
 
 An example of this is in iterator loops<sup>[§TODO - iterator loops]()</sup>. The iterator variable can be declared without a type, as its type can be inferred from the collection.
 
-**Example 1:**
+> **Example 1:**
+> 
+> ```js
+> () {
+>     string aretharized = "";
+>     
+>     for (letter in "RESPECT")
+>         aretharized += letter + ".";
+> 
+>     print(aretharized);
+> }
+> ```
+> 
+> The iterator variable `letter` is inferred to be of type `char`, because the collection is a `string`.
 
-```js
-() {
-    string aretharized = "";
-    
-    for (letter in "RESPECT")
-        aretharized += letter + ".";
-
-    print(aretharized);
-}
-```
-The iterator variable `letter` is inferred to be of type `char`, because the collection is a `string`.
-
-**Example 2:**
-
-```js
-() {
-    color[] cs = [ #ff0000, #28283c, rgba(169, 75, 0x80, 0x3b) ];
-
-    for (c in cs)
-        print("Value: " + value(c));
-}
-
-value(color c -> int) -> max([ c.red, c.green, c.blue ])
-```
-This script calculates the [value![](../assets/external.png)]() of each color in the array `cs` on an integer scale from 0 to 255. The iterator variable `c` is inferred to be of type `color`, because the collection is an array of colors `color[]`.
+> **Example 2:**
+> 
+> ```js
+> () {
+>     color[] cs = [ #ff0000, #28283c, rgba(169, 75, 0x80, 0x3b) ];
+> 
+>     for (c in cs)
+>         print("Value: " + value(c));
+> }
+> 
+> value(color c -> int) -> max([ c.red, c.green, c.blue ])
+> ```
+> 
+> This script calculates the [value![](../assets/external.png)](https://en.wikipedia.org/wiki/HSL_and_HSV#HSV_to_RGB) of each color in the array `cs` on an integer scale from 0 to 255. The iterator variable `c` is inferred to be of type `color`, because the collection is an array of colors `color[]`.
 
 ### 2.1.3 – Extensibility
 
@@ -121,17 +123,17 @@ An **array** is an ordered collection of fixed [length![](../assets/definition.p
 
 **Ordered** means that elements in an array are arranged in a certain order, and that individual elements can be accessed via their **index** - their position in the array. *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering), which means that the initial<sup>[c](#fn-c)</sup> element in an ordered collection has an index of 0.
 
-**Example:**
-
-```js
-() {
-    int[] squares = [ 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 ];
-
-    print(squares[0]); // prints "1"
-    print(squares[1]); // prints "4"
-    print(squares[9]); // prints "100"
-}
-```
+> **Example:**
+> 
+> ```js
+> () {
+>     int[] squares = [ 1, 4, 9, 16, 25, 36, 49, 64, 81, 100 ];
+> 
+>     print(squares[0]); // prints "1"
+>     print(squares[1]); // prints "4"
+>     print(squares[9]); // prints "100"
+> }
+> ```
 
 **Fixed length** means that an array can neither grow, nor shrink. It will always have the same number of allocated elements, even if some indices do not contain elements. <!-- TODO - How does the language currently handle attempting to access indices of collections of elements of a composite type that are empty? -->
 
@@ -209,29 +211,29 @@ These are all the type conversions that are possible in *DeltaScript*:
 
 **Implicit type conversion** usually occurs when operands of different types are operated on by a (binary) operator<sup>[§TODO - binary operators]()</sup>.
 
-**Example:**
-
-```js
-() {
-    print(27.25 + 12); // prints "39.25"
-}
-```
-
-The operand `27.25` is a `float`, and the operand `12` is an `int`. Before this addition operation is performed, `12` is converted to the equivalent `float` (`12f` / `12.0`). That way, the operation is an addition of `float` rather than an addition of `int`. An addition of `float` preserves the fractional component of `27.25` (`0.25`), which would have been truncated had `27.25` been converted into an integer (`27`) instead.
+> **Example:**
+> 
+> ```js
+> () {
+>     print(27.25 + 12); // prints "39.25"
+> }
+> ```
+> 
+> The operand `27.25` is a `float`, and the operand `12` is an `int`. Before this addition operation is performed, `12` is converted to the equivalent `float` (`12f` / `12.0`). That way, the operation is an addition of `float` rather than an addition of `int`. An addition of `float` preserves the fractional component of `27.25` (`0.25`), which would have been truncated had `27.25` been converted into an integer (`27`) instead.
 
 ### 2.5.2 – Explicit type conversion (casting)
 
 **Explicit type conversion**, or **casting**, is when a user specifies in the source code that the value of an expression should be converted to another type. This is achieved with a cast expression<sup>[§TODO - cast expression]()</sup>, where the desired type is enclosed in parentheses before the expression whose value is to be converted.
 
-**Example:**
-
-```js
-() {
-    print((int) 27.25 + 12); // prints "39"
-}
-```
-
-The precedence of the expression `(int) 27.25 + 12` looks like this: `((int) 27.25) + 12`. The cast operation is performed first; the `float` `27.25` is truncated to an `int` with a value of `27`. Now, as both operands of the addition operation (`27` and `12`) are `int`, the operation is an addition of `int`.
+> **Example:**
+> 
+> ```js
+> () {
+>     print((int) 27.25 + 12); // prints "39"
+> }
+> ```
+> 
+> The precedence of the expression `(int) 27.25 + 12` looks like this: `((int) 27.25) + 12`. The cast operation is performed first; the `float` `27.25` is truncated to an `int` with a value of `27`. Now, as both operands of the addition operation (`27` and `12`) are `int`, the operation is an addition of `int`.
 
 ---
 

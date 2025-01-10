@@ -99,7 +99,8 @@ case
 otherwise: OTHERWISE ARROW body;
 
 expr
-: LPAREN expr RPAREN                        #NestedExpression
+: literal                                   #LiteralExpression
+| assignable                                #AssignableExpression
 | lambda_params lambda_body                 #LambdaFunctionExpression
 | ident args                                #FunctionCallExpression
 | namespace args                            #ExtFuncCallExpression
@@ -109,9 +110,9 @@ expr
 | expr subident                             #PropertyExpression
 | op=(MINUS | NOT | SIZE) expr              #UnaryExpression
 | LPAREN type RPAREN expr                   #CastExpression
-| a=expr op=(PLUS | MINUS) b=expr           #ArithmeticBinExpression
-| a=expr op=(TIMES | DIVIDE | MOD) b=expr   #MultBinExpression
 | a=expr RAISE b=expr                       #PowerBinExpression
+| a=expr op=(TIMES | DIVIDE | MOD) b=expr   #MultBinExpression
+| a=expr op=(PLUS | MINUS) b=expr           #ArithmeticBinExpression
 | a=expr op=(EQUAL | NOT_EQUAL |
   GT | LT | GEQ | LEQ) b=expr               #ComparisonBinExpression
 | a=expr op=(OR | AND) b=expr               #LogicBinExpression
@@ -123,8 +124,7 @@ expr
 | LCURLY elements? RCURLY                   #ExplicitSetExpression
 | NEW type LBRACKET expr RBRACKET           #NewArrayExpression
 | NEW LCURLY kt=type COLON vt=type RCURLY   #NewMapExpression
-| assignable                                #AssignableExpression
-| literal                                   #LiteralExpression
+| LPAREN expr RPAREN                        #NestedExpression
 ;
 
 lambda_params

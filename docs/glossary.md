@@ -35,6 +35,17 @@ This page provides succinct definitions for terms used throughout the documentat
 
 ## A
 
+### Append
+
+To insert/attach after or at the end.
+
+> **Example:**
+> 
+> **Appending** the letter "s" to the word "farm" results in the word "farms".
+
+> **See also:**
+> * [Prepend](#prepend)
+
 ## B
 
 ### Base language
@@ -55,6 +66,10 @@ A programming language that uses many of the syntactical conventions pioneered b
 * code blocks / scopes delimited by curly brackets `{}`
 
 A list of such languages can be found [here![](../assets/external.png)](https://en.wikipedia.org/wiki/List_of_C-family_programming_languages).
+
+### Control flow
+
+<!-- TODO -->
 
 ## D
 
@@ -88,14 +103,28 @@ The number of characters in a string or the number of elements in an array. When
 
 The length/size operator in *DeltaScript* is `#|`.
 
-**Example:**
+> **Example:**
+> 
+> ```js
+> () {
+>     string word = "foo";
+>     print(#|word); // Prints "3"
+> }
+> ```
 
-```js
-() {
-    string word = "foo";
-    print(#|word); // Prints "3"
-}
-```
+### LHS
+
+An acronym for **left-hand side**.
+
+Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<sup>[§4](./ls-4-expr.md)</sup> that lies to the left of an operator.
+
+> **Example:**
+> 
+> ```js
+> some_var = "Some " + "concatenated " + "string";
+> ```
+> 
+> This assignment statement has an LHS of `some_var` and an [RHS![](../assets/definition.png)](#rhs) of `"Some " + "concatenated " + "string"`.
 
 ## M
 
@@ -117,24 +146,39 @@ How **opaque** a color is. Opacity is the complementary property to transparency
 
 ## P
 
+### Prepend
+
+To insert/attach prior or at the beginning.
+
+> **Example:**
+> 
+> **Prepending** the letter "a" to the word "blaze" results in the word "ablaze".
+
+> **See also:**
+> * [Append](#append)
+
 ### Property
 
 A constant attribute of an [object![](../assets/definition.png)](#object) defined by its type.
 
-**Example:**
-
-```js
-() {
-    color c = #ffffff; // assigns c to the color white (hex code #ffffff)
-    print(c.red); // Prints the value of the "red" property of c (255 in this case)
-}
-```
-
-In this example, [`red`](./color-sl.md#red) is a property defined by the type [`color`](./color-sl.md). Thus, the property can be referenced on all objects of the type.
+> **Example:**
+> 
+> ```js
+> () {
+>     color c = #ffffff; // assigns c to the color white (hex code #ffffff)
+>     print(c.red); // Prints the value of the "red" property of c (255 in this case)
+> }
+> ```
+> 
+> In this example, [`red`](./color-sl.md#red) is a property defined by the type [`color`](./color-sl.md). Thus, the property can be referenced on all objects of the type.
 
 ## Q
 
 ## R
+
+### RHS
+
+<!-- TODO -->
 
 ## S
 
@@ -148,17 +192,17 @@ The number of elements in a list or a set. When referring to the number of eleme
 
 The size/length operator in *DeltaScript* is `#|`.
 
-**Example:**
-
-```js
-() {
-    string<> words = < "quick", "brown" >; // initializes a list of strings
-    print(#|words); // Prints "2"
-    words.add("A", 0);
-    words.add("fox");
-    print(#|words); // Prints "4"
-}
-```
+> **Example:**
+> 
+> ```js
+> () {
+>     string<> words = < "quick", "brown" >; // initializes a list of strings
+>     print(#|words); // Prints "2"
+>     words.add("A", 0);
+>     words.add("fox");
+>     print(#|words); // Prints "4"
+> }
+> ```
 
 ## T
 

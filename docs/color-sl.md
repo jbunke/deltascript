@@ -21,8 +21,6 @@ C.red -> int
 C.r -> int
 ```
 
-**Description:**
-
 The value of the **red** color channel of `C`.
 
 ### `green`
@@ -35,8 +33,6 @@ C.green -> int
 // Shorthand:
 C.g -> int
 ```
-
-**Description:**
 
 The value of the **green** color channel of `C`.
 
@@ -51,8 +47,6 @@ C.blue -> int
 C.b -> int
 ```
 
-**Description:**
-
 The value of the **blue** color channel of `C`.
 
 ### `alpha`
@@ -65,7 +59,5 @@ C.alpha -> int
 // Shorthand:
 C.a -> int
 ```
-
-**Description:**
 
 The value of the **alpha/opacity** color channel of `C`.

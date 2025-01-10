@@ -12,13 +12,13 @@
 
 ## Motivation
 
-*DeltaScript* was first developed as a domain-specific scripting language for [*Stipple Effect*![](../assets/external.png)](https://github.com/stipple-effect/stipple-effect), a pixel art editor that makes extensive use of scripting for automation and transforming projects.
+*DeltaScript* was first developed as a domain-specific scripting language for [*Stipple Effect*![](../assets/external.png)](https://github.com/stipple-effect/stipple-effect), a pixel art editor that makes extensive use of scripting for automation and for transforming project contents.
 
 Eventually, the *Stipple Effect* codebase was extensively refactored. The core of the scripting language implementation was ripped out and reimplemented in the underlying library that served as an external dependency for *Stipple Effect*, and the language features deemed specific to the context of *Stipple Effect* were implemented in its codebase as an extension to the [base language![](../assets/definition.png)](./glossary.md#base-language). The idea was that, this way, the base language would be reuseable for multiple projects, with application-specific behaviours and features implemented as extensions.
 
 There are other programs in a similar niche as *Stipple Effect* that support scripting, like [*Aseprite*![](../assets/external.png)](https://www.aseprite.org), which lets users write scripts with [Lua![](../assets/external.png)](https://www.lua.org). I opted to design and implement my own scripting language for a few reasons, chief among which was **how I wanted the code to look**. Lua's keyword noise, lack of punctuation, and general boilerplate were all non-starters for me. I wanted scripts written in my language to clearly reflect their behaviour at a glance without any additional fluff.
 
-Moreover, *DeltaScript* is **not a general-purpose programming language**. It is intended for writing scripts in particular application contexts. Thus, it can be extremely [high-level![](../assets/external.png)](https://en.wikipedia.org/wiki/High-level_programming_language).
+Moreover, *DeltaScript* is **not a general-purpose programming language**. It is intended for writing scripts in particular application contexts. Thus, it is designed to be quite [high-level![](../assets/external.png)](https://en.wikipedia.org/wiki/High-level_programming_language) and narrow in its scope.
 
 These are real examples of scripts in the [*Stipple Effect* extension dialect![](../assets/external.png)](https://stipple-effect.github.io/api) of *DeltaScript*:
 
@@ -90,7 +90,9 @@ Code snippets are multi-line segments of the specification that appear in monosp
 }
 ```
 
-The specification is written in a lightweight markup language called [Markdown![](../assets/external.png)](https://en.wikipedia.org/wiki/Markdown), which allows for a programming language to be specified alongside a code snippet so that the code can be syntax highlighted. As *DeltaScript* is not yet a widely adopted language, code snippets are highlighted using a JavaScript syntax highlighter instead. This does a mostly satisfactory job of tokenizing *DeltaScript* code, but sometimes leads to mistakes.
+> **Note:**
+> 
+> The specification is written in a lightweight markup language called [Markdown![](../assets/external.png)](https://en.wikipedia.org/wiki/Markdown), which allows for a programming language to be specified alongside a code snippet so that the code can be syntax highlighted. As *DeltaScript* is not yet a widely adopted language, code snippets are highlighted using a JavaScript syntax highlighter instead. This does a mostly satisfactory job of tokenizing *DeltaScript* code, but sometimes leads to mistakes.
 
 **Text styling:**
 
@@ -111,6 +113,6 @@ Throughtout the specification and standard library, language features or standar
 
 ### Overview of the specification
 
-This specification aims to provide an exhaustive description of how the language is designed, including its **syntax**, **semantics**, **execution**, and **extension possibilities**. After reading the specification, someone looking to write a compiler or interpreter for *DeltaScript* should be able to do so without requiring additional information about the language.
+This specification aims to provide an exhaustive description of how the language is designed, including its **syntax**, **semantics**, **execution**, and **extension possibilities**. After reading the specification, someone looking to write a compiler or interpreter for *DeltaScript* should be able to do so without requiring additional information about the language. It is intentionally vague about many low-level language implementation details, which are delegated to the discretion of the implementers.
 
 The specification has been sequenced in a way that concepts from earlier chapters inform the broader concepts discussed in later chapters. Concepts are itemized and encapsulated as much as possible, allowing the reader to easily jump ahead or refer back to individual sections.

@@ -30,8 +30,6 @@ Definitions in this section will use `ARR` to represent an arbitrary array of ty
 ARR.has(T check) -> bool
 ```
 
-**Description:**
-
 Checks if `ARR` contains the element `check`. Returns `true` if `ARR` contains `check`, otherwise returns `false`.
 
 ## List
@@ -54,21 +52,17 @@ Definitions in this section will use `LST` to represent an arbitrary list of typ
     LST.add(T element);
     ```
     
-    **Description:**
-    
     Appends `element` to the end of `LST`.
 
 2.  ```js
     LST.add(T element, int index);
     ```
 
-    **Description:**
-
     Inserts `element` at the specified `index` in `LST`. The elements at and after the specified `index` will be shifted to the right to make space for the new element.
     
-    **Note:**
-    
-    *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
+    > **Note:**
+    > 
+    > *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 
 ### `has`
@@ -76,8 +70,6 @@ Definitions in this section will use `LST` to represent an arbitrary list of typ
 ```js
 LST.has(T check) -> bool
 ```
-
-**Description:**
 
 Checks if `LST` contains the element `check`. Returns `true` if `LST` contains `check`, otherwise returns `false`.
 
@@ -87,27 +79,23 @@ Checks if `LST` contains the element `check`. Returns `true` if `LST` contains `
     LST.remove(int index);
     ```
     
-    **Description:**
-    
     Removes the element at the specified `index` from `LST`. The elements that follow the removed element will be shifted to the left to fill the gap.
     
-    **Fails:**
+    > **Fails:**
+    > 
+    > This function will fail and be skipped over if any of the following conditions are met:
+    > 
+    > * `index < 0`
+    > * `index >= #|LST`: `index` is greater than or equal to the size of `LST`
     
-    This function will fail and be skipped over if any of the following conditions are met:
-    
-    * `index < 0`
-    * `index >= #|LST`: `index` is greater than or equal to the size of `LST`
-    
-    **Note:**
-    
-    *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
+    > **Note:**
+    > 
+    > *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 2.  ```js
     LST.remove(T element);
     ```
-
-    **Description:**
-
+    
     Removes the first occurrence of `element` from `LST`. The elements that follow the removed element will be shifted to the left to fill the gap.
 
 ## Set
@@ -130,8 +118,6 @@ Definitions in this section will use `SET` to represent an arbitrary set of type
 SET.add(T element);
 ```
 
-**Description:**
-
 Adds `element` to `SET` if `SET` does not already contain `element`.
 
 ### `has`
@@ -140,8 +126,6 @@ Adds `element` to `SET` if `SET` does not already contain `element`.
 SET.has(T check) -> bool
 ```
 
-**Description:**
-
 Checks if `SET` contains the element `check`. Returns `true` if `SET` contains `check`, otherwise returns `false`.
 
 ### `remove`
@@ -149,8 +133,6 @@ Checks if `SET` contains the element `check`. Returns `true` if `SET` contains `
 ```js
 SET.remove(T element);
 ```
-
-**Description:**
 
 Removes `element` from `SET` if it is present.
 
@@ -173,8 +155,6 @@ Definitions in this section will use `MAP` to represent an arbitrary map of type
 MAP.define(K key, V value);
 ```
 
-**Description:**
-
 Associates the specified `key` with the specified `value` in `MAP`. If `MAP` previously contained a mapping for `key`, the old value is replaced by `value`.
 
 ### `has`
@@ -182,8 +162,6 @@ Associates the specified `key` with the specified `value` in `MAP`. If `MAP` pre
 ```js
 MAP.has(K key) -> bool
 ```
-
-**Description:**
 
 Checks if `MAP` contains a mapping for the specified `key`. Returns `true` if `MAP` contains `key`, otherwise returns `false`.
 
@@ -193,8 +171,6 @@ Checks if `MAP` contains a mapping for the specified `key`. Returns `true` if `M
 MAP.keys() -> K{}
 ```
 
-**Description:**
-
 Returns a set of all keys contained in `MAP`.
 
 ### `lookup`
@@ -203,12 +179,10 @@ Returns a set of all keys contained in `MAP`.
 MAP.lookup(K key) -> V
 ```
 
-**Description:**
-
 Retrieves the value associated with the specified `key` from `MAP`.
 
-**Triggers runtime error(s):**
-
-This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
-
-* `!MAP.has(key)`: `MAP` does not contain a mapping for `key`
+> **Triggers runtime error(s):**
+> 
+> This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
+> 
+> * `!MAP.has(key)`: `MAP` does not contain a mapping for `key`

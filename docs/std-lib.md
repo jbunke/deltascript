@@ -18,9 +18,9 @@ The **standard library** describes the built-in functions that are included in t
 * [`image`](./image-sl.md)
 * [`string`](./string-sl.md)
 
-**Note:**
-
-*DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with functions and/or [properties![](../assets/definition.png)]() in the base language<sup>[a](#fn-a)</sup>.
+> **Note:**
+> 
+> *DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with functions and/or [properties![](../assets/definition.png)]() in the base language<sup>[a](#fn-a)</sup>.
 
 ### [Collection types](./collections-sl.md)
 
