@@ -327,7 +327,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 **<i id="sg-whenstat">&lt;when_stat&gt;</i>:** `when` `(` [&lt;expr&gt;](#sg-expr) `)` [&lt;when_body&gt;](#sg-whenbody)
 
-> Represents a when statement<sup>[§TODO]()</sup>, which is similar to a [switch![](../assets/external.png)](https://en.wikipedia.org/wiki/Switch_statement) statement in some other programming languages.
+> Represents a `when` statement<sup>[§TODO - when statement]()</sup>, which is similar to a [switch![](../assets/external.png)](https://en.wikipedia.org/wiki/Switch_statement) statement in some other programming languages.
 
 **<i id="sg-whenbody">&lt;when_body&gt;</i>:** `{` [&lt;when_case&gt;](#sg-whencase)\+ [&lt;otherwise_case&gt;](#sg-otherwisecase)? `}`
 
@@ -339,7 +339,8 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 **<i id="sg-otherwisecase">&lt;otherwise_case&gt;</i>:** `otherwise` `->` [&lt;body&gt;](#sg-body)
 
 **<i id="sg-expr">&lt;expr&gt;</i>:**
-* `(` [&lt;expr&gt;](#sg-expr) `)`
+* [&lt;literal&gt;](#sg-literal)
+* [&lt;assignable&gt;](#sg-assignable)
 * [&lt;lambda_params&gt;](#sg-lambdaparams) [&lt;lambda_body&gt;](#sg-lambdabody)
 * [&lt;ident&gt;](#sg-ident) [&lt;args&gt;](#sg-args)
 * [&lt;namespace_ident&gt;](#sg-namespaceident) [&lt;args&gt;](#sg-args)
@@ -349,9 +350,9 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 * [&lt;expr&gt;](#sg-expr) [&lt;sub_ident&gt;](#sg-subident)
 * ( `-` | `!` | `#|` ) [&lt;expr&gt;](#sg-expr)
 * `(` [&lt;type&gt;](#sg-type) `)` [&lt;expr&gt;](#sg-expr)
-* [&lt;expr&gt;](#sg-expr) ( `+` | `-` ) [&lt;expr&gt;](#sg-expr)
-* [&lt;expr&gt;](#sg-expr) ( `*` | `/` | `%` ) [&lt;expr&gt;](#sg-expr)
 * [&lt;expr&gt;](#sg-expr) `^` [&lt;expr&gt;](#sg-expr)
+* [&lt;expr&gt;](#sg-expr) ( `*` | `/` | `%` ) [&lt;expr&gt;](#sg-expr)
+* [&lt;expr&gt;](#sg-expr) ( `+` | `-` ) [&lt;expr&gt;](#sg-expr)
 * [&lt;expr&gt;](#sg-expr) ( `==` | `!=` | `>` | `<` | `>=` | `<=` ) [&lt;expr&gt;](#sg-expr)
 * [&lt;expr&gt;](#sg-expr) ( `||` | `&&` ) [&lt;expr&gt;](#sg-expr)
 * [&lt;expr&gt;](#sg-expr) `?` [&lt;expr&gt;](#sg-expr) `:` [&lt;expr&gt;](#sg-expr)
@@ -361,8 +362,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 * `{` [&lt;elements&gt;](#sg-elements)? `}`
 * `new` [&lt;type&gt;](#sg-type) `[` [&lt;expr&gt;](#sg-expr) `]`
 * `new` `{` [&lt;type&gt;](#sg-type) `:` [&lt;type&gt;](#sg-type) `}`
-* [&lt;assignable&gt;](#sg-assignable)
-* [&lt;literal&gt;](#sg-literal)
+* `(` [&lt;expr&gt;](#sg-expr) `)`
 
 **<i id="sg-lambdaparams">&lt;lambda_params&gt;</i>:**
 * `(` `)`
