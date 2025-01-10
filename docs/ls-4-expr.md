@@ -72,17 +72,17 @@ Expressions are matched in this order by the following production rule from the 
 > 
 > Definitions for production rules with occurrences in &lt;expr&gt; may be provided in later sections of the chapter.
 
-**Example:**
-
-Consider the following expression:
-
-```cpp
-((int) 12f) * 2 + 14
-```
-
-This is the [parse tree![](../assets/external.png)](https://en.wikipedia.org/wiki/Parse_tree) for the expression according to the precedence order of the productions of &lt;expr&gt;:
-
-![](../assets/expression-parse-tree.png)
+> **Example:**
+> 
+> Consider the following expression:
+> 
+> ```cpp
+> (int) 12f * 2 + 14
+> ```
+> 
+> This is the [parse tree![](../assets/external.png)](https://en.wikipedia.org/wiki/Parse_tree) for the expression according to the [precedence![](../assets/external.png)](https://en.wikipedia.org/wiki/Order_of_operations) order of the productions of &lt;expr&gt;:
+> 
+> ![](../assets/expression-parse-tree.png)
 
 ## 4.2 – Nested expressions
 
