@@ -223,7 +223,7 @@ The grammar shown here is an abridged version of the lexical grammar used for th
 > 
 > **Note:**
 > 
-> The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity) channel. If it is ommitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
+> The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity) channel. If it is omitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
 
 **<i id="lg-escapechar">&lt;ESCAPE_CHAR&gt;</i>:** `\` ( `0` | `b` | `t` | `n` | `f` | `r` | `"` | `'` | `\` )
 
@@ -523,6 +523,8 @@ Unlike programming languages like [Python![](../assets/external.png)](https://en
 
 *DeltaScript* supports a few types of shorthands. A **shorthand** is a way of expressing something [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) using less code than it would otherwise take.
 
+<br>
+
 **Immutability:**
 
 Like in [Java![](../assets/external.png)](https://en.wikipedia.org/wiki/Java_(programming_language)), *DeltaScript* uses the keyword `final` to declare a variable as immutable<sup>[§TODO]()</sup>. The tilde `~` is a shorthand that can be used instead.
@@ -535,6 +537,8 @@ Like in [Java![](../assets/external.png)](https://en.wikipedia.org/wiki/Java_(pr
 > 2.  ```js
 >     ~ string name = "John Doe";
 >     ```
+
+<br>
 
 **Single expression function bodies:**
 
@@ -566,9 +570,11 @@ It can be equivalently expressed as:
 function_name(params? -> return_type) -> expression
 ```
 
-**Note:**
+> **Note:**
+> 
+> `params` is optional.
 
-`params` is optional.
+<br>
 
 **Property abbreviations:**
 
@@ -599,6 +605,7 @@ The following scripts are semantically equivalent:
       print(blank.w); // Prints "300"
     }
     ```
+
 
 ---
 

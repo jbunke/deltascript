@@ -152,7 +152,7 @@ They are matched by the following production rule from the lexical grammar<sup>[
 > 
 > **_&lt;DIGIT&gt;_:** `0..9`
 
-The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity) channel. If it is ommitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
+The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity) channel. If it is omitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
 
 > **Examples:**
 > 
@@ -360,6 +360,18 @@ From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup
 > * &lt;expr&gt; ( `||` | `&&` ) &lt;expr&gt;
 > * (... following productions)
 
+Binary operators of the same precedence are left-[associative![](../assets/external.png)](https://en.wikipedia.org/wiki/Operator_associativity).
+
+> **Examples:**
+> 
+> These chains of operators are shown with and without explicit grouping.
+> 
+> | Expression | With explicit grouping |
+> | :--------- | :--------------------- |
+> | `4 - 5 + 6 - 7` | `((4 - 5) + 6) - 7` |
+> | `10 % 2 * 6` | `(10 % 2) * 6` |
+> | `4 == 5 - 2 \|\| 3 != 4 - 2` | `(4 == (5 - 2)) \|\| (3 != (4 - 2))` |
+
 <br>
 
 The operator `+` represents both **addition** and [**concatenation**![](../assets/external.png)](https://en.wikipedia.org/wiki/Concatenation).
@@ -426,55 +438,130 @@ The operand and return types of the division `/` and modulo `%` operators can be
 
 <br>
 
-<!-- TODO - Exponent (`^`) -->
+[**Exponentiation**![](../assets/external.png)](https://en.wikipedia.org/wiki/Exponentiation) is represented by the operator `^`.
 
-<!-- TODO - feature is deprecated -->
+For the arbitrary numeric operands `a`, `b`, the expression `a ^ b` performs an exponentiation operation with `a` as the **base** and `b` as the **power** or **exponent**.
 
-<br>
-
-<!-- TODO - Equality (`==`) -->
-
-<br>
-
-<!-- TODO - Inequality (`!=`) -->
+> **Deprecated:**
+> 
+> This language feature is [deprecated![](../assets/external.png)](https://en.wikipedia.org/wiki/Deprecation).
 
 <br>
 
-<!-- TODO - Greater than (`>`) -->
+**Equality** is represented by the operator `==`, while **inequality** is represented by the operator `!=`.
+
+For any operand expressions `a`, `b`, `a == b` returns `true`<sup>[§4.3.1](#431--bool-literals)</sup> if `a` and `b` are **equal** and `false` if they are not.
+
+The equality operator `==` can operate over operands of any type. Operands mustn't be the of the same type in order for `==` to operate on them. However, `a == b` will never return `true` if the values of `a` and `b` are of different types.
+
+Equality is defined in the following ways for values of each of the types in the [base language![](../assets/definition.png)](./glossary.md#base-language):
+
+| Type | `a == b`<sup>[c](#fn-c)</sup> |
+| :--- | :------------------ |
+| `bool` | `a` and `b` both evaluate to the same [truth value![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_value), whether `true` or `false` | 
+| `char` | `a` and `b` both evaluate to the same [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8) character |
+| `color` | `a` and `b` both evaluate to the same 32-bit [RGBA color![](../assets/external.png)](https://en.wikipedia.org/wiki/RGBA_color_model): `a.red == b.red && a.green == b.green && a.blue == b.blue && a.alpha == b.alpha` |
+| `float` | `a` and `b` both evaluate to equivalent floating-point numbers: `a - b == 0.0` |
+| `image` | `a` and `b` represent identical images: (1) `a.width == b.width && a.height == b.height`, (2) for every `x`,`y` in `a` and `b`: `a.pixel(x, y) == b.pixel(x, y)` |
+| `int` | `a` and `b` both evaluate to equivalent integers: `a - b == 0` |
+| `string` | `a` and `b` both evaluate to the same string: (1) `#\|a == #\|b`, (2) for every index `i` in `a` and `b`: `a.at(i) == b.at(i)` |
+| Array `T[]` | (1) `#\|a == #\|b`, (2) for every index `i` in `a` and `b`: `a[i] == b[i]` |
+| List `T<>` | (1) `#\|a == #\|b`, (2) for every index `i` in `a` and `b`: `a<i> == b<i>` |
+| Set `T{}` | `a` contains every element in `b` and `b` contains every element in `a` |
+| Map `{K:V}` | (1) `a.keys()` contains every element in `b.keys()` and `b.keys()` contains every element in `a.keys()`, (2) for every element `k` in `a.keys()`: `a.lookup(k) == b.lookup(k)` |
+| *Functional type* | `a` and `b` point to the same helper function<sup>[§TODO - helper function]()</sup>; even if the type signature and logic of two distinct functions are the same, `a != b` |
+
+Extension types<sup>[§TODO - helper function]()</sup> should define their own definition of equality internally. The naive definition should be based on sharing the same [object reference![](../assets/external.png)](https://en.wikipedia.org/wiki/Object_(computer_science)).
+
+For any operand expressions `a`, `b`, `a != b` is defined as `!(a == b)`.
 
 <br>
 
-<!-- TODO - Greater than or equal to (`>=`) -->
+There are four types of [mathematical inequality![](../assets/external.png)](https://en.wikipedia.org/wiki/Inequality_(mathematics)) operators:
+
+* **Greater than** `>`
+* **Greater than or equal to** `>=`
+* **Less than or equal to** `<=`
+* **Less than** `<`
+
+These operators operate on operands of numeric types (`int` or `float`) are return either `true` or `false` (`bool` values).
 
 <br>
 
-<!-- TODO - Less than or equal to (`<=`) -->
+[**Logical conjunction**![](../assets/external.png)](https://en.wikipedia.org/wiki/Logical_conjunction) (**and**) is represented by the operator `&&`, while [**logical disjunction**![](../assets/external.png)](https://en.wikipedia.org/wiki/Logical_disjunction) (**or**) is represented by the operator `||`.
 
-<br>
+Both operators require operands of type `bool`, and return a value of type `bool`.
 
-<!-- TODO - Less than (`<`) -->
+This is the [truth table![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_table) for `&&` operations with arbitrary operands `a`, `b` of type `bool`:
 
-<br>
+| Value of `a` | Value of `b` | Value of `a && b` |
+| :----------: | :----------: | :---------------: |
+| `false` | `false` | `false` |
+| `false` | `true` | `false` |
+| `true` | `false` | `false` |
+| `true` | `true` | `true` |
 
-<!-- TODO - And (`&&`)-->
+This is the truth table for `||` operations with arbitrary operands `a`, `b` of type `bool`:
 
-<br>
-
-<!-- TODO - Or (`||`) -->
+| Value of `a` | Value of `b` | Value of `a \|\| b` |
+| :----------: | :----------: | :---------------: |
+| `false` | `false` | `false` |
+| `false` | `true` | `true` |
+| `true` | `false` | `true` |
+| `true` | `true` | `true` |
 
 ### 4.5.3 – Ternary operator
 
-<!-- TODO -->
+The **ternary operator** or [**conditional operator**![](../assets/external.png)](https://en.wikipedia.org/wiki/Ternary_conditional_operator) returns one of two values depending on the result of a condition check. It takes the form `a ? b : c`, where `a` is an expression of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> and `b`, `c` are expressions of the same type. The return type of `a ? b : c` is the same type as `b` and `c`. If `a` evaluates to `true`, `a ? b : c` returns `b`. Otherwise (`a` evaluates to `false`), `a ? b : c` returns `c`.
+
+> **Note:**
+> 
+> "Ternary" refers to any operator with three operands; however, as this is by far the most commonly used (and often only) ternary operator in many programming languages, it is widely referred to as **the** ternary operator.
 
 ### 4.5.4 – Compound assignment operators
 
-<!-- TODO -->
+[**Compound assignment operators**![](../assets/external.png)](https://en.wikipedia.org/wiki/Augmented_assignment) are a type of shorthand syntax used to simplify augmentative assignments of a variable; that is, variable assignments that incorporate the variable's current value to calculate the value being assigned.
 
-<br>
+For reference, this is the production rule for assignment statements<sup>[§TODO - assignment statements]()</sup> from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-<!-- TODO - Increment and decrement -->
+> **_&lt;assignment&gt;_:**
+> * &lt;assignable&gt; `=` &lt;expr&gt;
+> * &lt;assignable&gt; `++`
+> * &lt;assignable&gt; `--`
+> * &lt;assignable&gt; `+=` &lt;expr&gt;
+> * &lt;assignable&gt; `-=` &lt;expr&gt;
+> * &lt;assignable&gt; `*=` &lt;expr&gt;
+> * &lt;assignable&gt; `/=` &lt;expr&gt;
+> * &lt;assignable&gt; `%=` &lt;expr&gt;
+> * &lt;assignable&gt; `&=` &lt;expr&gt;
+> * &lt;assignable&gt; `|=` &lt;expr&gt;
 
-<!-- TODO - Unlike some other languages, i++ is not an expression -->
+Most compound assignment operations take the form `v OP e`, where `v` is an assignable expression like a variable<sup>[§3](./ls-3-vars.md)</sup> or an array element or list element<sup>[§4.10](#410--array-and-list-elements)</sup>, `OP` is the operator, and `e` is an expression of a valid type that defines the change value.
+
+The syntax of such compound assignment statements are listed below alongside their expanded forms under the hood. Refer back to the binary operators<sup>[§4.5.2](#452--binary-operators)</sup> for the semantics of each operator.
+
+| Operation | Compound assignment | Expansion under the hood |
+| :-------- | :------------------ | :----------------------- |
+| Addition / concatenation | `v += e;` | `v = v + e;` |
+| Subtraction | `v -= e;` | `v = v - e;` |
+| Multiplication | `v *= e;` | `v = v * e;` |
+| Division | `v /= e;` | `v = v / e;` |
+| Modulo | `v %= e;` | `v = v % e;` |
+| Conjunction (and) | `v &= e;` | `v = v && e;` |
+| Disjunction (or) | `v \|= e;` | `v = v \|\| e;` |
+
+The **incrementation** `++` and **decrementation** `--` are special cases of compound assignments. They are postfix operators, meaning that they follow their operand `v`. `++` increments the value of `v` by `1`, while `--` decrements the value of `v` by `1`.
+
+| Operation | Compound assignment | Expansion under the hood |
+| :-------- | :------------------ | :----------------------- |
+| Incrementation | `v++;` | `v = v + 1;` |
+| Decrementation | `v--;` | `v = v - 1;` |
+
+For incrementation and decrementation operations, the assignable `v` must be of type `int`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>.
+
+> **Note:**
+> 
+> Unlike in some programming languages like C and C++, in *DeltaScript*, **compound assignments are not expressions**.
 
 ## 4.6 – Cast expressions
 
@@ -540,3 +627,4 @@ The operand and return types of the division `/` and modulo `%` operators can be
 
 * <sup id="fn-a">a</sup> - `T` represents an arbitrary element type
 * <sup id="fn-b">b</sup> - `K` represents an arbitrary type for keys of the map, while `V` represents an arbitrary type for values of the map
+* <sup id="fn-c">c</sup> - `a` and `b` are both arbitrary expressions of the type indicated by the row of the table
