@@ -362,87 +362,105 @@ From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup
 
 <br>
 
-#### Additive operators
+The operator `+` represents both **addition** and [**concatenation**![](../assets/external.png)](https://en.wikipedia.org/wiki/Concatenation).
 
-<!-- TODO -->
+The operator performs an **addition** operation when both of its operands are of a numeric type. If both operands are of type `int`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, `+` performs an integer addition operation and returns the result as an `int` value. If both operands are of type `float`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, `+` performs a floating-point number addition operation and returns the result as a `float` value. If one of the operands is of type `float` and the other is of type `int`, the `int` operand is implicitly converted<sup>[§2.5.1](./ls-2-types.md#251--implicit-type-conversion)</sup> to its `float` value, and `+` performs a floating-point number addition operation, returning the result as a `float` value.
 
-##### Addition / Concatenation (`+`)
+If either operand is of a non-numeric type, both operands are implicitly converted to `string` values (if they are not already `string` values), and `+` performs a **concatenation** operation, returning the result as a `string` value.
 
-<!-- TODO -->
+> **Examples:**
+> 
+> | Operation | Return value | Return type |
+> | :-------: | :----------: | :---------: |
+> | `1 + 3` | `4` | `int` |
+> | `1.0 + 3` | `4.0` | `float` |
+> | `1 + 3.5` | `4.5` | `float` |
+> | `"stage" + "coach"` | `"stagecoach"` | `string` |
+> | `"race" + 's'` | `"races"` | `string` |
+> | `"It is " + true` | `"It is true"` | `string` |
 
-<!-- TODO - doubles as concatenation operator -->
+<br>
 
-##### Subtraction (`-`)
+**Subtraction** is represented by the operator `-`. Its behaviour follows from the behaviour of the addition `+` operator. However, note that the subtraction operator `-` does not double as a `string` operator.
 
-<!-- TODO -->
+Its operand and return types can be expressed as follows:
 
-#### Multiplicative operators
+* `int - int => int`
+* `float - float => float`
+* `int - float => float`
+* `float - int => float`
 
-<!-- TODO -->
+<br>
 
-##### Multiplication (`*`)
+**Multiplication** is represented by the operator `*`. 
 
-<!-- TODO -->
+Its operand and return types can be expressed as follows:
 
-##### Division (`/`)
+* `int * int => int`
+* `float * float => float`
+* `int * float => float`
+* `float * int => float`
 
-<!-- TODO -->
+<br>
 
-<!-- TODO - divide by 0 results in RTE -->
+**Division** is represented by the operator `/`, while the **[modulo![](../assets/external.png)](https://en.wikipedia.org/wiki/Modulo) operation** is represented by the operator `%`.
 
-##### Modulo (`%`)
+For the arbitrary numeric operands `a`, `b`, the expression `a % b` returns the [remainder![](../assets/external.png)](https://en.wikipedia.org/wiki/Remainder) of the division operation `a / b` (`a` is the dividend, `b` is the divisor).
 
-<!-- TODO -->
+The behaviour of the modulo operator varies across programming languages in its handling of negative operands. *DeltaScript* leaves this to the discretion of implementers, but recommends an adherence to the following axiom:
 
-<!-- TODO - divide by 0 results in RTE -->
+* `(a / b) * b + (a % b) == a`
 
-<!-- TODO - handling of negative operands -->
+For both the division `/` and modulo `%` operators, attempting to divide by zero (a [RHS![](../assets/definition.png)](./glossary.md#rhs) operand with a value of `0` or `0.0`) will result in a runtime error<sup>[§TODO - runtime error]()</sup>.
 
-#### Exponent (`^`)
+The operand and return types of the division `/` and modulo `%` operators can be expressed as follows:
 
-<!-- TODO -->
+* `int OP int => int`
+* `float OP float => float`
+* `int OP float => float`
+* `float OP int => float`
+
+> **Note:**
+> 
+> This is in contrast to many other programming languages, which perform an integer or floating-point division operation based purely on the type of the divisor.
+
+<br>
+
+<!-- TODO - Exponent (`^`) -->
 
 <!-- TODO - feature is deprecated -->
 
-#### Comparison operators
+<br>
 
-<!-- TODO -->
+<!-- TODO - Equality (`==`) -->
 
-##### Equality (`==`)
+<br>
 
-<!-- TODO -->
+<!-- TODO - Inequality (`!=`) -->
 
-##### Inequality (`!=`)
+<br>
 
-<!-- TODO -->
+<!-- TODO - Greater than (`>`) -->
 
-##### Greater than (`>`)
+<br>
 
-<!-- TODO -->
+<!-- TODO - Greater than or equal to (`>=`) -->
 
-##### Greater than or equal to (`>=`)
+<br>
 
-<!-- TODO -->
+<!-- TODO - Less than or equal to (`<=`) -->
 
-##### Less than or equal to (`<=`)
+<br>
 
-<!-- TODO -->
+<!-- TODO - Less than (`<`) -->
 
-##### Less than (`<`)
+<br>
 
-<!-- TODO -->
+<!-- TODO - And (`&&`)-->
 
-#### Logic operators
+<br>
 
-<!-- TODO -->
-
-##### And (`&&`)
-
-<!-- TODO -->
-
-##### Or (`||`)
-
-<!-- TODO -->
+<!-- TODO - Or (`||`) -->
 
 ### 4.5.3 – Ternary operator
 
@@ -452,9 +470,9 @@ From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup
 
 <!-- TODO -->
 
-#### Increment and decrement
+<br>
 
-<!-- TODO -->
+<!-- TODO - Increment and decrement -->
 
 <!-- TODO - Unlike some other languages, i++ is not an expression -->
 
@@ -478,21 +496,21 @@ From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup
 
 <!-- TODO -->
 
-#### Member function calls
+<br>
 
-<!-- TODO -->
+<!-- TODO - Member function calls -->
 
-#### Properties
+<br>
 
-<!-- TODO -->
+<!-- TODO - Properties -->
 
-#### Namespace function function calls
+<br>
 
-<!-- TODO -->
+<!-- TODO - Namespace function function calls -->
 
-#### Namespace constants
+<br>
 
-<!-- TODO -->
+<!-- TODO - Namespace constants -->
 
 ## 4.8 – Helper function references
 

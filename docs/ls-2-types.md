@@ -223,6 +223,8 @@ These are all the type conversions that are possible in *DeltaScript*:
 > 
 > The operand `27.25` is a `float`, and the operand `12` is an `int`. Before this addition operation is performed, `12` is converted to the equivalent `float` (`12f` / `12.0`). That way, the operation is an addition of `float` rather than an addition of `int`. An addition of `float` preserves the fractional component of `27.25` (`0.25`), which would have been truncated had `27.25` been converted into an integer (`27`) instead.
 
+**Any value of any type** can be implicitly converted to a `string` value.
+
 ### 2.5.2 – Explicit type conversion (casting)
 
 **Explicit type conversion**, or **casting**, is when a user specifies in the source code that the value of an expression should be converted to another type. This is achieved with a cast expression<sup>[§TODO - cast expression]()</sup>, where the desired type is enclosed in parentheses before the expression whose value is to be converted.

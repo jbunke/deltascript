@@ -124,7 +124,7 @@ Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<
 > some_var = "Some " + "concatenated " + "string";
 > ```
 > 
-> This assignment statement has an LHS of `some_var` and an [RHS![](../assets/definition.png)](#rhs) of `"Some " + "concatenated " + "string"`.
+> This assignment statement has a LHS of `some_var` and a [RHS![](../assets/definition.png)](#rhs) of `"Some " + "concatenated " + "string"`.
 
 ## M
 
@@ -178,7 +178,17 @@ A constant attribute of an [object![](../assets/definition.png)](#object) define
 
 ### RHS
 
-<!-- TODO -->
+An acronym for **right-hand side**.
+
+Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<sup>[§4](./ls-4-expr.md)</sup> that lies to the right of an operator.
+
+> **Example:**
+> 
+> ```js
+> some_var = "Some " + "concatenated " + "string";
+> ```
+> 
+> This assignment statement has a [LHS![](../assets/definition.png)](#lhs) of `some_var` and a RHS of `"Some " + "concatenated " + "string"`.
 
 ## S
 
