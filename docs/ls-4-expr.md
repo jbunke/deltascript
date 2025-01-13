@@ -561,65 +561,293 @@ For incrementation and decrementation operations, the assignable `v` must be of 
 
 > **Note:**
 > 
-> Unlike in some programming languages like C and C++, in *DeltaScript*, **compound assignments are not expressions**.
+> Unlike some programming languages like C and C++, in *DeltaScript*, **compound assignments are not expressions**.
 
 ## 4.6 – Cast expressions
 
-<!-- TODO -->
+A **cast expression** is used to explicitly convert a value from one type to another<sup>[§2.5.2](./ls-2-types.md#252--explicit-type-conversion-casting)</sup>.
+
+Cast expressions are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... prior productions)
+> * `(` &lt;type&gt; `)` &lt;expr&gt;
+> * (... following productions)
+
+The type in the cast expression must be a valid type<sup>[§2](./ls-2-types.md)</sup> in *DeltaScript*. The expression being cast must be of a type that can be converted to the target type<sup>[§2.5](./ls-2-types.md#25--type-conversion)</sup>.
+
+> **Example:**
+> 
+> ```js
+> float f = (float) 10; // casts the integer 10 to a float 10.0
+> ```
 
 ## 4.7 – Function calls
 
-<!-- TODO -->
+**Function calls** are expressions that invoke a function and return its result.
+
+They are matched by the following production rules from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... prior productions)
+> * &lt;ident&gt; &lt;args&gt;
+> * &lt;namespace_ident&gt; &lt;args&gt;
+> * &lt;namespace_ident&gt;
+> * (... productions in between)
+> * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
+> * &lt;expr&gt; &lt;sub_ident&gt;
+> * (... following productions)
+> 
+> **_&lt;args&gt;_:** `(` &lt;elements&gt;? `)`
+> 
+> **_&lt;namespace\_ident&gt;_:** `$` &lt;ident&gt; &lt;sub_ident&gt;
+> 
+> **_&lt;sub\_ident&gt;_:**<sup>[d](#fn-d)</sup> `.` &lt;ident&gt;
 
 ### 4.7.1 – Global function calls
 
-<!-- TODO -->
+**Global function calls** invoke functions that are defined globally and are accessible from any scope.
+
+They are matched by the following rule production from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> &lt;ident&gt; &lt;args&gt;
+
+The global functions available in *DeltaScript* are defined by the [standard library](./functions-sl.md).
+
+> **Example:**
+> 
+> ```js
+> print("Hello, world!"); // calls the global function print
+> ```
 
 ### 4.7.2 – Helper function calls
 
-<!-- TODO -->
+**Helper function calls** invoke helper functions<sup>[§TODO - helper functions]()</sup>: named functions that follow the header function<sup>[§TODO - header function]()</sup> in the script.
+
+They are matched by the following rule production from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> &lt;ident&gt; &lt;args&gt;
+
+> **Note:**
+> 
+> This is the same rule production that matches global function calls<sup>[§4.7.1](#471--global-function-calls)</sup>.
+
+> **Example:**
+> 
+> ```js
+> (int[][] arrays) {
+>   for (arr in arrays) {
+>     ~ int sum = array_sum(arr); // helper function call
+>     print("The sum of the array " + arr + " is " + sum + ".");
+>   }
+> }
+> 
+> array_sum(int[] arr -> int) {
+>   int sum = 0;
+> 
+>   for (elem in arr)
+>     sum += elem;
+> 
+>   return sum;
+> }
+> ```
 
 ### 4.7.3 – Scoped function calls
 
-<!-- TODO -->
+Functions called on a particular [object![](../assets/definition.png)](./glossary.md#object) or namespace<sup>[§TODO - namespace]()</sup> are considered **scoped**.
+
+Scoped function calls are matched by the following production rules from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... prior productions)
+> * &lt;namespace_ident&gt; &lt;args&gt;
+> * &lt;namespace_ident&gt;
+> * (... productions in between)
+> * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
+> * &lt;expr&gt; &lt;sub_ident&gt;
+> * (... following productions)
+
+They can be sorted into **member function calls** and **namespace function calls**. **Properties** and **constants** are similar concepts that are also described in this section.
 
 <br>
 
-<!-- TODO - Member function calls -->
+**Member function calls** invoke member functions<sup>[§TODO - member functions]()</sup>: functions that are defined as callable on objects of a particular type.
+
+They are matched by the following rule production from the syntax grammar:
+
+> &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
+
+> **Example:**
+> 
+> ```js
+> () {
+>   bool check = { 1, 2, 3 }.has(1); // member function call
+>   print(check);  // prints "true"
+> 
+>   string name = "John Doe";
+>   char fourth = name.at(3); // member function call
+>   print(fourth) // prints "n"
+> }
+> ```
+> 
+> * [`has(T check) -> bool`](./collections-sl.md#has-2) is a member function of type set `T{}`
+> * [`at(int index) -> char`](./string-sl.md#at) is a member function of type `string`
 
 <br>
 
-<!-- TODO - Properties -->
+**Properties** are similar to member functions. Like member functions, they are called on objects of a particular type. However, unlike member functions, they take no [arguments![](../assets/external.png)](https://en.wikipedia.org/wiki/Parameter_(computer_programming)#Parameters_and_arguments) and simply return a value without executing any instructions.
+
+Properties are matched by the following rule production from the syntax grammar:
+
+> &lt;expr&gt; &lt;sub_ident&gt;
+
+> **Example:**
+> 
+> ```js
+> () {
+>   int redness = #ff0000.red; // property invocation
+>   print(redness); // prints "255"
+> 
+>   image new_img = new_image_of(160, 90);
+>   print(new_img.width); // property invocation; prints "160"
+> }
+> ```
+> * [`red -> int`](./color-sl.md#red) is a property of type `color`
+> * [`width -> int`](./image-sl.md#width) is a property of type `image`
 
 <br>
 
-<!-- TODO - Namespace function function calls -->
+**Namespace function calls** invoke namespace functions<sup>[§TODO - namespace functions]()</sup>: functions defines as part of a namespace<sup>[§TODO - namespace]()</sup>. A namespace is an identifier used to group functions and constants in a *DeltaScript* extension<sup>[§TODO - extension]()</sup>.
+
+They are matched by the following rule production from the syntax grammar:
+
+> &lt;namespace_ident&gt; &lt;args&gt;
+
+> **Example:**
+> 
+> Taken from the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api), an extension to *DeltaScript*
+> 
+> ```js
+> (-> color) {
+>   color primary = $SE.get_primary(); // namespace function call
+>   color secondary = $SE.get_secondary(); // namespace function call
+> 
+>   return blended_color(primary, secondary);
+> }
+> 
+> blended_color(color a, color b -> color) {
+>   color blended = $Graphics.lerp_color(a, b, 0.5); // namespace function call
+>   return blended;
+> }
+> ```
+> 
+> This script returns the blended color of the two current system colors in *Stipple Effect*. It invokes the following namespace functions:
+> 
+> * [`$SE.get_primary() -> color`](https://stipple-effect.github.io/api/global#get_primary)
+> * [`$SE.get_secondary() -> color`](https://stipple-effect.github.io/api/global#get_secondary)
+> * [`$Graphics.lerp_color(color a, color b, float t) -> color`](https://stipple-effect.github.io/api/graphics#lerp_color)
 
 <br>
 
-<!-- TODO - Namespace constants -->
+**Constants** are to namespaces what properties are to objects of particular types. Namespaces may define [constants![](../assets/external.png)](https://en.wikipedia.org/wiki/Constant_(computer_programming)).
+
+They are matched by the following rule production from the syntax grammar:
+
+> &lt;namespace_ident&gt;
+
+> **Example:**
+> 
+> Taken from the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api), an extension to *DeltaScript*
+> 
+> ```js
+> () {
+>   project p = $SE.get_project();
+>   save_config psc = p.get_save_config();
+>   psc.set_save_type($SE.GIF); // constant invocation
+>   p.save();
+> }
+> ```
+> 
+> This script changes the save association of the active *Stipple Effect* project to export to a GIF image and then saves the project. [`$SE.GIF`](https://stipple-effect.github.io/api/global#save-type-constants) is an `int` constant defined by the [`$SE` namespace](https://stipple-effect.github.io/api/global).
 
 ## 4.8 – Helper function references
 
-<!-- TODO -->
+<!-- TODO - fix -->
+
+Helper function references are expressions that refer to helper functions without invoking them. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * `::` &lt;ident&gt;
+
+> **Example:**
+> 
+> ```js
+> var ref = ::helper_function; // references a helper function
+> ```
 
 ## 4.9 – Anonymous functions
 
-<!-- TODO -->
+**Anonymous functions**, also known as **lambda expressions**, are functions defined without a name within the body of another function.
 
-<!-- TODO - aka lambda expressions -->
+They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+<!-- TODO - fix -->
+
+> **_&lt;expr&gt;_:**
+> * &lt;lambda_params&gt; &lt;lambda_body&gt;
+
+> **Example:**
+> 
+> ```js
+> var anon = (int x, int y) -> x + y; // defines an anonymous function
+> ```
 
 ## 4.10 – Array and list elements
 
-<!-- TODO -->
+<!-- TODO - fix -->
+
+Array and list elements can be accessed as expressions by using their indices. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * &lt;ident&gt; `[` &lt;expr&gt; `]`
+
+> **Example:**
+> 
+> ```js
+> int[] arr = [1, 2, 3];
+> int first = arr[0]; // accesses the first element of the array
+> ```
 
 ## 4.11 – Explicit collections
 
-<!-- TODO -->
+<!-- TODO - fix -->
+
+Explicit collections are expressions that define collections directly. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * `{` &lt;elements&gt;? `}`
+
+> **Example:**
+> 
+> ```js
+> int[] arr = {1, 2, 3}; // defines an array with three elements
+> ```
 
 ## 4.12 – Collection initializers
 
-<!-- TODO -->
+<!-- TODO - fix -->
+
+Collection initializers are expressions that initialize collections with specific elements. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * `new` &lt;type&gt; `[` &lt;expr&gt; `]`
+> * `new` `{` &lt;type&gt; `:` &lt;type&gt; `}`
+
+> **Example:**
+> 
+> ```js
+> int[] arr = new int[3]; // initializes an array with three elements
+> ```
 
 ---
 
@@ -628,3 +856,4 @@ For incrementation and decrementation operations, the assignable `v` must be of 
 * <sup id="fn-a">a</sup> - `T` represents an arbitrary element type
 * <sup id="fn-b">b</sup> - `K` represents an arbitrary type for keys of the map, while `V` represents an arbitrary type for values of the map
 * <sup id="fn-c">c</sup> - `a` and `b` are both arbitrary expressions of the type indicated by the row of the table
+* <sup id="fn-d">d</sup> - The rule &lt;sub_ident&gt; is adapted slightly for the sake of brevity
