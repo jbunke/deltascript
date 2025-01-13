@@ -270,9 +270,9 @@ Unary operators consist of one of the **unary operators** `!`, `-`, `#|` followe
 From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
-> * (... prior productions)
+> * (... higher precedence productions)
 > * ( `-` | `!` | `#|` ) &lt;expr&gt;
-> * (... following productions)
+> * (... lower precedence productions)
 
 <br>
 
@@ -352,13 +352,13 @@ Binary operations consist of two operand expressions separated by a **binary ope
 From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
-> * (... prior productions)
+> * (... higher precedence productions)
 > * &lt;expr&gt; `^` &lt;expr&gt;
 > * &lt;expr&gt; ( `*` | `/` | `%` ) &lt;expr&gt;
 > * &lt;expr&gt; ( `+` | `-` ) &lt;expr&gt;
 > * &lt;expr&gt; ( `==` | `!=` | `>` | `<` | `>=` | `<=` ) &lt;expr&gt;
 > * &lt;expr&gt; ( `||` | `&&` ) &lt;expr&gt;
-> * (... following productions)
+> * (... lower precedence productions)
 
 Binary operators of the same precedence are left-[associative![](../assets/external.png)](https://en.wikipedia.org/wiki/Operator_associativity).
 
@@ -570,9 +570,9 @@ A **cast expression** is used to explicitly convert a value from one type to ano
 Cast expressions are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
-> * (... prior productions)
+> * (... higher precedence productions)
 > * `(` &lt;type&gt; `)` &lt;expr&gt;
-> * (... following productions)
+> * (... lower precedence productions)
 
 The type in the cast expression must be a valid type<sup>[§2](./ls-2-types.md)</sup> in *DeltaScript*. The expression being cast must be of a type that can be converted to the target type<sup>[§2.5](./ls-2-types.md#25--type-conversion)</sup>.
 
@@ -589,14 +589,14 @@ The type in the cast expression must be a valid type<sup>[§2](./ls-2-types.md)<
 They are matched by the following production rules from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
-> * (... prior productions)
+> * (... higher precedence productions)
 > * &lt;ident&gt; &lt;args&gt;
 > * &lt;namespace_ident&gt; &lt;args&gt;
 > * &lt;namespace_ident&gt;
 > * (... productions in between)
 > * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
 > * &lt;expr&gt; &lt;sub_ident&gt;
-> * (... following productions)
+> * (... lower precedence productions)
 > 
 > **_&lt;args&gt;_:** `(` &lt;elements&gt;? `)`
 > 
@@ -606,7 +606,7 @@ They are matched by the following production rules from the syntax grammar<sup>[
 
 ### 4.7.1 – Global function calls
 
-**Global function calls** invoke functions that are defined globally and are accessible from any scope.
+**Global function calls** invoke functions that are defined globally<sup>[§TODO - global functions]()</sup> and are accessible from any scope.
 
 They are matched by the following rule production from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -659,13 +659,13 @@ Functions called on a particular [object![](../assets/definition.png)](./glossar
 Scoped function calls are matched by the following production rules from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
-> * (... prior productions)
+> * (... higher precedence productions)
 > * &lt;namespace_ident&gt; &lt;args&gt;
 > * &lt;namespace_ident&gt;
 > * (... productions in between)
 > * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
 > * &lt;expr&gt; &lt;sub_ident&gt;
-> * (... following productions)
+> * (... lower precedence productions)
 
 They can be sorted into **member function calls** and **namespace function calls**. **Properties** and **constants** are similar concepts that are also described in this section.
 
@@ -772,18 +772,51 @@ They are matched by the following rule production from the syntax grammar:
 
 ## 4.8 – Helper function references
 
-<!-- TODO - fix -->
+**Helper function references** are expressions that return object references to helper functions without invoking them.
 
-Helper function references are expressions that refer to helper functions without invoking them. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
 > * `::` &lt;ident&gt;
+> * (... lower precedence productions)
+
+Function objects can be invoked with the special `call()` function<sup>[§TODO - `call` function]()</sup>, which accepts the function's arguments.
 
 > **Example:**
 > 
 > ```js
-> var ref = ::helper_function; // references a helper function
+> (color c -> color[]) {
+>   (color -> color)[] transformations = [
+>     ::iso_r,        // helper function reference
+>     ::iso_g,        // helper function reference
+>     ::iso_b,        // helper function reference
+>     ::greyscale     // helper function reference
+>   ];
+>   color[] output = new color[#|transformations];
+> 
+>   for (int i = 0; i < #|transformations; i++)
+>     output[i] = transformations[i].call(c); // call()
+> 
+>   return output;
+> }
+> 
+> iso_r(color c -> color) -> rgba(c.red, 0, 0, c.alpha)
+> iso_g(color c -> color) -> rgba(0, c.green, 0, c.alpha)
+> iso_b(color c -> color) -> rgba(0, 0, c.blue, c.alpha)
+> 
+> greyscale(color c -> color) {
+>   int avg = (c.red + c.green + c.blue) / 3;
+>   return rgba(avg, avg, avg, c.alpha);
+> }
 > ```
+
+> **Planned:**
+> 
+> Future language versions may support a similar syntax for referencing global functions<sup>[§TODO - global functions]()</sup> and namespace functions<sup>[§TODO - namespace functions]()</sup>.
+> 
+> * `::max`
+> * `$Math::tan`
 
 ## 4.9 – Anonymous functions
 
@@ -791,63 +824,206 @@ Helper function references are expressions that refer to helper functions withou
 
 They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-<!-- TODO - fix -->
-
 > **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
 > * &lt;lambda_params&gt; &lt;lambda_body&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;lambda_params&gt;_:**
+> * `(` `)`
+> * &lt;ident&gt;
+> * `(` &lt;ident&gt; ( `,` &lt;ident&gt; )\+ `)`
+> 
+> **_&lt;lambda_body&gt;_:** `->` ( &lt;body&gt; | &lt;expr&gt; )
+
+Parameters of anonymous functions do not have their types explicitly declared. As anonymous functions are expressions, they are used in contexts where values or objects of a particular type are expected. As such, the types of their parameters can be inferred.
 
 > **Example:**
 > 
 > ```js
-> var anon = (int x, int y) -> x + y; // defines an anonymous function
+> () {
+>   (string, string -> string) string_function = 
+>           (a, b) -> flip_coin() ? a + b : b + " " + a; // anon. function definition
+> 
+>   string result = string_function.call("race", "car"); // call()
+>   print(result);
+> }
 > ```
+> 
+> This script has a 50% chance of printing `racecar` and a 50% chance of printing `car race`.
+> 
+> The anonymous function `(a, b) -> ...` is defined in the initialization<sup>[§3.2.2](./ls-3-vars.md#322--initialization)</sup> statement for the variable `string_function` with the functional type<sup>[§2.4](./ls-2-types.md#24--functional-types)</sup> `(string, string -> string)`. This context lets the compiler or interpreter to know that the parameters `a`, `b` are of type `string`, and that the anonymous function returns a value of type `string`.
+ 
+Like helper function references<sup>[§4.8](#48--helper-function-references)</sup>, anonymous function expressions are function objects. Thus, they can be invoked with the special `call()` function<sup>[§TODO - `call` function]()</sup>, which accepts the function's arguments.
 
 ## 4.10 – Array and list elements
 
 <!-- TODO - fix -->
 
-Array and list elements can be accessed as expressions by using their indices. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+Array and list elements can be accessed as expressions by using their **indices**.
+
+Array and list element expressions are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
-> * &lt;ident&gt; `[` &lt;expr&gt; `]`
+> * (... higher precedence productions)
+> * &lt;assignable&gt;
+> * (... lower precedence productions)
+
+**_&lt;assignable&gt;_:**
+* (... higher precedence productions)
+* &lt;ident&gt; `<` &lt;expr&gt; `>`
+* &lt;ident&gt; `[` &lt;expr&gt; `]`
+
+> **Planned:**
+> 
+> The current syntax grammar is overly restrictive, and only allows for array and list element expressions that are assignables: cases where the collection in the expression is a variable<sup>[§3.1](./ls-3-vars.md#31--variables)</sup>.
+> 
+> ```js
+> () {
+>   int[] arr = [ 1, 2, 3, 4 ];
+>   print(arr[0]); // valid in language version 0.1.0
+>   print([ 1, 2, 3, 4 ][0]); // syntax error
+> 
+>   int[][] arr2 = [ arr, [ 5, 6, 7, 8 ] ];
+>   print(arr2[0][0]); // syntax error
+> }
+> ```
+> 
+> 
+> Future language versions will change the syntax grammar rules that match array and list elements to something akin to this:
+> 
+>> **_&lt;expr&gt;_:**
+>> * (... higher precedence productions)
+>> * &lt;expr&gt; `[` &lt;expr&gt; `]`
+>> * &lt;expr&gt; `<` &lt;expr&gt; `>`
+>> * (... lower precedence productions)
+> 
+> That way, the syntax errors indicated above will be valid syntax.
+
+**Array elements** are accessed with square brackets `[]`, and **list elements** are accessed with angle brackets `<>`.
 
 > **Example:**
 > 
 > ```js
-> int[] arr = [1, 2, 3];
-> int first = arr[0]; // accesses the first element of the array
+> () {
+>   int[] arr = [1, 2, 3];
+>   int first = arr[0]; // accesses the first element of the array
+> 
+>   string<> words = <>;
+>   words.add("Able");
+>   words.add("was");
+>   words.add("I");
+>   words.add("ere");
+>   words.add("I");
+>   words.add("saw");
+>   words.add("Elba");
+>   string last = words<#|words - 1>; // accesses the last element of the list
+> }
 > ```
+
+> **Note:**
+> 
+> *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 ## 4.11 – Explicit collections
 
 <!-- TODO - fix -->
 
-Explicit collections are expressions that define collections directly. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+**Explicit collections** are expressions that define collections directly by writing out their contents (elements or key-value pairs).
+
+They are matched by the following productions of &lt;expr&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * `{` &lt;kv_pairs&gt; `}`
+> * `[` &lt;elements&gt;? `]`
+> * `<` &lt;elements&gt;? `>`
 > * `{` &lt;elements&gt;? `}`
+> * (... lower precedence productions)
+> 
+> **_&lt;kv_pairs&gt;_:** &lt;kv_pair&gt; ( `,` &lt;kv_pair&gt; )\*
+> 
+> **_&lt;kv_pair&gt;_:** &lt;expr&gt; `:` &lt;expr&gt;
+> 
+> **_&lt;elements&gt;_:** &lt;expr&gt; ( `,` &lt;expr&gt; )\*
+
+Each type of collection<sup>[§2.3](./ls-2-types.md#23--collection-types)</sup> has a unique syntax:
+
+* Maps<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> are explicitly defined by outer curly braces `{}`. Key-value pairs are comma-separated `,`. The key and value in a pair are separated by a colon `:`, with the key to the left of the colon and the value to the right.
+* Arrays<sup>[§2.3.1](./ls-2-types.md#231--arrays)</sup> are explicitly defined by outer square brackets `[]`. Elements are comma-separated `,`.
+* Lists<sup>[§2.3.2](./ls-2-types.md#232--lists)</sup> are explicitly defined by outer angle brackets `<>`. Elements are comma-separated `,`.
+* Sets<sup>[§2.3.3](./ls-2-types.md#233--sets)</sup> are explicitly defined by outer curly braces `{}`. Elements are comma-separated `,`.
 
 > **Example:**
 > 
 > ```js
-> int[] arr = {1, 2, 3}; // defines an array with three elements
+> () {
+>   ~ float PI_APPROX = 3.1415;
+> 
+>   int[] arr = [ 1, 2, 3, 4 ];
+>   float{} set = { 1.0 - 0.5, PI_APPROX, 4f, 7.9 };
+>   string<> list = <"This", "is", "a", "list">;
+>   {char : int} map = { 'a' : 1, 'b' : 2, 'j' : (int) 'j' - (int) 'a' + 1, 'z' : 26 };
+> }
 > ```
+> 
+> * `arr` - explicit integer array
+> * `set` - explicit set of floating-point numbers
+> * `list` - explicit list of strings
+> * `map` - explicit map of character to integer associations
+> 
+> Note the use of non-literal expressions like `PI_APPROX` and `(int) 'j' - (int) 'a' + 1` within the explicit collections.
 
 ## 4.12 – Collection initializers
 
-<!-- TODO - fix -->
+**Collection initializers** are special ways of creating empty collections. Only arrays<sup>[§2.3.1](./ls-2-types.md#231--arrays)</sup> and maps<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> have collection initializers.
 
-Collection initializers are expressions that initialize collections with specific elements. They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+They are matched by the following productions of &lt;expr&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
 > * `new` &lt;type&gt; `[` &lt;expr&gt; `]`
 > * `new` `{` &lt;type&gt; `:` &lt;type&gt; `}`
+> * (... lower precedence productions)
+
+<br>
+
+To create an empty **array** `T[]` with `n` elements, where `T` is an abstract type representing the type of elements in the array, and `n` is an expression that evaluates to a non-negative `int`:
+
+```js
+new T[n]
+```
+
+<br>
+
+To create an empty **map** `{K:V}`, where `K` is an abstract type representing the type of keys in the map, and `V` is an abstract type representing the type of the map's values:
+
+```js
+new {K:V}
+```
+
+<br>
 
 > **Example:**
 > 
 > ```js
-> int[] arr = new int[3]; // initializes an array with three elements
+> () {
+>   final int ALLOWANCE = 10;
+> 
+>   string[] words = new string[5];
+>   int[] nums = new int[rand(3, 7)];
+>   (int -> char)[] int_to_char_fs = new (int -> char)[ALLOWANCE - 2];
+> 
+>   {string : char[]} str_to_letters = new {string : char[]};
+>   {(-> int) : int} first_output = new {(-> int) : int};
+> }
 > ```
+> 
+> * `words` - an empty string array with 5 allocated elements
+> * `nums` - an empty integer array with between 3 and 6 allocated elements
+> * `int_to_char_fs` - an empty array of integer to character functions with 8 (`ALLOWANCE - 2`) allocated elements
+> * `str_to_letters` - an empty map of string to character array mappings
+> * `first_output` - an empty map of integer-returning function to integer mappings
 
 ---
 
