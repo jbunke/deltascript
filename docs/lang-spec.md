@@ -132,7 +132,7 @@ For a more beginner-friendly overview of the language, please see the [guides se
     * Namespace functions
     * Extension member functions
 * Function semantics
-  * No return value
+  * Exhaustiveness / No return value
   * Parameters and arguments
 
 ### [7 – Execution](./ls-7-exec.md)
