@@ -70,61 +70,32 @@ For a more beginner-friendly overview of the language, please see the [guides se
 * [**3.4**](./ls-3-vars.md#34--variable-scope) – Variable scope
 
 ### [4 – Expressions](./ls-4-expr.md)
-* Precedence
-* Nested expressions
-* Literals
-  * `bool` literals
-  * `char` literals
-  * `color` literals
-  * `int` literals
-    * Decimal literals
-    * Hexadecimal literals
-  * `float` literals
-    * Decimal point notation
-    * `f` notation
-  * `string` literals
-* Variables as expressions
-* Operators
-  * Unary operators
-    * Not (`!`)
-    * Negative (`-`)
-    * Length / size (`#|`)
-  * Binary operators
-    * Additive operators
-      * Addition (concatenation)
-      * Subtraction
-    * Multiplicative operators
-      * Multiplication
-      * Division (by zero)
-      * Modulo (by zero, handling of negative operands)
-    * Exponent (deprecated)
-    * Comparison operators
-      * Equality
-      * Inequality
-      * GT
-      * GTEQ
-      * LTEQ
-      * LT
-    * Logic operators
-      * And
-      * Or
-  * Ternary operator
-  * Compound assignment operators
-    * Increment and decrement (not expressions)
-* Cast expressions
-* Function calls
-  * Global function calls
-  * Helper function calls
-  * Scoped function calls
-    * Member function calls
-    * Properties
-    * Namespace function function calls
-    * Namespace constants
-* Helper function references
-* Anonymous functions
-* Array and list elements
-* Explicit collections
-* Collection initializers
+* [**4.1**](./ls-4-expr.md#41--precedence) – Precedence
+* [**4.2**](./ls-4-expr.md#42--nested-expressions) – Nested expressions
+* [**4.3**](./ls-4-expr.md#43--literals) – Literals
+  * [**4.3.1**](./ls-4-expr.md#431--bool-literals) – `bool` literals
+  * [**4.3.2**](./ls-4-expr.md#432--char-literals) – `char` literals
+  * [**4.3.3**](./ls-4-expr.md#433--color-literals) – `color` literals
+  * [**4.3.4**](./ls-4-expr.md#434--int-literals) – `int` literals
+  * [**4.3.5**](./ls-4-expr.md#435--float-literals) – `float` literals
+  * [**4.3.6**](./ls-4-expr.md#436--string-literals) – `string` literals
+  * [**4.3.7**](./ls-4-expr.md#437--escape-sequences) – Escape sequences
+* [**4.4**](./ls-4-expr.md#44--variables-as-expressions) – Variables as expressions
+* [**4.5**](./ls-4-expr.md#45--operators) – Operators
+  * [**4.5.1**](./ls-4-expr.md#451--unary-operators) – Unary operators
+  * [**4.5.2**](./ls-4-expr.md#452--binary-operators) – Binary operators
+  * [**4.5.3**](./ls-4-expr.md#453--ternary-operator) – Ternary operator
+  * [**4.5.4**](./ls-4-expr.md#454--compound-assignment-operators) – Compound assignment operators
+* [**4.6**](./ls-4-expr.md#46--cast-expressions) – Cast expressions
+* [**4.7**](./ls-4-expr.md#47--function-calls) – Function calls
+  * [**4.7.1**](./ls-4-expr.md#471--global-function-calls) – Global function calls
+  * [**4.7.2**](./ls-4-expr.md#472--helper-function-calls) – Helper function calls
+  * [**4.7.3**](./ls-4-expr.md#473--scoped-function-calls) – Scoped function calls
+* [**4.8**](./ls-4-expr.md#48--helper-function-references) – Helper function references
+* [**4.9**](./ls-4-expr.md#49--anonymous-functions) – Anonymous functions
+* [**4.10**](./ls-4-expr.md#410--array-and-list-elements) – Array and list elements
+* [**4.11**](./ls-4-expr.md#411--explicit-collections) – Explicit collections
+* [**4.12**](./ls-4-expr.md#412--collection-initializers) – Collection initializers
 
 ### [5 – Statements](./ls-5-stat.md)
 * Declaration statements
