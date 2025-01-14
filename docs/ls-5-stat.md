@@ -289,25 +289,160 @@ A value that is defined to be checked against the control expression in an `is` 
 
 > **Note:**
 > 
-> An `is` case consisting of multiple match values is "unfolded" into multiple `is` cases consisting of a single match value each under the hood.
+> [Under the hood![](../assets/definition.png)](./glossary.md#under-the-hood), an `is` case consisting of multiple match values is "unfolded" into multiple `is` cases consisting of a single match value each.
 
 <br>
-
-<!-- TODO - proofread -->
 
 The `matches` keyword is used to specify a **case that matches a pattern**.
 
+The **pattern** of a `matches` case must be an expression of type `bool`.
+
+`matches` cases are designed to make use of the special identifier<sup>[§3.2.1](./ls-3-vars.md#321--variable-names)</sup> `_`, which replaces the control expression in pattern definitions. When the `matches` case is reached, the control expression is evaluated, and every use of `_` in the pattern is replaced by the control expression's value.
+
+> **Example:**
+> 
+> ```js
+> when ("Test string") {
+>   matches _.has('T') -> { /* do something */ }
+>   matches #|_ > 5 -> { /* do something */ }
+> }
+> ```
+> 
+> When replaced by the control expression, these patterns correspond to:
+> 
+> ```js
+> "Test string".has('T')        // true
+> #|"Test string" > 5           // true, as #|"Test string" == 11
+> ```
+
+`matches` patterns can avoid the special identifier `_` and the control expression entirely, though this likely indicates a poor use of the `matches` case.
+
+> **Example:**
+> 
+> ```js
+> when (rand(0, 10)) {
+>   matches 5 > 3 -> { /* do something */ }
+> }
+> ```
+> 
+> Despite being nonsensical, this is valid *DeltaScript* code.
+
 <br>
 
-<!-- TODO - proofread -->
+The `passes` keyword is used to specify a **case that passes a test**.
 
-The `passes` keyword is used to specify a **case that matches a condition**.
+A test of a `passes` case must be an expression that evaluates to a function object<sup>[§TODO - function object]()</sup>. Such an expression can be a function reference<sup>[§4.8](./ls-4-expr.md#48--helper-function-references)</sup> (`::`) or an anonymous function<sup>[§4.9](./ls-4-expr.md#49--anonymous-functions)</sup>.
+
+For a `when` statement with a control expression of an arbitrary type `T`, a test of a `passes` case must be of a functioal type<sup>[§2.4](./ls-2-types.md#24--functional-types)</sup> `(T -> bool)`. In other words, the test must be a function that accepts a single parameter of the same type as the control expression and returns a `bool` value. Such functions are called [predicates![](../assets/external.png)](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)).
+
+> **Example:**
+> 
+> ```js
+> () {
+>   string[] words = [
+>     "Racecar", "Pilot", "Madam", 
+>     "Able was I ere I saw Elba", 
+>     "Nurses run", "Highway 61", 
+>     "A man, a plan, a canal - Panama"
+>   ];
+> 
+>   (string -> bool) no_whitespace_palindrome = 
+>           (s -> palindrome(no_whitespace(s)));
+> 
+>   for (word in words) {
+>     when (word) {
+>       passes ::palindrome -> print("\"" + _ + "\" is a pure palindrome!");
+>       passes no_whitespace_palindrome -> 
+>               print("\"" + _ + "\" is a palindrome if whitespace is ignored");
+>       passes (s -> palindrome(only_letters(s))) -> 
+>               print("\"" + _ + "\" is a palindrome if whitespace and punctuation are ignored");
+>       otherwise -> print("\"" + _ + "\" is not a palindrome");
+>     }
+>   }
+> }
+> 
+> palindrome(string s -> bool) {
+>   string lc = lowercase(s);
+>   return lc == reverse(lc);
+> }
+> 
+> reverse(string s -> string) {
+>   string res = "";
+> 
+>   for (c in s)
+>     res = c + res;
+> 
+>   return res;
+> }
+> 
+> lowercase(string s -> string) {
+>   string res = "";
+> 
+>   for (c in s) {
+>     int unicode = (int) c;
+> 
+>     if (uppercase_letter(c))
+>       res += (char) ((int) 'a' + (unicode - (int) 'A'))
+>     else
+>       res += c;
+>   }
+> 
+>   return res;
+> }
+> 
+> no_whitespace(string s -> string) {
+>   ~ char{} WHITESPACE = { ' ', '\t' '\n' };
+>   string res = "";
+> 
+>   for (c in s)
+>     if (!WHITESPACE.has(c))
+>       res += c;
+>   
+>   return res;
+> }
+> 
+> only_letters(string s -> string) {
+>   string res = "";
+> 
+>   for (c in s)
+>     if (uppercase_letter(c) || lowercase_letter(c))
+>       res += c;
+>   
+>   return res;
+> }
+> 
+> uppercase_letter(char c -> bool) {
+>   int unicode = (int) c;
+>   return unicode >= (int) 'A' && unicode <= (int) 'Z';
+> }
+> 
+> lowercase_letter(char c -> bool) {
+>   int unicode = (int) c;
+>   return unicode >= (int) 'a' && unicode <= (int) 'z';
+> }
+> ```
+> 
+> This script produces the output:
+> 
+> ```
+> "Racecar" is a pure palindrome!
+> "Pilot" is not a palindrome
+> "Madam" is a pure palindrome!
+> "Able was I ere I saw Elba" is a pure palindrome!
+> "Nurses run" is a palindrome if whitespace is ignored
+> "Highway 61" is not a palindrome
+> "A man, a plan, a canal - Panama" is a palindrome if whitespace and punctuation are ignored
+> ```
+> 
+> In the `when` statement, note the use of three different types of expressions for each `passes` case test:
+> 
+> * `::palindrome` - A **reference** to the helper function `palindrome(string s -> bool)`
+> * `no_whitespace_palindrome` - A **variable** that was initialized with an anonymous function that composed `palindrome(string s -> bool)` with `no_whitespace(string s -> string)`
+> * `(s -> palindrome(only_letters(s)))` - An **anonymous function** that composed `palindrome(string s -> bool)` with `only_letters(string s -> string)`
 
 <br>
 
-<!-- TODO - proofread -->
-
-The `otherwise` keyword is used to specify a default case that executes if no other cases match.
+The `otherwise` keyword is used to specify a case that executes if no other cases match. An `otherwise` case is optional; if present, it must be preceded by one or more non-trivial cases (`is`, `matches`, `passes`).
 
 <br>
 

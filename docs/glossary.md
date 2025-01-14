@@ -198,7 +198,7 @@ Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<
 
 ### Semantic equivalence
 
-Two or more expressions or units of code that have the same **meaning** and **behaviour** under the hood.
+Two or more expressions or units of code that have the same **meaning** and **behaviour** [under the hood![](../assets/definition.png)](#under-the-hood).
 
 ### Size
 
@@ -221,6 +221,10 @@ The size/length operator in *DeltaScript* is `#|`.
 ## T
 
 ## U
+
+### Under the hood
+
+Describes behaviour of a *DeltaScript* language implementation (compiler or interpreter) that may not be apparent from the syntax of the language.
 
 ## V
 

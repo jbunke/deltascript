@@ -48,6 +48,8 @@ Variable names in *DeltaScript* must be valid [identifiers![](../assets/definiti
 
 Simply put, variable names must **contain only alphanumeric characters or underscores**, **contain no spaces**, and **cannot begin with a number**.
 
+*DeltaScript* uses the **special identifier** `_` (a single underscore) to represent the **scope variable**. Certain control structures make use of a control expression. Inside the scope<sup>[§3.4](#34--variable-scope)</sup> of such a structure, the special identifier `_` acts as a stand-in for the control expression. Presently, `when` statements<sup>[§5.6.2](./ls-5-stat.md#562--when-statements)</sup> are the only such structure in *DeltaScript*.
+
 ### 3.2.2 – Initialization
 
 An **initialization statement** is a single statement that declares a variable and assigns it an initial value. Variables that were declared without an initialization are called **uninitialized**.
