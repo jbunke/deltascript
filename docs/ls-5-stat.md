@@ -25,90 +25,433 @@
 
 This chapter details the various forms statements in *DeltaScript* can take.
 
-## **5.1** – Imperative programming
+## 5.1 – Imperative programming
 
-<!-- TODO -->
+Statements are the building blocks of [imperative![](../assets/external.png)](https://en.wikipedia.org/wiki/Imperative_programming) programming languages like *DeltaScript*<sup>[a](#fn-a)</sup>. **Imperative programming** is a programming paradigm in which sequential instructions to change a program's state. These instructions are called statements.
 
-## **5.2** – Statements
+## 5.2 – Statements
 
-<!-- TODO -->
+A **statement** is an instruction. In *DeltaScript*, statements can be conceptualized as any chunk of code that tells the program to do something. Expressions<sup>[§4](./ls-4-expr.md)</sup> are evaluated, whereas statements are **executed**.
 
-## **5.3** – Declarations
+Simple statements like assignments<sup>[§5.4](#54--assignments)</sup> or void function calls<sup>[§5.5](#55--void-function-calls)</sup> terminate with a semicolon `;` and often fit on a single line. Complex statements like control flow structures (conditionals and loops) define a nested scope<sup>[§3.4](./ls-3-vars.md#34--variable-scope)</sup> and may contain many statements themselves.
 
-<!-- TODO -->
+Statements are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-## **5.4** – Assignments
+> **_&lt;stat&gt;_:**
+> * &lt;loop_stat&gt;
+> * &lt;if_stat&gt;
+> * &lt;when_stat&gt;
+> * &lt;var_def&gt; `;`
+> * &lt;assignment&gt; `;`
+> * &lt;return_stat&gt;
+> * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt; `;`
+> * &lt;ident&gt; &lt;args&gt; `;`
+> * &lt;namespace_ident&gt; &lt;args&gt; `;`
 
-<!-- TODO -->
+## 5.3 – Declarations
 
-## **5.5** – Void function calls
+**Declarations**<sup>[§3.2](./ls-3-vars.md#32--declarations)</sup> are statements that introduce new variables<sup>[§3.1](./ls-3-vars.md#31--variables)</sup>. A declaration specifies the type and name of the variable, and optionally, its initial value. A declaration that defines the initial value of its variable is called an initialization<sup>[§3.2.2](./ls-3-vars.md#322--initialization)</sup>.
 
-<!-- TODO -->
+Declaration statements are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-## **5.6** – Conditional statements
+> **_&lt;stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;var_def&gt; `;`
+> * (... lower precedence productions)
+> 
+> **_&lt;var\_def&gt;_:** &lt;declaration&gt; | &lt;var_init&gt;
+> 
+> **_&lt;var\_init&gt;_:** &lt;declaration&gt; `=` &lt;expr&gt;
+> 
+> **_&lt;declaration&gt;_:** &lt;FINAL&gt;? &lt;type&gt; &lt;ident&gt;
 
-<!-- TODO -->
+## 5.4 – Assignments
 
-### **5.6.1** – `if` statements
+**Assignments** are statements that update the value of an assignable expression<sup>[§4](./ls-4-expr.md)</sup>.
 
-<!-- TODO -->
+An **assignable** can be:
 
-### **5.6.2** – `when` statements
+* A variable<sup>[§4.4](./ls-4-expr.md#44--variables-as-expressions)</sup>
+* An array element<sup>[§4.10](./ls-4-expr.md#410--array-and-list-elements)</sup> of a variable representing an array<sup>[§2.3.1](./ls-2-types.md#231--arrays)</sup>
+* A list element<sup>[§4.10](./ls-4-expr.md#410--array-and-list-elements)</sup> of a variable representing a list<sup>[§2.3.2](./ls-2-types.md#232--lists)</sup>
 
-<!-- TODO - overview -->
+Assignment statements can be split into standard assignments and compound assignments.
 
-<!-- TODO - cases -->
+**Standard assignments** consist of an assignable [LHS![](../assets/definition.png)](./glossary.md#lhs), the assignment operator `=`, and the value to be assigned to the assignable as the [RHS![](../assets/definition.png)](./glossary.md#rhs).
+
+**Compound assignments** are a shorthand syntax used to express assignments that reference the assignable's current value to define its updated value. They make use of one of the compound assignment operators<sup>[§4.5.4](./ls-4-expr.md#454--compound-assignment-operators)</sup>.
+
+Assignments are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;assignment&gt; `;`
+> * (... lower precedence productions)
+> 
+> **_&lt;assignment&gt;_:**
+> * &lt;assignable&gt; `=` &lt;expr&gt;
+> * &lt;assignable&gt; `++`
+> * &lt;assignable&gt; `--`
+> * &lt;assignable&gt; `+=` &lt;expr&gt;
+> * &lt;assignable&gt; `-=` &lt;expr&gt;
+> * &lt;assignable&gt; `*=` &lt;expr&gt;
+> * &lt;assignable&gt; `/=` &lt;expr&gt;
+> * &lt;assignable&gt; `%=` &lt;expr&gt;
+> * &lt;assignable&gt; `&=` &lt;expr&gt;
+> * &lt;assignable&gt; `|=` &lt;expr&gt;
+> 
+> **_&lt;assignable&gt;_:**
+> * &lt;ident&gt;
+> * &lt;ident&gt; `<` &lt;expr&gt; `>`
+> * &lt;ident&gt; `[` &lt;expr&gt; `]`
+
+Attempting to assign a value to a variable declared as immutable<sup>[§3.2.3](./ls-3-vars.md#323--immutability)</sup> (`final`, `~`) causes a semantic error<sup>[§TODO - semantic error]()</sup>.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   int x;
+>   x = 5; // assignment of the value 5 to x
+>   x = rand(0, 10); // assigns a random integer between 0 and 10 to x
+> 
+>   final int y = 10;
+>   y = 5; // semantic error - script cannot be executed
+> }
+> ```
+
+## 5.5 – Void function calls
+
+**Void function calls** in *DeltaScript* invoke functions that do not return a value<sup>[§TODO - void functions]()</sup>. These functions perform actions but do not produce a result that can be used in expressions.
+
+Void function calls are matched by the following productions of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt; `;`
+> * &lt;ident&gt; &lt;args&gt; `;`
+> * &lt;namespace_ident&gt; &lt;args&gt; `;`
+> 
+> **_&lt;args&gt;_:** `(` &lt;elements&gt;? `)`
+> 
+> **_&lt;elements&gt;_:** &lt;expr&gt; ( `,` &lt;expr&gt; )\*
+
+> **Example:**
+> 
+> ```js
+> () {
+>   print("Hello, World!"); // void function call
+> 
+>   {string:color} named_colors = new {string:color};
+>   named_colors.define("red", #ff0000); // void function call
+> }
+> ```
+> 
+> This script calls two different kinds of void functions: a global function<sup>[§TODO - global functions]()</sup> and a member function<sup>[§TODO - member functions]()</sup> of the type map<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> `{K:V}`.
+> 
+> * The global function [`print(T message);`](./functions-sl.md#print) prints a value to output, but returns nothing
+> * The map function [`MAP.define(K key, V value);`](./collections-sl.md#define) adds a mapping from `key` to `value` to `MAP`, but returns nothing
+
+## 5.6 – Conditional statements
+
+**Conditional statements** in *DeltaScript* allow the program to execute different code paths based on certain conditions. The primary conditional statements are `if` and `when`.
+
+### 5.6.1 – `if` statements
+
+**`if` statements** execute a block of code if a specified condition is true. Optionally, subsequent `else if` branches may be used to specify alternative conditions and alternative behaviours if those conditions are met. Finally, an `if` statement may include an `else` branch for code to be executed if no prior condition from the `if` branch or any `else if` branches was met.
+
+If the conditional expression of an `if` or `else if` branch is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+
+`if` statements are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;if_stat&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;if_stat&gt;_:** &lt;if_def&gt; ( `else` &lt;if_def&gt; )\* ( `else` &lt;body&gt; )?
+> 
+> **_&lt;if_def&gt;_:** `if` `(` &lt;expr&gt; `)` &lt;body&gt;
+
+> **Examples:**
+> 
+> 1.  A simple `if` statement
+>     
+>     ```js
+>     (-> bool) {
+>       int seed = rand(0, 11);
+> 
+>       if (seed == 0) {
+>         print("Lucky you!");
+>         return true;
+>       }
+> 
+>       return false;
+>     }
+>     ```
+> 
+>     `Lucky you!` is only printed if `seed` evaluates to `0`.
+> 
+> 2.  An `if` statement with an `else if` branch and an `else` branch
+> 
+>     ```js
+>     (int num -> bool) {
+>       if (num <= 1)
+>         return false;    // num is not prime if it is less than or equal to 1
+>       else if (num % 2 == 0)
+>         return num == 2; // if num is divisible by 2, num is prime iff num is 2
+>       else {             // otherwise, num is prime if it has exactly 2 factors
+>         int[] fs = factors(num);
+>         return #|fs == 2;
+>       }
+>     }
+> 
+>     factors(int num -> int[]) { /* ... */ }
+>     ```
+> 
+>     This script returns `true` [iff![](../assets/definition.png)](./glossary.md#iff) the argument supplied to its parameter `num` is a prime number. Note that the `if` and `else if` blocks in the example consist of a single statement each and are not enclosed in curly braces `{}`.
+
+### 5.6.2 – `when` statements
+
+**`when` statements** in *DeltaScript* are similar to [`switch` statements![](../assets/external.png)](https://en.wikipedia.org/wiki/Switch_statement) in other programming languages. They allow the program to execute different blocks of code based on the value of a **control expression**.
+
+> **Experimental:**
+> 
+> The `when` statement is still an experimental feature in *DeltaScript*. As such, its syntax and implementation may change. Notably, the use of the keyword `otherwise` is still under review, and may be changed in favour of the reuse of the keyword `else`.
+
+> **Planned:**
+> 
+> Future language versions may introduce a `when` expression structure that is analogous to the `when` statement.
+
+`when` statements are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;when_stat&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;when_stat&gt;_:** `when` `(` &lt;expr&gt; `)` &lt;when_body&gt;
+> 
+> **_&lt;when_body&gt;_:** `{` &lt;when_case&gt;\+ &lt;otherwise_case&gt;? `}`
+> 
+> **_&lt;when_case&gt;_:**
+> * `is` &lt;elements&gt; `->` &lt;body&gt;
+> * `matches` &lt;expr&gt; `->` &lt;body&gt;
+> * `passes` &lt;expr&gt; `->` &lt;body&gt;
+> 
+> **_&lt;otherwise_case&gt;_:** `otherwise` `->` &lt;body&gt;
+> 
+> **_&lt;elements&gt;_:** &lt;expr&gt; ( `,` &lt;expr&gt; )\*
+
+Unlike traditional `switch` statements<sup>[b](#fn-b)</sup>, which consist of a series of cases that check the value of the control expression against literal expressions<sup>[§4.3](./ls-4-expr.md#43--literals)</sup>, the `when` statement is a powerful pattern matching structure that can be used for control expressions of any type.
+
+A `when` statement consists of a control expression, one or more non-trivial cases, and optionally, an `otherwise` case. Cases are checked sequentially; the first case to be matched has its block of code executed. There is no fallthrough; subsequent cases to the first matched case are neither checked, nor is their code block executed. `when` statements are non-exhaustive; if no case is matched and the `when` statement does not contain an `otherwise` case, no constituent code block is executed.
+
+> **Example:**
+> 
+> ```js
+> (color c) {
+>   ~ string pfx = "The color is ";
+>   
+>   when (c) {
+>     matches _.alpha == 0 -> print(pfx + "transparent");
+>     is #000000 -> print(pfx + "black");
+>     is #ffffff -> print(pfx + "white");
+>     matches _.r == _.g && _.r == _.b && opaque(_) -> 
+>             print(pfx + "a shade of grey");
+>     is #ff0000, #00ff00, #0000ff -> print(pfx + "an RGB primary color");
+>     passes ::bright_opaque -> print("bright");
+>     otherwise -> print(pfx + "not a match");
+>   }
+> }
+> 
+> bright_opaque(color c -> bool) {
+>   int max = max([ c.r, c.g, c.b ]);
+>   return max == 0xff && opaque(c);
+> }
+> 
+> opaque(color c -> bool) -> c.alpha == 0xff
+> ```
+
+There are three types of non-trivial cases:
+
+* `is` cases
+* `matches` cases
+* `passes` cases
+
+These cases can be written in any order in a `when` statement.
 
 <br>
 
-<!-- TODO - is -->
+The `is` keyword is used to specify a **case that matches a specific value**.
+
+A value that is defined to be checked against the control expression in an `is` case is called a **match value**. An `is` case can consist of one or more comma-separated match values. Unlike traditional `switch` statements, match values in `is` cases do not have to be literals.
+
+> **Note:**
+> 
+> An `is` case consisting of multiple match values is "unfolded" into multiple `is` cases consisting of a single match value each under the hood.
 
 <br>
 
-<!-- TODO - matches -->
+<!-- TODO - proofread -->
+
+The `matches` keyword is used to specify a **case that matches a pattern**.
 
 <br>
 
-<!-- TODO - passes -->
+<!-- TODO - proofread -->
+
+The `passes` keyword is used to specify a **case that matches a condition**.
 
 <br>
 
-<!-- TODO - otherwise -->
+<!-- TODO - proofread -->
 
-## **5.7** – Loops
+The `otherwise` keyword is used to specify a default case that executes if no other cases match.
 
-<!-- TODO -->
+<br>
 
-### **5.7.1** – `while` loops
+> **Note:**
+> 
+> `when` statements have some peculiar **semantics**. Consider the following script.
+> 
+> ```js
+> () {
+>   ~ int REPS = 100;
+> 
+>   for (int i = 0; i < REPS; i++) {
+>     when (flip_coin()) {
+>       is true, false -> print("Matched literals");
+>       matches _ || !_ -> print("Matched pattern");
+>       otherwise -> print("No match");
+>     }
+>   }
+> }
+> ```
+> 
+> This script executes a `for` loop with a `when` statement inside it 100 times. The control expression of the `when` statement is the global function [`flip_coin()`](./functions-sl.md#flip_coin), which has a 50% chance of returning `true` and a 50% chance of returning `false`. The `when` statement has two non-trivial cases and an `otherwise` case, which prints a message indicating that neither of the two non-trivial cases was matched.
+> 
+> The first case is an `is` case with the `bool` literals `true` and `false` as match values. Naively, one might assume that this case is always matched, as the result of `flip_coin()` can only be `true` or `false`. However, an `is` case of multiple match values actually unfolds into a series of `is` cases with a single match value each:
+> 
+> ```js
+> is true -> print("Matched literals");
+> is false -> print("Matched literals");
+> ```
+> 
+> Critically, **the control expression is re-evaluated on every case check**. Therefore, `flip_coin()` may return `false` during the check for the unfolded case `is true -> ...`, and `flip_coin()` may then return `true` during the check for the unfolded case `is false -> ...`, thus bypassing `is true, false -> ...`.
+> 
+> This does not occur in the `matches` case. `_ || !_` does not unfold into multiple cases, and because the control expression is only evaluated once per case, both references of the special identifier `_` will always evaluate to the same value. Thus, `_ || !_` will always be true and this case will always be matched if it is reached.
 
-<!-- TODO -->
+## 5.7 – Loops
 
-### **5.7.2** – `do`...`while` loops
+<!-- TODO - proofread -->
 
-<!-- TODO -->
+> **_&lt;stat&gt;_:**
+> * &lt;loop_stat&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;loop_stat&gt;_:**
+> * &lt;while_def&gt; &lt;body&gt;
+> * &lt;iteration_def&gt; &lt;body&gt;
+> * &lt;for_def&gt; &lt;body&gt;
+> * `do` &lt;body&gt; &lt;while_def&gt; `;`
+> 
+> **_&lt;while_def&gt;_:** `while` `(` &lt;expr&gt; `)`
+> 
+> **_&lt;iteration_def&gt;_:** `for` `(` &lt;iterator_declaration&gt; `in` &lt;expr&gt; `)`
+> 
+> **_&lt;for_def&gt;_:** `for` `(` &lt;var_init&gt; `;` &lt;expr&gt; `;` &lt;assignment&gt; `)`
+> 
+> **_&lt;iterator_declaration&gt;_:** &lt;declaration&gt; | &lt;ident&gt;
 
-### **5.7.3** – `for` loops
+Loops in *DeltaScript* allow the program to execute a block of code multiple times. The primary loop constructs are `while`, `do...while`, `for`, and iterator loops.
 
-<!-- TODO -->
+### 5.7.1 – `while` loops
 
-### **5.7.4** – Iterator loops
+<!-- TODO - proofread -->
 
-<!-- TODO -->
+`while` loops execute a block of code as long as a specified condition is true.
 
-## **5.8** – `return` statements
+```js
+while (x > 0) {
+  print(x);
+  x--;
+}
+```
 
-<!-- TODO -->
+### 5.7.2 – `do`...`while` loops
 
-### **5.8.1** – Value `return`
+<!-- TODO - proofread -->
 
-<!-- TODO -->
+`do...while` loops execute a block of code at least once, and then continue executing it as long as a specified condition is true.
 
-### **5.8.2** – Void `return`
+```js
+do {
+  print(x);
+  x--;
+} while (x > 0);
+```
 
-<!-- TODO -->
+### 5.7.3 – `for` loops
+
+<!-- TODO - proofread -->
+
+`for` loops execute a block of code a specific number of times. They consist of an initialization, a condition, and an increment expression.
+
+```js
+for (int i = 0; i < 10; i++) {
+  print(i);
+}
+```
+
+### 5.7.4 – Iterator loops
+
+<!-- TODO - proofread -->
+
+Iterator loops execute a block of code for each element in a collection.
+
+```js
+for (item in collection) {
+  print(item);
+}
+```
+
+## 5.8 – `return` statements
+
+<!-- TODO - proofread -->
+
+> **_&lt;stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;return_stat&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;return\_stat&gt;_:** `return` &lt;expr&gt;? `;`
+
+`return` statements in *DeltaScript* are used to exit a function and optionally return a value.
+
+### 5.8.1 – Value `return`
+
+<!-- TODO - proofread -->
+
+A value `return` statement exits a function and returns a specified value.
+
+```js
+return x;
+```
+
+### 5.8.2 – Void `return`
+
+<!-- TODO - proofread -->
+
+A void `return` statement exits a function without returning a value.
+
+```js
+return;
+```
 
 ---
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Here
+* <sup id="fn-a">a</sup> - *DeltaScript* has many features that make it a multi-paradigm language, but it is fundamentally imperative in its structure.
+* <sup id="fn-b">b</sup> - Recent versions of Java have extended the `switch` statement into a much more powerful and expressive [pattern matching![](../assets/external.png)](https://en.wikipedia.org/wiki/Pattern_matching) structure.

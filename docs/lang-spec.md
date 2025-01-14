@@ -131,9 +131,11 @@ For a more beginner-friendly overview of the language, please see the [guides se
   * Extension functions
     * Namespace functions
     * Extension member functions
+* Function objects
+  * `call()`
 * Function semantics
-  * Exhaustiveness / No return value
   * Parameters and arguments
+  * Return path completeness
 
 ### [7 – Execution](./ls-7-exec.md)
 * Type checking

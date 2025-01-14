@@ -858,8 +858,6 @@ Like helper function references<sup>[§4.8](#48--helper-function-references)</su
 
 ## 4.10 – Array and list elements
 
-<!-- TODO - fix -->
-
 Array and list elements can be accessed as expressions by using their **indices**.
 
 Array and list element expressions are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
@@ -926,8 +924,6 @@ Array and list element expressions are matched by the following production rule 
 > *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 ## 4.11 – Explicit collections
-
-<!-- TODO - fix -->
 
 **Explicit collections** are expressions that define collections directly by writing out their contents (elements or key-value pairs).
 

@@ -91,6 +91,10 @@ A list of such languages can be found [here![](../assets/external.png)](https://
 
 The name of a variable, helper function, function parameter, extension type, extension type property, member function, or extension namespace.
 
+### Iff
+
+If and only if
+
 ## J
 
 ## K
