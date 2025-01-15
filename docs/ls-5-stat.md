@@ -105,7 +105,7 @@ Assignments are matched by the following production of &lt;stat&gt; from the syn
 > * &lt;ident&gt; `<` &lt;expr&gt; `>`
 > * &lt;ident&gt; `[` &lt;expr&gt; `]`
 
-Attempting to assign a value to a variable declared as immutable<sup>[§3.2.3](./ls-3-vars.md#323--immutability)</sup> (`final`, `~`) causes a semantic error<sup>[§TODO - semantic error]()</sup>.
+Attempting to assign a value to a variable declared as immutable<sup>[§3.2.3](./ls-3-vars.md#323--immutability)</sup> (`final`, `~`) causes a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup>.
 
 > **Example:**
 > 
@@ -122,7 +122,7 @@ Attempting to assign a value to a variable declared as immutable<sup>[§3.2.3](.
 
 ## 5.5 – Void function calls
 
-**Void function calls** in *DeltaScript* invoke functions that do not return a value<sup>[§TODO - void functions]()</sup>. These functions perform actions but do not produce a result that can be used in expressions.
+**Void function calls** in *DeltaScript* invoke functions that do not return a value<sup>[§6.2.2](./ls-6-func.md#622--void-functions)</sup>. These functions perform actions but do not produce a result that can be used in expressions.
 
 Void function calls are matched by the following productions of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -147,7 +147,7 @@ Void function calls are matched by the following productions of &lt;stat&gt; fro
 > }
 > ```
 > 
-> This script calls two different kinds of void functions: a global function<sup>[§TODO - global functions]()</sup> and a member function<sup>[§TODO - member functions]()</sup> of the type map<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> `{K:V}`.
+> This script calls two different kinds of void functions: a global function<sup>[§6.3.4](./ls-6-func.md#634--global-functions)</sup> and a member function<sup>[§6.3.5](./ls-6-func.md#635--member-functions)</sup> of the type map<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> `{K:V}`.
 > 
 > * The global function [`print(T message);`](./functions-sl.md#print) prints a value to output, but returns nothing
 > * The map function [`MAP.define(K key, V value);`](./collections-sl.md#define) adds a mapping from `key` to `value` to `MAP`, but returns nothing
@@ -160,7 +160,7 @@ Void function calls are matched by the following productions of &lt;stat&gt; fro
 
 **`if` statements** execute a block of code if a specified condition is true. Optionally, subsequent `else if` branches may be used to specify alternative conditions and alternative behaviours if those conditions are met. Finally, an `if` statement may include an `else` branch for code to be executed if no prior condition from the `if` branch or any `else if` branches was met.
 
-If the conditional expression of an `if` or `else if` branch is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+If the conditional expression of an `if` or `else if` branch is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup> is triggered.
 
 `if` statements are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -331,7 +331,7 @@ The **pattern** of a `matches` case must be an expression of type `bool`.
 
 The `passes` keyword is used to specify a **case that passes a test**.
 
-A test of a `passes` case must be an expression that evaluates to a function object<sup>[§TODO - function object]()</sup>. Such an expression can be a function reference<sup>[§4.8](./ls-4-expr.md#48--helper-function-references)</sup> (`::`) or an anonymous function<sup>[§4.9](./ls-4-expr.md#49--anonymous-functions)</sup>.
+A test of a `passes` case must be an expression that evaluates to a function object<sup>[§6.4](./ls-6-func.md#64--function-objects)</sup>. Such an expression can be a function reference<sup>[§4.8](./ls-4-expr.md#48--helper-function-references)</sup> (`::`) or an anonymous function<sup>[§4.9](./ls-4-expr.md#49--anonymous-functions)</sup>.
 
 For a `when` statement with a control expression of an arbitrary type `T`, a test of a `passes` case must be of a functioal type<sup>[§2.4](./ls-2-types.md#24--functional-types)</sup> `(T -> bool)`. In other words, the test must be a function that accepts a single parameter of the same type as the control expression and returns a `bool` value. Such functions are called [predicates![](../assets/external.png)](https://en.wikipedia.org/wiki/Predicate_(mathematical_logic)).
 
@@ -505,7 +505,7 @@ Loops are matched by the following production of &lt;stat&gt; from the syntax gr
 
 **`while` loops** execute a block of code as long as a specified condition is true.
 
-If the conditional expression of an `while` loop is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+If the conditional expression of an `while` loop is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup> is triggered.
 
 `while` loops are matched by the following production of &lt;loop_stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -535,7 +535,7 @@ A `while` loop `while (C) B` consists of a conditional expression of type `bool`
 > 
 > The body of the `while` loop consists of a single statement `i--;`.
 
-A `while` loop's condition `C` is evaluated first. If `C` is true, `B` is executed. Once `C` is false, the loop terminates and script execution<sup>[§TODO - execution]()</sup> moves on to the next statement.
+A `while` loop's condition `C` is evaluated first. If `C` is true, `B` is executed. Once `C` is false, the loop terminates and script execution<sup>[§7.4](./ls-7-exec.md#74--runtime-execution)</sup> moves on to the next statement.
 
 ### 5.7.2 – `do`...`while` loops
 
@@ -551,9 +551,9 @@ They are matched by the following production of &lt;loop_stat&gt; from the synta
 
 A `do`...`while` loop `do B while (C);` consists of a conditional expression of type `bool` `C` and a block of code `B`, where `B` can be zero or more statements<sup>[§5.2](#52--statements)</sup> enclosed in curly braces `{}`, or a single statement without enclosing punctuation.
 
-If the expression `C` is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+If the expression `C` is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup> is triggered.
 
-When the `do`...`while` statement is reached by the script's execution, its body `B` is executed first. After the first execution of `B`, its condition `C` is evaluated. If `C` is true, `B` is executed again. This repeats until `C` is false, at which point the loop terminates and script execution<sup>[§TODO - execution]()</sup> moves on to the next statement.
+When the `do`...`while` statement is reached by the script's execution, its body `B` is executed first. After the first execution of `B`, its condition `C` is evaluated. If `C` is true, `B` is executed again. This repeats until `C` is false, at which point the loop terminates and script execution<sup>[§7.4](./ls-7-exec.md#74--runtime-execution)</sup> moves on to the next statement.
 
 > **Example:**
 > 
@@ -621,7 +621,7 @@ while (C) {
 When a `for` loop is reached by the script's execution, this is the sequence of evaluations and executions:
 
 1.  `I` is executed
-2.  `C` is evaluated. If `C` is true, proceeds to step 3. If `C` is false, the loop terminates and script execution<sup>[§TODO - execution]()</sup> moves on to the next statement following the loop.
+2.  `C` is evaluated. If `C` is true, proceeds to step 3. If `C` is false, the loop terminates and script execution<sup>[§7.4](./ls-7-exec.md#74--runtime-execution)</sup> moves on to the next statement following the loop.
 3.  `B` is executed
 4.  `A` is executed
 5.  Returns to step 2
@@ -672,7 +672,7 @@ An iterator loop `for (D in I_C) B` consists of:
   * `T{}` - a set of elements of any type `T`
 * A block of code `B`, where `B` can be zero or more statements<sup>[§5.2](#52--statements)</sup> enclosed in curly braces `{}`, or a single statement without enclosing punctuation
 
-When an iterator loop is reached by the script's execution<sup>[§TODO - execution]()</sup>, it assigns an element of the collection to the element variable and executes the loop body for each element in the collection, as outlined by the table above.
+When an iterator loop is reached by the script's execution<sup>[§7.4](./ls-7-exec.md#74--runtime-execution)</sup>, it assigns an element of the collection to the element variable and executes the loop body for each element in the collection, as outlined by the table above.
 
 > **Note:**
 > 
@@ -709,9 +709,9 @@ When an iterator loop is reached by the script's execution<sup>[§TODO - executi
 
 ## 5.8 – `return` statements
 
-**`return` statements** are used to recall the script's execution<sup>[§TODO - execution]()</sup> from a function<sup>[§TODO - function]()</sup> back to the statement in which the function was invoked. Depending on the type signature<sup>[§TODO - type signature]()</sup> of the function within which they are found, a `return` statement may return a value.
+**`return` statements** are used to recall the script's execution<sup>[§7.4](./ls-7-exec.md#74--runtime-execution)</sup> from a function<sup>[§6.1](./ls-6-func.md#61--functions)</sup> back to the statement in which the function was invoked. Depending on the type signature<sup>[§6.2](./ls-6-func.md#62--type-signatures)</sup> of the function within which they are found, a `return` statement may return a value.
 
-`return` statements can be found in any source code-defined function: a script's header function<sup>[§TODO - header function]()</sup>, its helper functions<sup>[§TODO - helper function]()</sup>, and even anonymous functions<sup>[§TODO - anonymous function]()</sup>. A `return` statement is bound to the **most immediate function scope**. Anonymous functions are defined within the bodies of other functions. The `return` statements contained therein are bound to the scope of the anonymous function, and not to the helper function, header function, or outer anonymous function within which the anonymous function was defined.
+`return` statements can be found in any source code-defined function: a script's header function<sup>[§6.3.1](./ls-6-func.md#631--header-functions)</sup>, its helper functions<sup>[§6.3.2](./ls-6-func.md#632--helper-functions)</sup>, and even anonymous functions<sup>[§6.3.3](./ls-6-func.md#633--anonymous-functions)</sup>. A `return` statement is bound to the **most immediate function scope**. Anonymous functions are defined within the bodies of other functions. The `return` statements contained therein are bound to the scope of the anonymous function, and not to the helper function, header function, or outer anonymous function within which the anonymous function was defined.
 
 `return` statements can be implicit. **Single expression function bodies** are a syntactical shorthand<sup>[§1.3.4](./ls-1-syntax.md#134--shorthands)</sup> that are treated as a function body comprising a single value-returning `return` statement [under the hood![](../assets/definition.png)](./glossary.md#under-the-hood).
 
@@ -728,9 +728,9 @@ When an iterator loop is reached by the script's execution<sup>[§TODO - executi
 
 ### 5.8.1 – Value `return`
 
-A **value `return` statement** exits a function and returns a specified value. Such statements occur in functions with a return type<sup>[§TODO - type signature]()</sup>. The return value replaces the function invocation expression<sup>[§4.7](./ls-4-expr.md#47--function-calls)</sup> in the evaluation of the expression that contained the function call.
+A **value `return` statement** exits a function and returns a specified value. Such statements occur in functions with a return type<sup>[§6.2](./ls-6-func.md#62--type-signatures)</sup>. The return value replaces the function invocation expression<sup>[§4.7](./ls-4-expr.md#47--function-calls)</sup> in the evaluation of the expression that contained the function call.
 
-A value `return` statement `return V;` consists of an expression `V` whose type matches the return type of the function containing the statement. If the type of `V` does not match the return type of the statement's container function, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+A value `return` statement `return V;` consists of an expression `V` whose type matches the return type of the function containing the statement. If the type of `V` does not match the return type of the statement's container function, a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup> is triggered.
 
 `V` is evaluated before it is returned to the function call expression.
 
@@ -748,9 +748,9 @@ A value `return` statement `return V;` consists of an expression `V` whose type 
 
 ### 5.8.2 – Void `return`
 
-A **void `return` statement** exits a function without returning a value. Such statements occur in functions with no return type<sup>[§TODO - type signature]()</sup>.
+A **void `return` statement** exits a function without returning a value. Such statements occur in functions with no return type<sup>[§6.2](./ls-6-func.md#62--type-signatures)</sup>.
 
-If a void `return` statement is found in a function with a return type, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+If a void `return` statement is found in a function with a return type, a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup> is triggered.
 
 > **Example:**
 > 

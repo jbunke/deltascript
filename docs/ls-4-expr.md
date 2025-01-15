@@ -423,7 +423,7 @@ The behaviour of the modulo operator varies across programming languages in its 
 
 * `(a / b) * b + (a % b) == a`
 
-For both the division `/` and modulo `%` operators, attempting to divide by zero (a [RHS![](../assets/definition.png)](./glossary.md#rhs) operand with a value of `0` or `0.0`) will result in a runtime error<sup>[§TODO - runtime error]()</sup>.
+For both the division `/` and modulo `%` operators, attempting to divide by zero (a [RHS![](../assets/definition.png)](./glossary.md#rhs) operand with a value of `0` or `0.0`) will result in a runtime error<sup>[§7.5.3](./ls-7-exec.md#753--runtime-errors)</sup>.
 
 The operand and return types of the division `/` and modulo `%` operators can be expressed as follows:
 
@@ -469,9 +469,9 @@ Equality is defined in the following ways for values of each of the types in the
 | List `T<>` | (1) `#\|a == #\|b`, (2) for every index `i` in `a` and `b`: `a<i> == b<i>` |
 | Set `T{}` | `a` contains every element in `b` and `b` contains every element in `a` |
 | Map `{K:V}` | (1) `a.keys()` contains every element in `b.keys()` and `b.keys()` contains every element in `a.keys()`, (2) for every element `k` in `a.keys()`: `a.lookup(k) == b.lookup(k)` |
-| *Functional type* | `a` and `b` point to the same helper function<sup>[§TODO - helper function]()</sup>; even if the type signature and logic of two distinct functions are the same, `a != b` |
+| *Functional type* | `a` and `b` point to the same helper function<sup>[§6.3.2](./ls-6-func.md#632--helper-functions)</sup> or anonymous function<sup>[§6.3.3](./ls-6-func.md#633--anonymous-functions)</sup> in the source code; even if the type signature and logic of two distinct functions are the same, `a != b` |
 
-Extension types<sup>[§TODO - helper function]()</sup> should define their own definition of equality internally. The naive definition should be based on sharing the same [object reference![](../assets/external.png)](https://en.wikipedia.org/wiki/Object_(computer_science)).
+Extension types<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup> should define their own definition of equality internally. The naive definition should be based on sharing the same [object reference![](../assets/external.png)](https://en.wikipedia.org/wiki/Object_(computer_science)).
 
 For any operand expressions `a`, `b`, `a != b` is defined as `!(a == b)`.
 
@@ -522,7 +522,7 @@ The **ternary operator** or [**conditional operator**![](../assets/external.png)
 
 [**Compound assignment operators**![](../assets/external.png)](https://en.wikipedia.org/wiki/Augmented_assignment) are a type of shorthand syntax used to simplify augmentative assignments of a variable; that is, variable assignments that incorporate the variable's current value to calculate the value being assigned.
 
-For reference, this is the production rule for assignment statements<sup>[§TODO - assignment statements]()</sup> from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+For reference, this is the production rule for assignment statements<sup>[§5.4](./ls-5-stat.md#54--assignments)</sup> from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;assignment&gt;_:**
 > * &lt;assignable&gt; `=` &lt;expr&gt;
@@ -606,7 +606,7 @@ They are matched by the following production rules from the syntax grammar<sup>[
 
 ### 4.7.1 – Global function calls
 
-**Global function calls** invoke functions that are defined globally<sup>[§TODO - global functions]()</sup> and are accessible from any scope.
+**Global function calls** invoke functions that are defined globally<sup>[§6.3.4](./ls-6-func.md#634--global-functions)</sup> and are accessible from any scope.
 
 They are matched by the following rule production from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -622,7 +622,7 @@ The global functions available in *DeltaScript* are defined by the [standard lib
 
 ### 4.7.2 – Helper function calls
 
-**Helper function calls** invoke helper functions<sup>[§TODO - helper functions]()</sup>: named functions that follow the header function<sup>[§TODO - header function]()</sup> in the script.
+**Helper function calls** invoke helper functions<sup>[§6.3.2](./ls-6-func.md#632--helper-functions)</sup>: named functions that follow the header function<sup>[§6.3.1](./ls-6-func.md#631--header-functions)</sup> in the script.
 
 They are matched by the following rule production from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -654,7 +654,7 @@ They are matched by the following rule production from the syntax grammar<sup>[�
 
 ### 4.7.3 – Scoped function calls
 
-Functions called on a particular [object![](../assets/definition.png)](./glossary.md#object) or namespace<sup>[§TODO - namespace]()</sup> are considered **scoped**.
+Functions called on a particular [object![](../assets/definition.png)](./glossary.md#object) or namespace<sup>[§8.4](./ls-8-ext.md#84--namespaces)</sup> are considered **scoped**.
 
 Scoped function calls are matched by the following production rules from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -671,7 +671,7 @@ They can be sorted into **member function calls** and **namespace function calls
 
 <br>
 
-**Member function calls** invoke member functions<sup>[§TODO - member functions]()</sup>: functions that are defined as callable on objects of a particular type.
+**Member function calls** invoke member functions<sup>[§6.3.5](./ls-6-func.md#635--member-functions)</sup>: functions that are defined as callable on objects of a particular type.
 
 They are matched by the following rule production from the syntax grammar:
 
@@ -717,7 +717,7 @@ Properties are matched by the following rule production from the syntax grammar:
 
 <br>
 
-**Namespace function calls** invoke namespace functions<sup>[§TODO - namespace functions]()</sup>: functions defines as part of a namespace<sup>[§TODO - namespace]()</sup>. A namespace is an identifier used to group functions and constants in a *DeltaScript* extension<sup>[§TODO - extension]()</sup>.
+**Namespace function calls** invoke namespace functions<sup>[§6.3.6](./ls-6-func.md#636--extension-functions)</sup>: functions defines as part of a namespace<sup>[§8.4](./ls-8-ext.md#84--namespaces)</sup>. A namespace is an identifier used to group functions and constants in a *DeltaScript* extension<sup>[§8.2](./ls-8-ext.md#82--extensions)</sup>.
 
 They are matched by the following rule production from the syntax grammar:
 
@@ -781,7 +781,7 @@ They are matched by the following production rule from the syntax grammar<sup>[�
 > * `::` &lt;ident&gt;
 > * (... lower precedence productions)
 
-Function objects can be invoked with the special `call()` function<sup>[§TODO - `call` function]()</sup>, which accepts the function's arguments.
+Function objects can be invoked with the special `call()` function<sup>[§6.4.1](./ls-6-func.md#641--call)</sup>, which accepts the function's arguments.
 
 > **Example:**
 > 
@@ -813,7 +813,7 @@ Function objects can be invoked with the special `call()` function<sup>[§TODO -
 
 > **Planned:**
 > 
-> Future language versions may support a similar syntax for referencing global functions<sup>[§TODO - global functions]()</sup> and namespace functions<sup>[§TODO - namespace functions]()</sup>.
+> Future language versions may support a similar syntax for referencing global functions<sup>[§6.3.4](./ls-6-func.md#634--global-functions)</sup> and namespace functions<sup>[§6.3.6](./ls-6-func.md#636--extension-functions)</sup>.
 > 
 > * `::max`
 > * `$Math::tan`
@@ -854,7 +854,7 @@ Parameters of anonymous functions do not have their types explicitly declared. A
 > 
 > The anonymous function `(a, b) -> ...` is defined in the initialization<sup>[§3.2.2](./ls-3-vars.md#322--initialization)</sup> statement for the variable `string_function` with the functional type<sup>[§2.4](./ls-2-types.md#24--functional-types)</sup> `(string, string -> string)`. This context lets the compiler or interpreter to know that the parameters `a`, `b` are of type `string`, and that the anonymous function returns a value of type `string`.
  
-Like helper function references<sup>[§4.8](#48--helper-function-references)</sup>, anonymous function expressions are function objects. Thus, they can be invoked with the special `call()` function<sup>[§TODO - `call` function]()</sup>, which accepts the function's arguments.
+Like helper function references<sup>[§4.8](#48--helper-function-references)</sup>, anonymous function expressions are function objects. Thus, they can be invoked with the special `call()` function<sup>[§6.4.1](./ls-6-func.md#641--call)</sup>, which accepts the function's arguments.
 
 ## 4.10 – Array and list elements
 
