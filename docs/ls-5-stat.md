@@ -730,7 +730,7 @@ When an iterator loop is reached by the script's execution<sup>[§TODO - executi
 
 A **value `return` statement** exits a function and returns a specified value. Such statements occur in functions with a return type<sup>[§TODO - type signature]()</sup>. The return value replaces the function invocation expression<sup>[§4.7](./ls-4-expr.md#47--function-calls)</sup> in the evaluation of the expression that contained the function call.
 
-A value `return` statement `return V;` consists of an expression `V` whose type matches the return type of the function containing the statement. If the type of `V` does not match the return type of the statement's container function, a semantic error<sup>[§TODO - type signature]()</sup> is triggered.
+A value `return` statement `return V;` consists of an expression `V` whose type matches the return type of the function containing the statement. If the type of `V` does not match the return type of the statement's container function, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
 
 `V` is evaluated before it is returned to the function call expression.
 
@@ -752,7 +752,7 @@ A value `return` statement `return V;` consists of an expression `V` whose type 
 
 A **void `return` statement** exits a function without returning a value. Such statements occur in functions with no return type<sup>[§TODO - type signature]()</sup>.
 
-If a void `return` statement is found in a function with a return type, a semantic error<sup>[§TODO - type signature]()</sup> is triggered.
+If a void `return` statement is found in a function with a return type, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
 
 > **Example:**
 > 

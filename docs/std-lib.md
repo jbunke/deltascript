@@ -20,7 +20,7 @@ The **standard library** describes the built-in functions that are included in t
 
 > **Note:**
 > 
-> *DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with functions and/or [properties![](../assets/definition.png)]() in the base language<sup>[a](#fn-a)</sup>.
+> *DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with member functions and/or [properties![](../assets/definition.png)](./glossary.md#property) in the base language<sup>[a](#fn-a)</sup>.
 
 ### [Collection types](./collections-sl.md)
 
