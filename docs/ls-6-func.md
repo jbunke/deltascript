@@ -76,6 +76,8 @@ Member functions of built-in types are defined by the [standard library](./std-l
 
 <!-- TODO -->
 
+<!-- TODO - properties -->
+
 ### 6.3.6 – Extension functions
 
 <!-- TODO -->

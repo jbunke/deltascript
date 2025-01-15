@@ -22,7 +22,7 @@ A variable may or may not be assigned a value when it is declared. The assignmen
 
 ## 3.2 – Declarations
 
-A **variable declaration** is a type of statement<sup>[§TODO - statements]()</sup> in *DeltaScript* that appoints a particular name as a storage location for values of a particular type.
+A **variable declaration** is a type of statement<sup>[§5.2](./ls-5-stat.md#52--statements)</sup> in *DeltaScript* that appoints a particular name as a storage location for values of a particular type.
 
 Referring back to the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>, variable declarations are matched by the following production rules:
 
@@ -32,9 +32,9 @@ Referring back to the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-
 > 
 > **_&lt;declaration&gt;_:** &lt;FINAL&gt;? &lt;type&gt; &lt;ident&gt;
 
-From left to right, a declaration consists of an optional immutability<sup>[§3.2.3](#323--immutability)</sup> modifier, a type identifier, and a variable name. A declaration statement may also be an initialization statement, in which case the variable name will be followed by the assignment operator `=` and an expression<sup>[§TODO - expressions]()</sup> representing the variable's initial value.
+From left to right, a declaration consists of an optional immutability<sup>[§3.2.3](#323--immutability)</sup> modifier, a type identifier, and a variable name. A declaration statement may also be an initialization statement, in which case the variable name will be followed by the assignment operator `=` and an expression<sup>[§4](./ls-4-expr.md)</sup> representing the variable's initial value.
 
-After its initialization, a variable's name can be used as an expression to retrieve its associated value. A **mutable** variables can also be assigned<sup>[§TODO - assignment]()</sup> a new value.
+After its initialization, a variable's name can be used as an expression to retrieve its associated value. A **mutable** variables can also be assigned<sup>[§5.4](./ls-5-stat.md#54--assignments)</sup> a new value.
 
 ### 3.2.1 – Variable names
 
@@ -64,13 +64,13 @@ An **initialization statement** is a single statement that declares a variable a
 > }
 > ```
 > 
-> * `a` is declared, but not initialized. During program execution<sup>[§TODO - execution]()</sup>, after its declaration and before any assignment of `a`, `a` is considered uninitialized.
+> * `a` is declared, but not initialized. During program execution<sup>[§7.4](./ls-7-exec.md#74--runtime-execution)</sup>, after its declaration and before any assignment of `a`, `a` is considered uninitialized.
 > * `b` is declared and initialized with a value of 10.
 > * `c` is declared and initialized with a value of a random number between 0 and 11<sup>[b](#fn-b)</sup>.
 
-Provided they were not declared as immutable, uninitialized variables can be initialized after their declaration with an assignment<sup>[§TODO - assignment]()</sup>.
+Provided they were not declared as immutable, uninitialized variables can be initialized after their declaration with an assignment<sup>[§5.4](./ls-5-stat.md#54--assignments)</sup>.
 
-Attempting to access the value of an uninitialized variable by using the variable name as an expression will lead to a runtime error<sup>[§TODO - runtime error]()</sup>.
+Attempting to access the value of an uninitialized variable by using the variable name as an expression will lead to a runtime error<sup>[§7.5.3](./ls-7-exec.md#753--runtime-errors)</sup>.
 
 > **Example:**
 > 
@@ -86,7 +86,7 @@ Attempting to access the value of an uninitialized variable by using the variabl
 
 ### 3.2.3 – Immutability
 
-Variables, including function parameters, can optionally be declared as **immutable**. An **immutable** variable cannot be reassigned a new value. For variables declared in the body of a function, this means that they can only be assigned a value in an initialization statement. For function parameters, this means that they can only be assigned a value by the arguments that are passed into the function when it is called<sup>[§TODO - function call]()</sup>.
+Variables, including function parameters, can optionally be declared as **immutable**. An **immutable** variable cannot be reassigned a new value. For variables declared in the body of a function, this means that they can only be assigned a value in an initialization statement. For function parameters, this means that they can only be assigned a value by the arguments that are passed into the function when it is called<sup>[§4.7](./ls-4-expr.md#47--function-calls)</sup>.
 
 A variable is declared as immutable by [prepending![](../assets/definition.png)](./glossary.md#prepend) the type identifier in the declaration with the keyword<sup>[§1.3.3](./ls-1-syntax.md#133--keywords)</sup> `final`<sup>[c](#fn-c)</sup>.
 
@@ -115,7 +115,7 @@ Immutability in *DeltaScript* is **shallow**. This means that, for variables rep
 
 ## 3.3 – Function parameters
 
-**Function parameters** are special types of variables. Rather than being declared with statements in the bodies of functions<sup>[§TODO - functions]()</sup>, they are defined in the function's signature. Function parameters receive their values from the arguments passed to the function when it is called. These parameters can be either mutable or immutable, depending on whether the `final` keyword<sup>[c](#fn-c)</sup> is used in their declaration. That is to say, mutable parameters can be assigned new values in the bodies of the functions they are defined with.
+**Function parameters** are special types of variables. Rather than being declared with statements in the bodies of functions<sup>[§6.1](./ls-6-func.md#61--functions)</sup>, they are defined in the function's signature. Function parameters receive their values from the arguments passed to the function when it is called. These parameters can be either mutable or immutable, depending on whether the `final` keyword<sup>[c](#fn-c)</sup> is used in their declaration. That is to say, mutable parameters can be assigned new values in the bodies of the functions they are defined with.
 
 **Example:**
 
@@ -134,13 +134,13 @@ The function `backwards(string) -> string` has a single parameter `word`, which 
 
 ## 3.4 – Variable scope
 
-The **scope** of a variable is the section of a program's source code in which the name of the variable can be used to as a reference to its associated value. Scopes are associated with a language structure, whether it is a function<sup>[§TODO - functions]()</sup>, or a [control flow![](../assets/definition.png)](./glossary.md#control-flow) structure like an `if` statement<sup>[§TODO - if statements]()</sup> or a loop<sup>[§TODO - loops]()</sup>.
+The **scope** of a variable is the section of a program's source code in which the name of the variable can be used to as a reference to its associated value. Scopes are associated with a language structure, whether it is a function<sup>[§6.1](./ls-6-func.md#61--functions)</sup>, or a [control flow![](../assets/definition.png)](./glossary.md#control-flow) structure like an `if` statement<sup>[§5.6.1](./ls-5-stat.md#561--if-statements)</sup> or a loop<sup>[§5.7](./ls-5-stat.md#57--loops)</sup>.
 
 > **Note:**
 > 
 > This specification uses the terms **reference** and **use** of a variable to mean the invocation of a variable's name as an expression to represent its value.
 
-Variables cannot be referenced outside of the scope in which their are declared. Nor can they be referenced in their declaration scope prior to their declaration. Attempting to do so will lead be flagged by the semantic error checker<sup>[§TODO - semantic error checking]()</sup> and lead to a compile error<sup>[§TODO - compile/semantic error]()</sup> that will prevent the script from being executed.
+Variables cannot be referenced outside of the scope in which their are declared. Nor can they be referenced in their declaration scope prior to their declaration. Attempting to do so will lead to a compile error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup> that will prevent the script from being executed.
 
 Scopes can be **nested**. A variable defined in the outermost scope of a function can still be referenced inside control flow structures within that function, as long as they follow the variable's declaration.
 
@@ -162,7 +162,7 @@ Scopes can be **nested**. A variable defined in the outermost scope of a functio
 > }
 > ```
 > 
-> The outermost scope of this script is the header function body, i.e. everything between the outermost curly brackets `() {...}`. Each of the `for` loops<sup>[§TODO - for loops]()</sup> defines a nested scope within the function body scope. The variables `a` and `b` are declared in the function body scope. The `print()` statements inside each loop are part of the scopes of the respective loops. Because the loop scopes are **nested within the function scope**, variables declared in the function scope can be referenced from within the nested scopes.
+> The outermost scope of this script is the header function body, i.e. everything between the outermost curly brackets `() {...}`. Each of the `for` loops<sup>[§5.7.3](./ls-5-stat.md#573--for-loops)</sup> defines a nested scope within the function body scope. The variables `a` and `b` are declared in the function body scope. The `print()` statements inside each loop are part of the scopes of the respective loops. Because the loop scopes are **nested within the function scope**, variables declared in the function scope can be referenced from within the nested scopes.
 
 > **Example 2: Out of scope**
 > 

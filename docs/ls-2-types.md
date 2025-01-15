@@ -28,7 +28,7 @@ This chapter describes how *DeltaScript* handles types and their values.
 
 ## 2.1 – Type system
 
-A **type** is a classification that specifies the kind of value a variable can hold and the operations that can be performed on it. In programming languages, types are used to enforce constraints on the values that can be represented by expressions<sup>[§TODO - expressions]()</sup>, ensuring that operations on these expressions and their values are semantically correct.
+A **type** is a classification that specifies the kind of value a variable can hold and the operations that can be performed on it. In programming languages, types are used to enforce constraints on the values that can be represented by expressions<sup>[§4](./ls-4-expr.md)</sup>, ensuring that operations on these expressions and their values are semantically correct.
 
 A sequence of characters written in the code to refer to a type is known as a **type identifier**. For example, the type identifier for an integer is `int`, while the type identifier for a set of characters is `char{}`.
 
@@ -36,13 +36,13 @@ Types in *DeltaScript* can be broadly categorized into three main groups: **simp
 
 ### 2.1.1 – Type safety
 
-*DeltaScript* is type-safe and statically typed, meaning that type checking<sup>[§TODO - type checking]()</sup> is performed at compile-time<sup>[a](#fn-a)</sup> rather than at runtime. This ensures that type errors are caught early in the development process, leading to more reliable and maintainable code.
+*DeltaScript* is type-safe and statically typed, meaning that type checking<sup>[§7.3](./ls-7-exec.md#73--semantic-error-checking)</sup> is performed at compile-time<sup>[a](#fn-a)</sup> rather than at runtime. This ensures that type errors are caught early in the development process, leading to more reliable and maintainable code.
 
 ### 2.1.2 – Type inference
 
 While *DeltaScript* requires explicit type declarations in many cases, it also supports type inference in certain contexts. This allows the language to deduce the type of a variable or expression based on the context in which it is used, reducing the need for redundant type annotations.
 
-An example of this is in iterator loops<sup>[§TODO - iterator loops]()</sup>. The iterator variable can be declared without a type, as its type can be inferred from the collection.
+An example of this is in iterator loops<sup>[§5.7.4](./ls-5-stat.md#574--iterator-loops)</sup>. The iterator variable can be declared without a type, as its type can be inferred from the collection.
 
 > **Example 1:**
 > 
@@ -76,11 +76,11 @@ An example of this is in iterator loops<sup>[§TODO - iterator loops]()</sup>. T
 
 ### 2.1.3 – Extensibility
 
-The type system in *DeltaScript* is designed to be extensible, allowing for the addition of new types<sup>[§TODO - new types]()</sup> and the extension of built-in types<sup>[§TODO - extension of built-in types]()</sup> through language extensions. This makes *DeltaScript* highly adaptable to various application domains and use cases.
+The type system in *DeltaScript* is designed to be extensible, allowing for the addition of new types<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup> and the extension of built-in types<sup>[§8.3.2](./ls-8-ext.md#832--extending-built-in-types)</sup> through language extensions. This makes *DeltaScript* highly adaptable to various application domains and use cases.
 
 ## 2.2 – Simple types
 
-Simple types are types whose identifiers consist of a single word and no punctuation. These types are **simple** in contrast to collection types and functional types, which are considered complex. Simple types comprise [built-in![](../assets/definition.png)](./glossary.md#built-in) types like `bool` and `int`, as well as new types defined by extensions to *DeltaScript*<sup>[§TODO - extension types]()</sup>.
+Simple types are types whose identifiers consist of a single word and no punctuation. These types are **simple** in contrast to collection types and functional types, which are considered complex. Simple types comprise [built-in![](../assets/definition.png)](./glossary.md#built-in) types like `bool` and `int`, as well as new types defined by extensions to *DeltaScript*<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup>.
 
 ### 2.2.1 – Built-in types
 
@@ -161,7 +161,7 @@ Maps are represented by **curly brackets / braces** and a **colon** separating t
 
 ## 2.4 – Functional types
 
-Functional types represent value-returning functions<sup>[§TODO - value-returning functions]()</sup>, including both named helper functions and anonymous functions. They enable the definition and invocation of reusable code blocks.
+Functional types represent value-returning functions<sup>[§6.2.1](./ls-6-func.md#621--value-returning-functions)</sup>, including both named helper functions and anonymous functions. They enable the definition and invocation of reusable code blocks.
 
 Functional type identifiers consist of **optional comma-separated parameter types**, followed by an **arrow**, followed by a **return type**, all **enclosed in parentheses**. A functional type with the arbitrary parameter types `P1`, `P2`, etc. and the arbitrary return type `R` would be declared with the type identifier `(P1, P2, ... -> R)`.
 
@@ -174,7 +174,7 @@ Functional type identifiers consist of **optional comma-separated parameter type
 
 > **Planned:**
 > 
-> Future language versions may support functional types for void functions<sup>[§TODO - void functions]()</sup>.
+> Future language versions may support functional types for void functions<sup>[§6.2.2](./ls-6-func.md#622--void-functions)</sup>.
 
 ### 2.4.1 – Parsing complex types
 
@@ -211,7 +211,7 @@ These are all the type conversions that are possible in *DeltaScript*:
 
 ### 2.5.1 – Implicit type conversion
 
-**Implicit type conversion** usually occurs when operands of different types are operated on by a (binary) operator<sup>[§TODO - binary operators]()</sup>.
+**Implicit type conversion** usually occurs when operands of different types are operated on by a (binary) operator<sup>[§4.5.2](./ls-4-expr.md#452--binary-operators)</sup>.
 
 > **Example:**
 > 
@@ -227,7 +227,7 @@ These are all the type conversions that are possible in *DeltaScript*:
 
 ### 2.5.2 – Explicit type conversion (casting)
 
-**Explicit type conversion**, or **casting**, is when a user specifies in the source code that the value of an expression should be converted to another type. This is achieved with a cast expression<sup>[§TODO - cast expression]()</sup>, where the desired type is enclosed in parentheses before the expression whose value is to be converted.
+**Explicit type conversion**, or **casting**, is when a user specifies in the source code that the value of an expression should be converted to another type. This is achieved with a cast expression<sup>[§4.6](./ls-4-expr.md#46--cast-expressions)</sup>, where the desired type is enclosed in parentheses before the expression whose value is to be converted.
 
 > **Example:**
 > 

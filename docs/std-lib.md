@@ -6,7 +6,7 @@
 
 | Version | Published | Author | Implementation |
 | :-----: | :-------: | :----: | :------------: |
-| 0.1.0 | January 6, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
+| 0.1.0 | January 16, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
 
 The **standard library** describes the built-in functions that are included in the *DeltaScript* [base language![](../assets/definition.png)](./glossary.md#base-language). Functions in the standard library are either global, or member functions of a built-in type or a collection type.
 
@@ -50,6 +50,4 @@ The **standard library** describes the built-in functions that are included in t
 
 ## Footnotes
 
-<!-- TODO - link to specification -->
-
-<sup id="fn-a">1</sup> - [Extensions]() of the language may provide additional functionality in the form of properties or member functions to these types, as well as to other built-in types of the base language.
+<sup id="fn-a">a</sup> - [Extensions](./ls-8-ext.md#82--extensions) of the language may provide additional functionality in the form of properties or member functions to these types, as well as to other built-in types of the base language.

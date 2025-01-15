@@ -137,7 +137,7 @@ The syntax of *DeltaScript* is formally expressed by a lexical grammar and a syn
 
 The lexical grammar is responsible for the tokenization of *DeltaScript* code; that is, for the correct identification of **tokens**: the basic building blocks of the program.
 
-Conversely, the syntax grammar is responsible for parsing those tokens and understanding how they fit into the larger, more complex structures of the language, such as loops<sup>[§TODO]()</sup> or functions<sup>[§TODO]()</sup>.
+Conversely, the syntax grammar is responsible for parsing those tokens and understanding how they fit into the larger, more complex structures of the language, such as loops<sup>[§5.7](./ls-5-stat.md#57--loops)</sup> or functions<sup>[§6.1](./ls-6-func.md#61--functions)</sup>.
 
 Lexical production rule names are ***&lt;CAPITALIZED&gt;***, whereas syntactical production rule names are written in ***&lt;snake_case&gt;***.
 
@@ -249,15 +249,15 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 **<i id="sg-helper">&lt;helper&gt;</i>:** [&lt;ident&gt;](#sg-ident) [&lt;signature&gt;](#sg-signature) [&lt;func_body&gt;](#sg-funcbody)
 
-> The matching rule for a helper function<sup>[§TODO]()</sup>.
+> The matching rule for a helper function<sup>[§6.3.2](./ls-6-func.md#632--helper-functions)</sup>.
 
 **<i id="sg-funcbody">&lt;func_body&gt;</i>:**
 * [&lt;body&gt;](#sg-body)
 * `->` [&lt;expr&gt;](#sg-expr)
 
-> The function body is everything associated with the function besides its signature and its name (in the case of a helper function; header functions<sup>[§TODO]()</sup> have no name).
+> The function body is everything associated with the function besides its signature and its name (in the case of a helper function; header functions<sup>[§6.3.1](./ls-6-func.md#631--header-functions)</sup> have no name).
 > 
-> The second production is a [shorthand](#133--shorthands) for a function body that consists of a single value `return` statement<sup>[§TODO]()</sup>.
+> The second production is a [shorthand](#133--shorthands) for a function body that consists of a single value `return` statement<sup>[§5.8.1](./ls-5-stat.md#581--value-return)</sup>.
 
 **<i id="sg-signature">&lt;signature&gt;</i>:**
 * `(` [&lt;param_list&gt;](#sg-paramlist)? `)`
@@ -282,7 +282,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 * `(` [&lt;func_type&gt;](#sg-functype) `)`
 * [&lt;ident&gt;](#sg-ident)
 
-> The last production represents extension types<sup>[§TODO]()</sup>.
+> The last production represents extension types<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup>.
 
 **<i id="sg-functype">&lt;func_type&gt;</i>:** [&lt;param_types&gt;](#sg-paramtypes)? `->` [&lt;type&gt;](#sg-type)
 
@@ -313,7 +313,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 **<i id="sg-iterationdef">&lt;iteration_def&gt;</i>:** `for` `(` [&lt;iterator_declaration&gt;](#sg-iteratordeclaration) `in` [&lt;expr&gt;](#sg-expr) `)`
 
-> Represents a foreach / iterator / enhanced for loop<sup>[§TODO]()</sup>.
+> Represents an iterator loop<sup>[§5.7.4](./ls-5-stat.md#574--iterator-loops)</sup>.
 
 **<i id="sg-iteratordeclaration">&lt;iterator_declaration&gt;</i>:** [&lt;declaration&gt;](#sg-declaration) | [&lt;ident&gt;](#sg-ident)
 
@@ -327,7 +327,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 **<i id="sg-whenstat">&lt;when_stat&gt;</i>:** `when` `(` [&lt;expr&gt;](#sg-expr) `)` [&lt;when_body&gt;](#sg-whenbody)
 
-> Represents a `when` statement<sup>[§TODO - when statement]()</sup>, which is similar to a [switch![](../assets/external.png)](https://en.wikipedia.org/wiki/Switch_statement) statement in some other programming languages.
+> Represents a `when` statement<sup>[§5.6.2](./ls-5-stat.md#562--when-statements)</sup>, which is similar to a [switch![](../assets/external.png)](https://en.wikipedia.org/wiki/Switch_statement) statement in some other programming languages.
 
 **<i id="sg-whenbody">&lt;when_body&gt;</i>:** `{` [&lt;when_case&gt;](#sg-whencase)\+ [&lt;otherwise_case&gt;](#sg-otherwisecase)? `}`
 
@@ -408,7 +408,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 **<i id="sg-namespaceident">&lt;namespace_ident&gt;</i>:** `$` [&lt;ident&gt;](#sg-ident) [&lt;sub_ident&gt;](#sg-subident)
 
-> Represents an identifier of a constant or function in an extension namespace<sup>[§TODO - extension namespace]()</sup>.
+> Represents an identifier of a constant or function in an extension namespace<sup>[§8.4](./ls-8-ext.md#84--namespaces)</sup>.
 
 **<i id="sg-literal">&lt;literal&gt;</i>:**
 * [&lt;STRING_LIT&gt;](#lg-stringlit)
@@ -482,7 +482,7 @@ Unlike programming languages like [Python![](../assets/external.png)](https://en
 > }
 > ```
 > 
-> 2. Whitespace inside a string literal<sup>[§TODO - string literal]()</sup> **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
+> 2. Whitespace inside a string literal<sup>[§4.3.6](./ls-4-expr.md#436--string-literals)</sup> **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
 
 ### 1.3.3 – Keywords
 
@@ -527,7 +527,7 @@ Unlike programming languages like [Python![](../assets/external.png)](https://en
 
 **Immutability:**
 
-Like in [Java![](../assets/external.png)](https://en.wikipedia.org/wiki/Java_(programming_language)), *DeltaScript* uses the keyword `final` to declare a variable as immutable<sup>[§TODO]()</sup>. The tilde `~` is a shorthand that can be used instead.
+Like in [Java![](../assets/external.png)](https://en.wikipedia.org/wiki/Java_(programming_language)), *DeltaScript* uses the keyword `final` to declare a variable as immutable<sup>[§3.2.3](./ls-3-vars.md#323--immutability)</sup>. The tilde `~` is a shorthand that can be used instead.
 
 > The following lines of code are semantically equivalent:
 > 
@@ -578,9 +578,9 @@ function_name(params? -> return_type) -> expression
 
 **Property abbreviations:**
 
-Certain types define properties<sup>[§TODO]()</sup>. Some of these properties can be accessed by an abbreviation.
+Certain types define properties<sup>[§2.2.2](./ls-2-types.md#222--primitive-vs-composite-types)</sup>. Some of these properties can be accessed by an abbreviation.
 
-These are all of the property abbreviations available in the [base language![](../assets/definition.png)](./glossary.md#base-language), though extensions<sup>[§TODO]()</sup> may define additional ones:
+These are all of the property abbreviations available in the [base language![](../assets/definition.png)](./glossary.md#base-language), though extensions<sup>[§8.2](./ls-8-ext.md#82--extensions)</sup> may define additional ones:
 
 | Type | Property | Abbreviation |
 | :--: | :------: | :----------: |

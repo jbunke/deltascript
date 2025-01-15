@@ -60,17 +60,13 @@ random_letter(-> char) {
 
 ### Static typing
 
-<!-- TODO - link to type checking in the language specification -->
-
-*DeltaScript* is statically typed, so [type checking](#) is performed before scripts are executed.
+*DeltaScript* is statically typed, so [type checking](./docs/ls-7-exec.md#73--semantic-error-checking) is performed before scripts are executed.
 
 ### Clear, concise syntax
 
 *DeltaScript* is designed to be concise, while still ensuring syntax conveys meaning.
 
-<!-- TODO - link to collection types in the language specification -->
-
-For example, the various [collection data types](#) supported by the language are not referenced by name in code, but rather by different types of brackets.
+For example, the various [collection data types](./docs/ls-2-types.md#23--collection-types) supported by the language are not referenced by name in code, but rather by different types of brackets.
 
 For collections with elements of type `T`:
 

@@ -637,7 +637,7 @@ When a `for` loop is reached by the script's execution, this is the sequence of 
 
 ### 5.7.4 – Iterator loops
 
-**Iterator loops** iterate over the elements in a collection<sup>[§2.3](./ls-2-types.md#23--collection-types)</sup> or the characters (`char`) in a `string`.
+**Iterator loops** – also called **foreach loops** or **enhanced for loops** – iterate over the elements in a collection<sup>[§2.3](./ls-2-types.md#23--collection-types)</sup> or the characters (`char`) in a `string`.
 
 An iterator node declares an **element variable** to represent an arbitrary element of the iterated collection or `string` during each execution of the loop body. The type of the element variable and the order in which the elements of the collection are accessed depend on the type of the collection:
 
@@ -747,8 +747,6 @@ A value `return` statement `return V;` consists of an expression `V` whose type 
 > ```
 
 ### 5.8.2 – Void `return`
-
-<!-- TODO - proofread -->
 
 A **void `return` statement** exits a function without returning a value. Such statements occur in functions with no return type<sup>[§TODO - type signature]()</sup>.
 
