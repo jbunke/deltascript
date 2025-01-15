@@ -542,7 +542,7 @@ Like in [Java![](../assets/external.png)](https://en.wikipedia.org/wiki/Java_(pr
 
 **Single expression function bodies:**
 
-Sometimes, a function body consists of a single return statement:
+Sometimes, a function body consists of a single `return` statement<sup>[§5.8](./ls-5-stat.md#58--return-statements)</sup>:
 
 ```js
 red_channel(color c -> int) {

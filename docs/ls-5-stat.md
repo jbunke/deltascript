@@ -503,7 +503,7 @@ Loops are matched by the following production of &lt;stat&gt; from the syntax gr
 
 ### 5.7.1 – `while` loops
 
-`while` loops execute a block of code as long as a specified condition is true.
+**`while` loops** execute a block of code as long as a specified condition is true.
 
 If the conditional expression of an `while` loop is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
 
@@ -539,7 +539,7 @@ A `while` loop's condition `C` is evaluated first. If `C` is true, `B` is execut
 
 ### 5.7.2 – `do`...`while` loops
 
-`do`...`while` loops execute a block of code at least once, and then continue executing it as long as a specified condition is true.
+**`do`...`while` loops** execute a block of code at least once, and then continue executing it as long as a specified condition is true.
 
 They are matched by the following production of &lt;loop_stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
@@ -580,7 +580,7 @@ When the `do`...`while` statement is reached by the script's execution, its body
 
 ### 5.7.3 – `for` loops
 
-`for` loops are generally used to execute a block of code a specified number of times. However, they mustn't exclusively be used this way.
+**`for` loops** are generally used to execute a block of code a specified number of times. However, they mustn't exclusively be used this way.
 
 > **Note:**
 > 
@@ -637,19 +637,85 @@ When a `for` loop is reached by the script's execution, this is the sequence of 
 
 ### 5.7.4 – Iterator loops
 
-<!-- TODO - proofread -->
+**Iterator loops** iterate over the elements in a collection<sup>[§2.3](./ls-2-types.md#23--collection-types)</sup> or the characters (`char`) in a `string`.
 
-Iterator loops execute a block of code for each element in a collection.
+An iterator node declares an **element variable** to represent an arbitrary element of the iterated collection or `string` during each execution of the loop body. The type of the element variable and the order in which the elements of the collection are accessed depend on the type of the collection:
 
-```js
-for (item in collection) {
-  print(item);
-}
-```
+| Collection type | Element type | Access order |
+| :-------------- | :-------------------- | :----------- |
+| `string` | `char` | From left to right in the `string` |
+| Array `T[]`<sup>1</sup> | `T` | Ascending index order |
+| List `T<>` | `T` | Ascending index order |
+| Set `T{}` | `T` | Unspecified<sup>2</sup> |
+
+1.  `T` is an arbitrary type than can be any type<sup>[§2](./ls-2-types.md)</sup>
+2.  Left to the discretion of language implementers
+
+Iterator loops are matched by the following production of &lt;loop_stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;loop_stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;iteration_def&gt; &lt;body&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;iteration_def&gt;_:** `for` `(` &lt;iterator_declaration&gt; `in` &lt;expr&gt; `)`
+> 
+> **_&lt;iterator_declaration&gt;_:** &lt;declaration&gt; | &lt;ident&gt;
+
+An iterator loop `for (D in I_C) B` consists of:
+
+* A simple declaration<sup>[§3.2](./ls-3-vars.md#32--declarations)</sup> (not initialized) `D`. `D` may omit the type identifier<sup>[§2.1](./ls-2-types.md#21--type-system)</sup> from the declaration, as its type can be inferred<sup>[§2.1.2](./ls-2-types.md#212--type-inference)</sup> by the compiler or interpreter from the type of `I_C` as per the table above.
+* An expression representing the collection to be iterated over `I_C`. `I_C` must be of one of the following types:
+  * `string`
+  * `T[]` - an array of elements of any type `T`
+  * `T<>` - a list of elements of any type `T`
+  * `T{}` - a set of elements of any type `T`
+* A block of code `B`, where `B` can be zero or more statements<sup>[§5.2](#52--statements)</sup> enclosed in curly braces `{}`, or a single statement without enclosing punctuation
+
+When an iterator loop is reached by the script's execution<sup>[§TODO - execution]()</sup>, it assigns an element of the collection to the element variable and executes the loop body for each element in the collection, as outlined by the table above.
+
+> **Note:**
+> 
+> This version of *DeltaScript* is intentionally ambiguous about the semantics of modifying the contents of the iterated collection inside the loop body. It is discouraged as bad programming practice but not explicitly disallowed.
+> 
+> 
+> Future language versions may declare an unambiguous position on this issue.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   ~ string word = "Iterate";
+>   (string -> char)[] s_to_c_funcs = [ ::first, ::last, ::random ];
+> 
+>   for (f in s_to_c_funcs)
+>     print(f.call(word));
+> }
+> 
+> first(string s -> char) -> s.at(0)
+> last(string s -> char) -> s.at(#|s - 1)
+> random(string s -> char) -> s.at(rand(0, #|s))
+> ```
+> 
+> This script may<sup>[d](#fn-d)</sup> produce the output:
+> 
+> ```
+> I
+> e
+> t
+> ```
+> 
+> The iterator loop in the script iterates over the collection `s_to_c_funcs`, an array of string to character functions. Thus, the type of the element variable `f` is inferred to be `(string -> char)`. The loop body consists of the single statement `print(f.call(word));`.
 
 ## 5.8 – `return` statements
 
-<!-- TODO - proofread -->
+**`return` statements** are used to recall the script's execution<sup>[§TODO - execution]()</sup> from a function<sup>[§TODO - function]()</sup> back to the statement in which the function was invoked. Depending on the type signature<sup>[§TODO - type signature]()</sup> of the function within which they are found, a `return` statement may return a value.
+
+`return` statements can be found in any source code-defined function: a script's header function<sup>[§TODO - header function]()</sup>, its helper functions<sup>[§TODO - helper function]()</sup>, and even anonymous functions<sup>[§TODO - anonymous function]()</sup>. A `return` statement is bound to the **most immediate function scope**. Anonymous functions are defined within the bodies of other functions. The `return` statements contained therein are bound to the scope of the anonymous function, and not to the helper function, header function, or outer anonymous function within which the anonymous function was defined.
+
+`return` statements can be implicit. **Single expression function bodies** are a syntactical shorthand<sup>[§1.3.4](./ls-1-syntax.md#134--shorthands)</sup> that are treated as a function body comprising a single value-returning `return` statement [under the hood![](../assets/definition.png)](./glossary.md#under-the-hood).
+
+`return` statements are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;stat&gt;_:**
 > * (... higher precedence productions)
@@ -658,27 +724,50 @@ for (item in collection) {
 > 
 > **_&lt;return\_stat&gt;_:** `return` &lt;expr&gt;? `;`
 
-`return` statements in *DeltaScript* are used to exit a function and optionally return a value.
+`return` statements in the header function terminate script execution when they are reached.
 
 ### 5.8.1 – Value `return`
 
-<!-- TODO - proofread -->
+A **value `return` statement** exits a function and returns a specified value. Such statements occur in functions with a return type<sup>[§TODO - type signature]()</sup>. The return value replaces the function invocation expression<sup>[§4.7](./ls-4-expr.md#47--function-calls)</sup> in the evaluation of the expression that contained the function call.
 
-A value `return` statement exits a function and returns a specified value.
+A value `return` statement `return V;` consists of an expression `V` whose type matches the return type of the function containing the statement. If the type of `V` does not match the return type of the statement's container function, a semantic error<sup>[§TODO - type signature]()</sup> is triggered.
 
-```js
-return x;
-```
+`V` is evaluated before it is returned to the function call expression.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   print(helper() + 2);
+> }
+> 
+> helper(-> int) {
+>   return rand(0, 5);
+> }
+> ```
 
 ### 5.8.2 – Void `return`
 
 <!-- TODO - proofread -->
 
-A void `return` statement exits a function without returning a value.
+A **void `return` statement** exits a function without returning a value. Such statements occur in functions with no return type<sup>[§TODO - type signature]()</sup>.
 
-```js
-return;
-```
+If a void `return` statement is found in a function with a return type, a semantic error<sup>[§TODO - type signature]()</sup> is triggered.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   if (true)
+>     return;       // script execution terminates here
+> 
+>   dont_do_this(); // never reached
+> }
+> 
+> dont_do_this() {
+>   print("Something mean");
+> }
+> ```
 
 ---
 
@@ -687,3 +776,4 @@ return;
 * <sup id="fn-a">a</sup> - *DeltaScript* has many features that make it a multi-paradigm language, but it is fundamentally imperative in its structure.
 * <sup id="fn-b">b</sup> - Recent versions of Java have extended the `switch` statement into a much more powerful and expressive [pattern matching![](../assets/external.png)](https://en.wikipedia.org/wiki/Pattern_matching) structure.
 * <sup id="fn-c">c</sup> - This isn't exactly true. `I` could be used after the `while` loop, but the `I` of the `for` cannot be used outside of the `for` loop it is declared in.
+* <sup id="fn-d">d</sup> - The output of the script is [non-deterministic![](../assets/external.png)](https://en.wikipedia.org/wiki/Nondeterministic_algorithm) due to the use of the [`rand(int min, int max_ex) -> int`](./functions-sl.md#rand) function.
