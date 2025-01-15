@@ -154,7 +154,7 @@ Void function calls are matched by the following productions of &lt;stat&gt; fro
 
 ## 5.6 – Conditional statements
 
-**Conditional statements** in *DeltaScript* allow the program to execute different code paths based on certain conditions. The primary conditional statements are `if` and `when`.
+**Conditional statements** allow the program to execute different code paths based on certain conditions. *DeltaScript*'s conditional statements are `if` and `when`.
 
 ### 5.6.1 – `if` statements
 
@@ -464,7 +464,7 @@ The `otherwise` keyword is used to specify a case that executes if no other case
 > }
 > ```
 > 
-> This script executes a `for` loop with a `when` statement inside it 100 times. The control expression of the `when` statement is the global function [`flip_coin()`](./functions-sl.md#flip_coin), which has a 50% chance of returning `true` and a 50% chance of returning `false`. The `when` statement has two non-trivial cases and an `otherwise` case, which prints a message indicating that neither of the two non-trivial cases was matched.
+> This script executes a `for` loop<sup>[§5.7.3](#573--for-loops)</sup> with a `when` statement inside it 100 times. The control expression of the `when` statement is the global function [`flip_coin()`](./functions-sl.md#flip_coin), which has a 50% chance of returning `true` and a 50% chance of returning `false`. The `when` statement has two non-trivial cases and an `otherwise` case, which prints a message indicating that neither of the two non-trivial cases was matched.
 > 
 > The first case is an `is` case with the `bool` literals `true` and `false` as match values. Naively, one might assume that this case is always matched, as the result of `flip_coin()` can only be `true` or `false`. However, an `is` case of multiple match values actually unfolds into a series of `is` cases with a single match value each:
 > 
@@ -475,11 +475,13 @@ The `otherwise` keyword is used to specify a case that executes if no other case
 > 
 > Critically, **the control expression is re-evaluated on every case check**. Therefore, `flip_coin()` may return `false` during the check for the unfolded case `is true -> ...`, and `flip_coin()` may then return `true` during the check for the unfolded case `is false -> ...`, thus bypassing `is true, false -> ...`.
 > 
-> This does not occur in the `matches` case. `_ || !_` does not unfold into multiple cases, and because the control expression is only evaluated once per case, both references of the special identifier `_` will always evaluate to the same value. Thus, `_ || !_` will always be true and this case will always be matched if it is reached.
+> This does not occur in the `matches` case. `_ || !_` does not unfold into multiple cases, and because the control expression is only evaluated once per case, both special identifier `_` sub-expressions will always evaluate to the same value. Thus, `_ || !_` will always be true and this case will always be matched if it is reached.
 
 ## 5.7 – Loops
 
-<!-- TODO - proofread -->
+**Loops** allow the program to execute a block of code multiple times. *DeltaScript* supports `while`, `do`...`while`, `for`, and iterator loops. The block of code to be executed by a loop is often called the loop's **body**.
+
+Loops are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
 > **_&lt;stat&gt;_:**
 > * &lt;loop_stat&gt;
@@ -499,45 +501,139 @@ The `otherwise` keyword is used to specify a case that executes if no other case
 > 
 > **_&lt;iterator_declaration&gt;_:** &lt;declaration&gt; | &lt;ident&gt;
 
-Loops in *DeltaScript* allow the program to execute a block of code multiple times. The primary loop constructs are `while`, `do...while`, `for`, and iterator loops.
-
 ### 5.7.1 – `while` loops
-
-<!-- TODO - proofread -->
 
 `while` loops execute a block of code as long as a specified condition is true.
 
-```js
-while (x > 0) {
-  print(x);
-  x--;
-}
-```
+If the conditional expression of an `while` loop is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+
+`while` loops are matched by the following production of &lt;loop_stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;loop_stat&gt;_:**
+> * &lt;while_def&gt; &lt;body&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;while_def&gt;_:** `while` `(` &lt;expr&gt; `)`
+
+A `while` loop `while (C) B` consists of a conditional expression of type `bool` `C` and a block of code `B`, where `B` can be zero or more statements<sup>[§5.2](#52--statements)</sup> enclosed in curly braces `{}`, or a single statement without enclosing punctuation.
+
+> **Examples:**
+> 
+> ```js
+> while (i > 0) {
+>   i--;
+>   print(i);
+> }
+> ```
+> 
+> The body of the `while` loop contains two statements.
+> 
+> ```js
+> while (i > 0)
+>   i--;
+> ```
+> 
+> The body of the `while` loop consists of a single statement `i--;`.
+
+A `while` loop's condition `C` is evaluated first. If `C` is true, `B` is executed. Once `C` is false, the loop terminates and script execution<sup>[§TODO - execution]()</sup> moves on to the next statement.
 
 ### 5.7.2 – `do`...`while` loops
 
-<!-- TODO - proofread -->
+`do`...`while` loops execute a block of code at least once, and then continue executing it as long as a specified condition is true.
 
-`do...while` loops execute a block of code at least once, and then continue executing it as long as a specified condition is true.
+They are matched by the following production of &lt;loop_stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-```js
-do {
-  print(x);
-  x--;
-} while (x > 0);
-```
+> **_&lt;loop_stat&gt;_:**
+> * (... higher precedence productions)
+> * `do` &lt;body&gt; &lt;while_def&gt; `;`
+> 
+> **_&lt;while_def&gt;_:** `while` `(` &lt;expr&gt; `)`
+
+A `do`...`while` loop `do B while (C);` consists of a conditional expression of type `bool` `C` and a block of code `B`, where `B` can be zero or more statements<sup>[§5.2](#52--statements)</sup> enclosed in curly braces `{}`, or a single statement without enclosing punctuation.
+
+If the expression `C` is not of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, a semantic error<sup>[§TODO - semantic error]()</sup> is triggered.
+
+When the `do`...`while` statement is reached by the script's execution, its body `B` is executed first. After the first execution of `B`, its condition `C` is evaluated. If `C` is true, `B` is executed again. This repeats until `C` is false, at which point the loop terminates and script execution<sup>[§TODO - execution]()</sup> moves on to the next statement.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   int x = 0;
+>   
+>   do {
+>     x++;
+>     print(x);
+>   } while (x < 5);
+> }
+> ```
+> 
+> This script produces the output:
+> 
+> ```
+> 1
+> 2
+> 3
+> 4
+> 5
+> ```
 
 ### 5.7.3 – `for` loops
 
-<!-- TODO - proofread -->
+`for` loops are generally used to execute a block of code a specified number of times. However, they mustn't exclusively be used this way.
 
-`for` loops execute a block of code a specific number of times. They consist of an initialization, a condition, and an increment expression.
+> **Note:**
+> 
+> Iterator loops<sup>[§5.7.4](#574--iterator-loops)</sup> also begin with the keyword `for`; however, this specification always uses the term "`for` loops" to mean the types of loops described in this section.
+
+`for` loops are matched by the following production of &lt;loop_stat&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;loop_stat&gt;_:**
+> * (... higher precedence productions)
+> * &lt;for_def&gt; &lt;body&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;for_def&gt;_:** `for` `(` &lt;var_init&gt; `;` &lt;expr&gt; `;` &lt;assignment&gt; `)`
+
+A `for` loop `for (I; C; A) B` consists of:
+
+* An initialization<sup>[§3.2.2](./ls-3-vars.md#322--initialization)</sup> `I`
+* A conditional expression of type `bool` `C`
+* An assignment<sup>[§5.4](#54--assignments)</sup> `A`
+* A block of code `B`, where `B` can be zero or more statements<sup>[§5.2](#52--statements)</sup> enclosed in curly braces `{}`, or a single statement without enclosing punctuation
+
+> **Note:**
+> 
+> The conditional expression `C` generally invokes the variable initialized in `I`, and `A` is generally a compound assignment<sup>[§4.5.4](./ls-4-expr.md#454--compound-assignment-operators)</sup> of the variable initialized in `I`. However, neither of these have to be the case.
+
+`for` loops can be conceptualized as a special case of the `while` loop<sup>[§5.7.1](#571--while-loops)</sup>. Any `for` loop `for (I; C; A) B` can equivalently<sup>[c](#fn-c)</sup> be expressed as:
 
 ```js
-for (int i = 0; i < 10; i++) {
-  print(i);
+/* preceding statements */
+I;
+while (C) {
+  B
+  A;
 }
+/* following statements */
 ```
+
+When a `for` loop is reached by the script's execution, this is the sequence of evaluations and executions:
+
+1.  `I` is executed
+2.  `C` is evaluated. If `C` is true, proceeds to step 3. If `C` is false, the loop terminates and script execution<sup>[§TODO - execution]()</sup> moves on to the next statement following the loop.
+3.  `B` is executed
+4.  `A` is executed
+5.  Returns to step 2
+
+> **Example:**
+> 
+> ```js
+> for (int i = 0; i < 10; i++) {
+>   int square = i * i;
+>   print(square);
+> }
+> ```
 
 ### 5.7.4 – Iterator loops
 
@@ -590,3 +686,4 @@ return;
 
 * <sup id="fn-a">a</sup> - *DeltaScript* has many features that make it a multi-paradigm language, but it is fundamentally imperative in its structure.
 * <sup id="fn-b">b</sup> - Recent versions of Java have extended the `switch` statement into a much more powerful and expressive [pattern matching![](../assets/external.png)](https://en.wikipedia.org/wiki/Pattern_matching) structure.
+* <sup id="fn-c">c</sup> - This isn't exactly true. `I` could be used after the `while` loop, but the `I` of the `for` cannot be used outside of the `for` loop it is declared in.
