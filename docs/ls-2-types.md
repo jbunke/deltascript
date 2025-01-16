@@ -178,7 +178,7 @@ Functional type identifiers consist of **optional comma-separated parameter type
 
 ### 2.4.1 – Parsing complex types
 
-It is important for users to be able to parse complex type identifiers<sup>[§2.1](#21--type-system)</sup> in order to correctly conceptualize what they represent.
+It is important for *DeltaScript* programmers to be able to parse complex type identifiers<sup>[§2.1](#21--type-system)</sup> in order to correctly conceptualize what they represent.
 
 In these examples, the "outermost" type is bolded:
 
@@ -194,7 +194,7 @@ In these examples, the "outermost" type is bolded:
 
 **Type conversion** is when a value of a certain type is converted to a correspondent value of another type, either implicitly or explicitly.
 
-*DeltaScript* supports both implicit and explicit type conversion. Implicit type conversion occurs automatically when it is safe to do so, while explicit type conversion (casting) requires the user to specify the desired type. Type conversion is not universal; only certain types can be converted to certain other types.
+*DeltaScript* supports both implicit and explicit type conversion. Implicit type conversion occurs automatically when it is safe to do so, while explicit type conversion (casting) requires the programmer to specify the desired type. Type conversion is not universal; only certain types can be converted to certain other types.
 
 These are all the type conversions that are possible in *DeltaScript*:
 
@@ -227,7 +227,7 @@ These are all the type conversions that are possible in *DeltaScript*:
 
 ### 2.5.2 – Explicit type conversion (casting)
 
-**Explicit type conversion**, or **casting**, is when a user specifies in the source code that the value of an expression should be converted to another type. This is achieved with a cast expression<sup>[§4.6](./ls-4-expr.md#46--cast-expressions)</sup>, where the desired type is enclosed in parentheses before the expression whose value is to be converted.
+**Explicit type conversion**, or **casting**, is when a programmer specifies in the source code that the value of an expression should be converted to another type. This is achieved with a cast expression<sup>[§4.6](./ls-4-expr.md#46--cast-expressions)</sup>, where the desired type is enclosed in parentheses before the expression whose value is to be converted.
 
 > **Example:**
 > 

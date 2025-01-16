@@ -243,7 +243,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 ---
 
-**<i id="sg-headrule">&lt;head_rule&gt;</i>:** [&lt;signature&gt;](#sg-signature) [&lt;funcBody&gt;](#sg-funcbody) [&lt;helper&gt;](#sg-helper)\*
+**<i id="sg-headrule">&lt;head_rule&gt;</i>:** [&lt;signature&gt;](#sg-signature) [&lt;func_body&gt;](#sg-funcbody) [&lt;helper&gt;](#sg-helper)\*
 
 > The outermost rule. The contents of an entire script file must match *head_rule* in order for the script to be syntactically correct.
 
