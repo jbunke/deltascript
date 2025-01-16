@@ -222,6 +222,10 @@ The size/length operator in *DeltaScript* is `#|`.
 
 ## U
 
+### Ubiquitous function
+
+A function whose inclusion in the [standard library](./std-lib.md) is justified by its fundamental importance and abundance of use cases.
+
 ### Under the hood
 
 Describes behaviour of a *DeltaScript* language implementation (compiler or interpreter) that may not be apparent from the syntax of the language.

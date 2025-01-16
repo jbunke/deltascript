@@ -21,6 +21,10 @@ This chapter describes the proper loading, pre-processing, and execution of *Del
 
 The particulars of the execution of *DeltaScript* code are highly dependent on the language implementation. This chapter outlines general steps and guidelines for correct and expected behaviour.
 
+> **Note:**
+> 
+> *DeltaScript* execution threads are limited to a single source code file. This is a limitation of the [base language![](../assets/definition.png)](./glossary.md#base-language); if necessary, it can be worked around by defining a new type<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup> to represent scripts in an extension<sup>[§8.2](./ls-8-ext.md#82--extensions)</sup> to the language. That way, scripts will be able to call other scripts.
+
 Execution can generally be sorted into three stages:
 
 1.  Parsing (syntax<sup>[§1](./ls-1-syntax.md)</sup> analysis)
