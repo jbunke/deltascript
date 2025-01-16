@@ -386,7 +386,7 @@ The following symbols and conventions are used in productions in the grammars.
 > 
 > Complex rules with several productions, or with productions with several units, may use bullets instead of vertical bars to show their productions on individual lines.
 
-**`a..z` (range):**<sup>[a](#fn-a)</sup>
+**`a..z` (range):**<sup>[a](#fn-a-1)</sup>
 
 > A terminal consisting of two characters separated by `..` represents a **range**. This means that any character in that range of characters (including the bounding characters) is a valid match for the range.
 > 
@@ -395,15 +395,15 @@ The following symbols and conventions are used in productions in the grammars.
 > * `A..Z` - the 26 uppercase letters of the Latin alphabet
 > * `0..9` - the 10 numerical digits of the base 10 numbering system
 
-**\~ (complement):**<sup>[a](#fn-a)</sup>
+**\~ (complement):**<sup>[a](#fn-a-1)</sup>
 
 > A tilde (~) preceding a production unit represents the [**complement**![](../assets/external.png)](https://en.wikipedia.org/wiki/Complement_(set_theory)) of the unit. Complement means **everything that is not part of the production unit**. The [universe![](../assets/external.png)](https://en.wikipedia.org/wiki/Universe_(mathematics)), which means all possible things being considered, can be understood to be all of the characters encoded under [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8).
 
-**`\n`, `\r` (line terminators):**<sup>[a](#fn-a)</sup>
+**`\n`, `\r` (line terminators):**<sup>[a](#fn-a-1)</sup>
 
 > The newline (`\n`) and carriage return (`\r`) characters are used to denote the end of a line. In the context of the lexical grammar, they are treated as line terminators and are used to handle line breaks in the source code. They are represented in the grammar as their escape character counterparts; however, in the source code, **these characters are not visible**.
 
-**◯ (anything):**<sup>[a](#fn-a)</sup>
+**◯ (anything):**<sup>[a](#fn-a-1)</sup>
 
 > A large circle (◯) represents **any character**. It is used in the lexical grammar to denote that any character, except for those explicitly excluded, can be matched.
 
@@ -425,7 +425,7 @@ The lexical grammar contains the production rules that pertain to the tokenizati
 * [Identifiers![](../assets/definition.png)](#identifier)
 * [Literals![](../assets/external.png)](https://en.wikipedia.org/wiki/Literal_(computer_programming))
 
-The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity and clarity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b)</sup>.
+The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity and clarity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b-1)</sup>.
 
 ---
 
@@ -887,8 +887,8 @@ The following scripts are semantically equivalent:
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> – This symbol/convention is only used in the lexical grammar.
-* <sup id="fn-b">b</sup> – The exception is the keyword `final`, which is included in the abridged lexical grammar. This is because `final` has a shorthand equivalent ( `~` ), and thus cannot be trivially represented as a terminal in the syntax grammar.
+* <sup id="fn-a-1">a</sup> – This symbol/convention is only used in the lexical grammar.
+* <sup id="fn-b-1">b</sup> – The exception is the keyword `final`, which is included in the abridged lexical grammar. This is because `final` has a shorthand equivalent ( `~` ), and thus cannot be trivially represented as a terminal in the syntax grammar.
 
 
 
@@ -928,7 +928,7 @@ Types in *DeltaScript* can be broadly categorized into three main groups: **simp
 
 ### 2.1.1 – Type safety
 
-*DeltaScript* is type-safe and statically typed, meaning that type checking<sup>[§7.3](#73--semantic-analysis)</sup> is performed at compile-time<sup>[a](#fn-a)</sup> rather than at runtime. This ensures that type errors are caught early in the development process, leading to more reliable and maintainable code.
+*DeltaScript* is type-safe and statically typed, meaning that type checking<sup>[§7.3](#73--semantic-analysis)</sup> is performed at compile-time<sup>[a](#fn-a-2)</sup> rather than at runtime. This ensures that type errors are caught early in the development process, leading to more reliable and maintainable code.
 
 ### 2.1.2 – Type inference
 
@@ -1001,7 +1001,7 @@ Many composite types also define member functions<sup>[§6.3.5](#635--member-fun
 
 Collection types represent collections of elements. They allow for the storage and manipulation of multiple values in a structured manner.
 
-A collection's elements must all be of the same type<sup>[b](#fn-b)</sup>. A collection's elements mustn't be of a simple type; functions and collections themselves can also be grouped into collections.
+A collection's elements must all be of the same type<sup>[b](#fn-b-2)</sup>. A collection's elements mustn't be of a simple type; functions and collections themselves can also be grouped into collections.
 
 The basic collection types in *DeltaScript* are **arrays**, **lists**, and **sets**. Each of these collection types contains elements of a single type, and is constrained by different rules determining how its elements can be accessed, arranged, added, or removed.
 
@@ -1013,7 +1013,7 @@ The member functions of collection types are detailed in the [standard library](
 
 An **array** is an ordered collection of fixed [length![](../assets/definition.png)](#length).
 
-**Ordered** means that elements in an array are arranged in a certain order, and that individual elements can be accessed via their **index** - their position in the array. *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering), which means that the initial<sup>[c](#fn-c)</sup> element in an ordered collection has an index of 0.
+**Ordered** means that elements in an array are arranged in a certain order, and that individual elements can be accessed via their **index** - their position in the array. *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering), which means that the initial<sup>[c](#fn-c-2)</sup> element in an ordered collection has an index of 0.
 
 > **Example:**
 > 
@@ -1135,9 +1135,9 @@ These are all the type conversions that are possible in *DeltaScript*:
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - The term "compile-time" is used here, however, depending on the language implementation, *DeltaScript* code may be either compiled or interpreted. Either way, type checking is performed prior to runtime – the execution of the script.
-* <sup id="fn-b">b</sup> - This applies to arrays, lists, and sets. Maps/dictionaries have two element types: one for keys and one for values. All keys in a map must be of the same type, and all values must be of the same type. However, keys and values mustn't be of the same type.
-* <sup id="fn-c">c</sup> - Because the ordinal number "first" doesn't correspond with the index 0, some people refer to the initial element of an ordered collection in a zero-based language as the "zeroth" element. However, this specification uses "first" to mean initial, i.e. at index 0.
+* <sup id="fn-a-2">a</sup> - The term "compile-time" is used here, however, depending on the language implementation, *DeltaScript* code may be either compiled or interpreted. Either way, type checking is performed prior to runtime – the execution of the script.
+* <sup id="fn-b-2">b</sup> - This applies to arrays, lists, and sets. Maps/dictionaries have two element types: one for keys and one for values. All keys in a map must be of the same type, and all values must be of the same type. However, keys and values mustn't be of the same type.
+* <sup id="fn-c-2">c</sup> - Because the ordinal number "first" doesn't correspond with the index 0, some people refer to the initial element of an ordered collection in a zero-based language as the "zeroth" element. However, this specification uses "first" to mean initial, i.e. at index 0.
 
 
 
@@ -1179,7 +1179,7 @@ After its initialization, a variable's name can be used as an expression to retr
 
 ### 3.2.1 – Variable names
 
-Variable names in *DeltaScript* must be valid [identifiers![](../assets/definition.png)](#identifier). An identifier must match the following rule<sup>[a](#fn-a)</sup> from the lexical grammar<sup>[§1.2.1](#121--lexical-grammar)</sup>:
+Variable names in *DeltaScript* must be valid [identifiers![](../assets/definition.png)](#identifier). An identifier must match the following rule<sup>[a](#fn-a-3)</sup> from the lexical grammar<sup>[§1.2.1](#121--lexical-grammar)</sup>:
 
 > **_&lt;IDENTIFIER&gt;_:** &lt;LEADOFF&gt; &lt;FOLLOWING&gt;\*
 > 
@@ -1207,7 +1207,7 @@ An **initialization statement** is a single statement that declares a variable a
 > 
 > * `a` is declared, but not initialized. During program execution<sup>[§7.4](#74--runtime-execution)</sup>, after its declaration and before any assignment of `a`, `a` is considered uninitialized.
 > * `b` is declared and initialized with a value of 10.
-> * `c` is declared and initialized with a value of a random number between 0 and 11<sup>[b](#fn-b)</sup>.
+> * `c` is declared and initialized with a value of a random number between 0 and 11<sup>[b](#fn-b-3)</sup>.
 
 Provided they were not declared as immutable, uninitialized variables can be initialized after their declaration with an assignment<sup>[§5.4](#54--assignments)</sup>.
 
@@ -1229,7 +1229,7 @@ Attempting to access the value of an uninitialized variable by using the variabl
 
 Variables, including function parameters, can optionally be declared as **immutable**. An **immutable** variable cannot be reassigned a new value. For variables declared in the body of a function, this means that they can only be assigned a value in an initialization statement. For function parameters, this means that they can only be assigned a value by the arguments that are passed into the function when it is called<sup>[§4.7](#47--function-calls)</sup>.
 
-A variable is declared as immutable by [prepending![](../assets/definition.png)](#prepend) the type identifier in the declaration with the keyword<sup>[§1.3.3](#133--keywords)</sup> `final`<sup>[c](#fn-c)</sup>.
+A variable is declared as immutable by [prepending![](../assets/definition.png)](#prepend) the type identifier in the declaration with the keyword<sup>[§1.3.3](#133--keywords)</sup> `final`<sup>[c](#fn-c-3)</sup>.
 
 Contrastingly, a variable that **can** have its value reassigned is called **mutable**.
 
@@ -1256,7 +1256,7 @@ Immutability in *DeltaScript* is **shallow**. This means that, for variables rep
 
 ## 3.3 – Function parameters
 
-**Function parameters** are special types of variables. Rather than being declared with statements in the bodies of functions<sup>[§6.1](#61--functions)</sup>, they are defined in the function's signature. Function parameters receive their values from the arguments passed to the function when it is called. These parameters can be either mutable or immutable, depending on whether the `final` keyword<sup>[c](#fn-c)</sup> is used in their declaration. That is to say, mutable parameters can be assigned new values in the bodies of the functions they are defined with.
+**Function parameters** are special types of variables. Rather than being declared with statements in the bodies of functions<sup>[§6.1](#61--functions)</sup>, they are defined in the function's signature. Function parameters receive their values from the arguments passed to the function when it is called. These parameters can be either mutable or immutable, depending on whether the `final` keyword<sup>[c](#fn-c-3)</sup> is used in their declaration. That is to say, mutable parameters can be assigned new values in the bodies of the functions they are defined with.
 
 **Example:**
 
@@ -1393,9 +1393,9 @@ Scopes can be **nested**. A variable defined in the outermost scope of a functio
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Production rule is collapsed for the sake of brevity and clarity
-* <sup id="fn-b">b</sup> - `11` is an exclusive upper bound in `rand(0, 11)`. The function has an equal probability of returning 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 or 10. For more information, you can read about the behaviour of [`rand(int min, int max_ex) -> int`](#rand) in the standard library.
-* <sup id="fn-c">c</sup> - `final` or its shorthand<sup>[§1.3.4](#134--shorthands)</sup> equivalent `~`
+* <sup id="fn-a-3">a</sup> - Production rule is collapsed for the sake of brevity and clarity
+* <sup id="fn-b-3">b</sup> - `11` is an exclusive upper bound in `rand(0, 11)`. The function has an equal probability of returning 0, 1, 2, 3, 4, 5, 6, 7, 8, 9 or 10. For more information, you can read about the behaviour of [`rand(int min, int max_ex) -> int`](#rand) in the standard library.
+* <sup id="fn-c-3">c</sup> - `final` or its shorthand<sup>[§1.3.4](#134--shorthands)</sup> equivalent `~`
 
 
 
@@ -1696,11 +1696,11 @@ The `#|` operator represents **length** or **size**. It can be applied to expres
 
 The [length![](../assets/definition.png)](#length) of a `string` is the **number of characters in the string**.
 
-The length of an array `T[]`<sup>[a](#fn-a)</sup> is the **number of elements allotted to the array**.
+The length of an array `T[]`<sup>[a](#fn-a-4)</sup> is the **number of elements allotted to the array**.
 
-The [size![](../assets/definition.png)](#size) of a list `T<>`<sup>[a](#fn-a)</sup> or set `T{}`<sup>[a](#fn-a)</sup> is the **number of elements in the collection**.
+The [size![](../assets/definition.png)](#size) of a list `T<>`<sup>[a](#fn-a-4)</sup> or set `T{}`<sup>[a](#fn-a-4)</sup> is the **number of elements in the collection**.
 
-The size of a map `{K:V}`<sup>[b](#fn-b)</sup> is the **number of mappings or key-value pairs contained in the map**.
+The size of a map `{K:V}`<sup>[b](#fn-b-4)</sup> is the **number of mappings or key-value pairs contained in the map**.
 
 > **Example:**
 > 
@@ -1855,7 +1855,7 @@ The equality operator `==` can operate over operands of any type. Operands mustn
 
 Equality is defined in the following ways for values of each of the types in the [base language![](../assets/definition.png)](#base-language):
 
-| Type | `a == b`<sup>[c](#fn-c)</sup> |
+| Type | `a == b`<sup>[c](#fn-c-4)</sup> |
 | :--- | :------------------ |
 | `bool` | `a` and `b` both evaluate to the same [truth value![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_value), whether `true` or `false` | 
 | `char` | `a` and `b` both evaluate to the same [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8) character |
@@ -2001,7 +2001,7 @@ They are matched by the following production rules from the syntax grammar<sup>[
 > 
 > **_&lt;namespace\_ident&gt;_:** `$` &lt;ident&gt; &lt;sub_ident&gt;
 > 
-> **_&lt;sub\_ident&gt;_:**<sup>[d](#fn-d)</sup> `.` &lt;ident&gt;
+> **_&lt;sub\_ident&gt;_:**<sup>[d](#fn-d-4)</sup> `.` &lt;ident&gt;
 
 ### 4.7.1 – Global function calls
 
@@ -2424,10 +2424,10 @@ new {K:V}
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - `T` represents an arbitrary element type
-* <sup id="fn-b">b</sup> - `K` represents an arbitrary type for keys of the map, while `V` represents an arbitrary type for values of the map
-* <sup id="fn-c">c</sup> - `a` and `b` are both arbitrary expressions of the type indicated by the row of the table
-* <sup id="fn-d">d</sup> - The rule &lt;sub_ident&gt; is adapted slightly for the sake of brevity
+* <sup id="fn-a-4">a</sup> - `T` represents an arbitrary element type
+* <sup id="fn-b-4">b</sup> - `K` represents an arbitrary type for keys of the map, while `V` represents an arbitrary type for values of the map
+* <sup id="fn-c-4">c</sup> - `a` and `b` are both arbitrary expressions of the type indicated by the row of the table
+* <sup id="fn-d-4">d</sup> - The rule &lt;sub_ident&gt; is adapted slightly for the sake of brevity
 
 
 
@@ -2458,7 +2458,7 @@ This chapter details the various forms statements in *DeltaScript* can take.
 
 ## 5.1 – Imperative programming
 
-Statements are the building blocks of [imperative![](../assets/external.png)](https://en.wikipedia.org/wiki/Imperative_programming) programming languages like *DeltaScript*<sup>[a](#fn-a)</sup>. **Imperative programming** is a programming paradigm in which sequential instructions to change a program's state. These instructions are called statements.
+Statements are the building blocks of [imperative![](../assets/external.png)](https://en.wikipedia.org/wiki/Imperative_programming) programming languages like *DeltaScript*<sup>[a](#fn-a-5)</sup>. **Imperative programming** is a programming paradigm in which sequential instructions to change a program's state. These instructions are called statements.
 
 ## 5.2 – Statements
 
@@ -2674,7 +2674,7 @@ If the conditional expression of an `if` or `else if` branch is not of type `boo
 > 
 > **_&lt;elements&gt;_:** &lt;expr&gt; ( `,` &lt;expr&gt; )\*
 
-Unlike traditional `switch` statements<sup>[b](#fn-b)</sup>, which consist of a series of cases that check the value of the control expression against literal expressions<sup>[§4.3](#43--literals)</sup>, the `when` statement is a powerful pattern matching structure that can be used for control expressions of any type.
+Unlike traditional `switch` statements<sup>[b](#fn-b-5)</sup>, which consist of a series of cases that check the value of the control expression against literal expressions<sup>[§4.3](#43--literals)</sup>, the `when` statement is a powerful pattern matching structure that can be used for control expressions of any type.
 
 A `when` statement consists of a control expression, one or more non-trivial cases, and optionally, an `otherwise` case. Cases are checked sequentially; the first case to be matched has its block of code executed. There is no fallthrough; subsequent cases to the first matched case are neither checked, nor is their code block executed. `when` statements are non-exhaustive; if no case is matched and the `when` statement does not contain an `otherwise` case, no constituent code block is executed.
 
@@ -3037,7 +3037,7 @@ A `for` loop `for (I; C; A) B` consists of:
 > 
 > The conditional expression `C` generally invokes the variable initialized in `I`, and `A` is generally a compound assignment<sup>[§4.5.4](#454--compound-assignment-operators)</sup> of the variable initialized in `I`. However, neither of these have to be the case.
 
-`for` loops can be conceptualized as a special case of the `while` loop<sup>[§5.7.1](#571--while-loops)</sup>. Any `for` loop `for (I; C; A) B` can equivalently<sup>[c](#fn-c)</sup> be expressed as:
+`for` loops can be conceptualized as a special case of the `while` loop<sup>[§5.7.1](#571--while-loops)</sup>. Any `for` loop `for (I; C; A) B` can equivalently<sup>[c](#fn-c-5)</sup> be expressed as:
 
 ```js
 /* preceding statements */
@@ -3128,7 +3128,7 @@ When an iterator loop is reached by the script's execution<sup>[§7.4](#74--runt
 > random(string s -> char) -> s.at(rand(0, #|s))
 > ```
 > 
-> This script may<sup>[d](#fn-d)</sup> produce the output:
+> This script may<sup>[d](#fn-d-5)</sup> produce the output:
 > 
 > ```
 > I
@@ -3202,10 +3202,10 @@ If a void `return` statement is found in a function with a return type, a semant
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - *DeltaScript* has many features that make it a multi-paradigm language, but it is fundamentally imperative in its structure.
-* <sup id="fn-b">b</sup> - Recent versions of Java have extended the `switch` statement into a much more powerful and expressive [pattern matching![](../assets/external.png)](https://en.wikipedia.org/wiki/Pattern_matching) structure.
-* <sup id="fn-c">c</sup> - This isn't exactly true. `I` could be used after the `while` loop, but the `I` of the `for` cannot be used outside of the `for` loop it is declared in.
-* <sup id="fn-d">d</sup> - The output of the script is [non-deterministic![](../assets/external.png)](https://en.wikipedia.org/wiki/Nondeterministic_algorithm) due to the use of the [`rand(int min, int max_ex) -> int`](#rand) function.
+* <sup id="fn-a-5">a</sup> - *DeltaScript* has many features that make it a multi-paradigm language, but it is fundamentally imperative in its structure.
+* <sup id="fn-b-5">b</sup> - Recent versions of Java have extended the `switch` statement into a much more powerful and expressive [pattern matching![](../assets/external.png)](https://en.wikipedia.org/wiki/Pattern_matching) structure.
+* <sup id="fn-c-5">c</sup> - This isn't exactly true. `I` could be used after the `while` loop, but the `I` of the `for` cannot be used outside of the `for` loop it is declared in.
+* <sup id="fn-d-5">d</sup> - The output of the script is [non-deterministic![](../assets/external.png)](https://en.wikipedia.org/wiki/Nondeterministic_algorithm) due to the use of the [`rand(int min, int max_ex) -> int`](#rand) function.
 
 
 
@@ -3247,7 +3247,7 @@ A function's **type signature** comprises the types<sup>[§2](#chapter-2--types)
 Two functions `a` and `b` have the same type signature [iff![](../assets/definition.png)](#iff):
 
 * `a` and `b` have the same number of parameters *n* (including zero)
-* For *i* from 1 to *n*, the type of parameter P<sub>`a`</sub>*i* is the same<sup>[a](#fn-a)</sup> as the type of parameter P<sub>`b`</sub>*i*
+* For *i* from 1 to *n*, the type of parameter P<sub>`a`</sub>*i* is the same<sup>[a](#fn-a-6)</sup> as the type of parameter P<sub>`b`</sub>*i*
 * `a` and `b` have the same return type (including no return type<sup>[§6.2.2](#622--void-functions)</sup>)
 
 It is important for *DeltaScript* programmers to be able to parse type signatures in order to understand which types of arguments a function expects and what it returns.
@@ -3571,7 +3571,7 @@ If a value-returning function yields execution<sup>[§7.4](#74--runtime-executio
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Sameness for two arbitrary types is defined as having the same type identifier<sup>[§2.1](#21--type-system)</sup>.
+* <sup id="fn-a-6">a</sup> - Sameness for two arbitrary types is defined as having the same type identifier<sup>[§2.1](#21--type-system)</sup>.
 
 
 
@@ -3684,7 +3684,7 @@ As of this language version, *DeltaScript* has no runtime error suppression mech
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Only entire scripts must be a match for &lt;head_rule&gt;. Code snippets in isolation may match different rules from the syntax grammar<sup>[§1.2](#122--syntax-grammar)</sup>.
+* <sup id="fn-a-7">a</sup> - Only entire scripts must be a match for &lt;head_rule&gt;. Code snippets in isolation may match different rules from the syntax grammar<sup>[§1.2](#122--syntax-grammar)</sup>.
 
 
 
@@ -3725,7 +3725,7 @@ Extensions can add the following language features:
 * New member functions<sup>[§1.2](#12--grammars)</sup> and properties<sup>[§4.7.3](#473--scoped-function-calls)</sup> of types included in the [base language![](../assets/definition.png)](#base-language)
 * Namespaces<sup>[§8.4](#84--namespaces)</sup>
 
-This chapter will use the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api/)<sup>[a](#fn-a)</sup> (the first *DeltaScript* extension) for practical examples of each of the extension language features.
+This chapter will use the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api/)<sup>[a](#fn-a-8)</sup> (the first *DeltaScript* extension) for practical examples of each of the extension language features.
 
 ## 8.3 – Types in extensions
 
@@ -3795,7 +3795,7 @@ Functions defined as part of a namespace may be either value-returning<sup>[§6.
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Examples are from *Stipple Effect* v1.2.2 and accurate as of the date of publication of the specification.
+* <sup id="fn-a-8">a</sup> - Examples are from *Stipple Effect* v1.2.2 and accurate as of the date of publication of the specification.
 
 # *DeltaScript* – Standard Library
 
@@ -3808,7 +3808,7 @@ Functions defined as part of a namespace may be either value-returning<sup>[§6.
 
 > **Note:**
 > 
-> *DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with member functions and/or [properties![](../assets/definition.png)](#property) in the base language<sup>[a](#fn-a)</sup>.
+> *DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with member functions and/or [properties![](../assets/definition.png)](#property) in the base language<sup>[a](#fn-a-sl)</sup>.
 
 * [Collection types](#collection-types)
   * [Array – `T[]`](#array)
@@ -3836,7 +3836,7 @@ Functions defined as part of a namespace may be either value-returning<sup>[§6.
 
 ## Footnotes
 
-<sup id="fn-a">a</sup> - [Extensions](#82--extensions) of the language may provide additional functionality in the form of properties or member functions to these types, as well as to other built-in types of the base language.
+<sup id="fn-a-sl">a</sup> - [Extensions](#82--extensions) of the language may provide additional functionality in the form of properties or member functions to these types, as well as to other built-in types of the base language.
 
 # `color`
 
