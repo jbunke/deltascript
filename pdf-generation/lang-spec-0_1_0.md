@@ -173,7 +173,7 @@ This specification aims to provide an exhaustive description of how the language
 
 *DeltaScript* was first developed as a domain-specific scripting language for [*Stipple Effect*![](../assets/external.png)](https://github.com/stipple-effect/stipple-effect), a pixel art editor that makes extensive use of scripting for automation and for transforming project contents.
 
-Eventually, the *Stipple Effect* codebase was extensively refactored. The core of the scripting language implementation was ripped out and reimplemented in the underlying library that served as an external dependency for *Stipple Effect*, and the language features deemed specific to the context of *Stipple Effect* were implemented in its codebase as an extension to the [base language![](../assets/definition.png)](./glossary.md#base-language). The idea was that, this way, the base language would be reuseable for multiple projects, with application-specific behaviours and features implemented as extensions.
+Eventually, the *Stipple Effect* codebase was extensively refactored. The core of the scripting language implementation was ripped out and reimplemented in the underlying library that served as an external dependency for *Stipple Effect*, and the language features deemed specific to the context of *Stipple Effect* were implemented in its codebase as an extension to the [base language![](../assets/definition.png)](#base-language). The idea was that, this way, the base language would be reuseable for multiple projects, with application-specific behaviours and features implemented as extensions.
 
 There are other programs in a similar niche as *Stipple Effect* that support scripting, like [*Aseprite*![](../assets/external.png)](https://www.aseprite.org), which lets users write scripts with [Lua![](../assets/external.png)](https://www.lua.org). I opted to design and implement my own scripting language for a few reasons, chief among which was **how I wanted the code to look**. Lua's keyword noise, lack of punctuation, and general boilerplate were all non-starters for me. I wanted scripts written in my language to clearly reflect their behaviour at a glance without any additional fluff.
 
@@ -241,7 +241,7 @@ At various points throughout the specification are superscripted links with sect
 
 **Code snippets:**
 
-Code snippets are multi-line segments of the specification that appear in monospaced font. Unless otherwise specified, code inside a code snippet is written in *DeltaScript*. Unless a particular language extension is referenced, the code can be assumed to be written in the [base language![](../assets/definition.png)](./glossary.md#base-language).
+Code snippets are multi-line segments of the specification that appear in monospaced font. Unless otherwise specified, code inside a code snippet is written in *DeltaScript*. Unless a particular language extension is referenced, the code can be assumed to be written in the [base language![](../assets/definition.png)](#base-language).
 
 ```js
 () {
@@ -422,7 +422,7 @@ Lexical production rule names are ***&lt;CAPITALIZED&gt;***, whereas syntactical
 The lexical grammar contains the production rules that pertain to the tokenization of *DeltaScript* code. This includes correctly identifying:
 * Keywords<sup>[§1.3.3](#133--keywords)</sup>
 * Punctuation (types of brackets, semicolons, etc.)
-* [Identifiers![](../assets/definition.png)](./glossary.md#identifier)
+* [Identifiers![](../assets/definition.png)](#identifier)
 * [Literals![](../assets/external.png)](https://en.wikipedia.org/wiki/Literal_(computer_programming))
 
 The grammar shown here is an abridged version of the lexical grammar used for the official language implementation. For the sake of brevity and clarity, keywords and punctuation have been directly included as terminals in the syntax grammar<sup>[b](#fn-b)</sup>.
@@ -499,7 +499,7 @@ The grammar shown here is an abridged version of the lexical grammar used for th
 > 
 > **Note:**
 > 
-> The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity) channel. If it is omitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
+> The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](#opacity) channel. If it is omitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
 
 **<i id="lg-escapechar">&lt;ESCAPE_CHAR&gt;</i>:** `\` ( `0` | `b` | `t` | `n` | `f` | `r` | `"` | `'` | `\` )
 
@@ -704,7 +704,7 @@ The syntax grammar is responsible for arranging the tokens produced by lexical g
 
 **Comments** are optional sections of source files that are ignored by interpreters or compilers implementing *DeltaScript*. Comments are intended to serve as human-readable annotations that make code easier to understand or provide additional context, such as authorship of a program, for example.
 
-Comments in *DeltaScript* are identical to comments in most programming languages with [C-like syntax![](../assets/definition.png)](./glossary.md#c-like-syntax):
+Comments in *DeltaScript* are identical to comments in most programming languages with [C-like syntax![](../assets/definition.png)](#c-like-syntax):
 
 * **line comments** are initiated with `//` and run to the end of the line
 * **multi-line comments** are opened with `/*` and closed with `*/`, capturing everything in between
@@ -758,11 +758,11 @@ Unlike programming languages like [Python![](../assets/external.png)](https://en
 > }
 > ```
 > 
-> 2. Whitespace inside a string literal<sup>[§4.3.6](#436--string-literals)</sup> **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence).
+> 2. Whitespace inside a string literal<sup>[§4.3.6](#436--string-literals)</sup> **DOES** affect the behaviour of the program. `"Helloworld"` and `"Hello world"` are **NOT** [semantically equivalent![](../assets/definition.png)](#semantic-equivalence).
 
 ### 1.3.3 – Keywords
 
-*DeltaScript* utilizes the following keywords. **These are not to be used as [identifiers![](../assets/definition.png)](./glossary.md#identifier).**
+*DeltaScript* utilizes the following keywords. **These are not to be used as [identifiers![](../assets/definition.png)](#identifier).**
 
 * `bool`
 * `char`
@@ -797,7 +797,7 @@ Unlike programming languages like [Python![](../assets/external.png)](https://en
 
 ### 1.3.4 – Shorthands
 
-*DeltaScript* supports a few types of shorthands. A **shorthand** is a way of expressing something [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) using less code than it would otherwise take.
+*DeltaScript* supports a few types of shorthands. A **shorthand** is a way of expressing something [semantically equivalent![](../assets/definition.png)](#semantic-equivalence) using less code than it would otherwise take.
 
 <br>
 
@@ -856,16 +856,16 @@ function_name(params? -> return_type) -> expression
 
 Certain types define properties<sup>[§2.2.2](#222--primitive-vs-composite-types)</sup>. Some of these properties can be accessed by an abbreviation.
 
-These are all of the property abbreviations available in the [base language![](../assets/definition.png)](./glossary.md#base-language), though extensions<sup>[§8.2](#82--extensions)</sup> may define additional ones:
+These are all of the property abbreviations available in the [base language![](../assets/definition.png)](#base-language), though extensions<sup>[§8.2](#82--extensions)</sup> may define additional ones:
 
 | Type | Property | Abbreviation |
 | :--: | :------: | :----------: |
-| `color` | [`red`](./color-sl.md#red) | `r` |
-| `color` | [`green`](./color-sl.md#green) | `g` |
-| `color` | [`blue`](./color-sl.md#blue) | `b` |
-| `color` | [`alpha`](./color-sl.md#alpha) | `a` |
-| `image` | [`width`](./image-sl.md#width) | `w` |
-| `image` | [`height`](./image-sl.md#height) | `h` |
+| `color` | [`red`](#red) | `r` |
+| `color` | [`green`](#green) | `g` |
+| `color` | [`blue`](#blue) | `b` |
+| `color` | [`alpha`](#alpha) | `a` |
+| `image` | [`width`](#width) | `w` |
+| `image` | [`height`](#height) | `h` |
 
 The following scripts are semantically equivalent:
 
@@ -972,11 +972,11 @@ The type system in *DeltaScript* is designed to be extensible, allowing for the 
 
 ## 2.2 – Simple types
 
-Simple types are types whose identifiers consist of a single word and no punctuation. These types are **simple** in contrast to collection types and functional types, which are considered complex. Simple types comprise [built-in![](../assets/definition.png)](./glossary.md#built-in) types like `bool` and `int`, as well as new types defined by extensions to *DeltaScript*<sup>[§8.3.1](#831--new-types)</sup>.
+Simple types are types whose identifiers consist of a single word and no punctuation. These types are **simple** in contrast to collection types and functional types, which are considered complex. Simple types comprise [built-in![](../assets/definition.png)](#built-in) types like `bool` and `int`, as well as new types defined by extensions to *DeltaScript*<sup>[§8.3.1](#831--new-types)</sup>.
 
 ### 2.2.1 – Built-in types
 
-The following simple types are built into the [base language![](../assets/definition.png)](./glossary.md#base-language):
+The following simple types are built into the [base language![](../assets/definition.png)](#base-language):
 * `bool` - one of two possible [truth values![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_value): true or false
 * `char` - a [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8) character
 * `color` - a 32-bit [RGBA color![](../assets/external.png)](https://en.wikipedia.org/wiki/RGBA_color_model)
@@ -991,9 +991,9 @@ Simple types can be further subdivided into **primitive types** and **composite 
 
 **Primitive types** (`bool`, `char`, `float`, and `int`) represent primitive data values; they cannot be broken down into smaller units.
 
-**Composite types** (`image`, `string`) represent [**objects**![](../assets/definition.png)](./glossary.md#object), which are composed of multiple primitive data values. Objects have mutable states, meaning their internal data can change without altering the object's identity. For example, an object of the type `image` can have one of its pixels change color without becoming a different `image` object. Extension types are also usually composite.
+**Composite types** (`image`, `string`) represent [**objects**![](../assets/definition.png)](#object), which are composed of multiple primitive data values. Objects have mutable states, meaning their internal data can change without altering the object's identity. For example, an object of the type `image` can have one of its pixels change color without becoming a different `image` object. Extension types are also usually composite.
 
-Many composite types also define member functions<sup>[§6.3.5](#635--member-functions)</sup> and [properties![](../assets/definition.png)](./glossary.md#properties). The member functions and properties of the built-in composite types are detailed in *DeltaScript*'s [standard library](#deltascript--standard-library).
+Many composite types also define member functions<sup>[§6.3.5](#635--member-functions)</sup> and [properties![](../assets/definition.png)](#properties). The member functions and properties of the built-in composite types are detailed in *DeltaScript*'s [standard library](#deltascript--standard-library).
 
 `color` does not fall neatly into either category. Fundamentally, `color` represents a 32-bit integer. However, the type defines additional behaviours in the form of properties that give it the characteristics of a composite type.
 
@@ -1007,11 +1007,11 @@ The basic collection types in *DeltaScript* are **arrays**, **lists**, and **set
 
 **Maps**, also known as **dictionaries**, are a special type of collection that represent associations between **keys** and **values**.
 
-The member functions of collection types are detailed in the [standard library](./collections-sl.md).
+The member functions of collection types are detailed in the [standard library](#collection-types).
 
 ### 2.3.1 – Arrays
 
-An **array** is an ordered collection of fixed [length![](../assets/definition.png)](./glossary.md#length).
+An **array** is an ordered collection of fixed [length![](../assets/definition.png)](#length).
 
 **Ordered** means that elements in an array are arranged in a certain order, and that individual elements can be accessed via their **index** - their position in the array. *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering), which means that the initial<sup>[c](#fn-c)</sup> element in an ordered collection has an index of 0.
 
@@ -1033,7 +1033,7 @@ Arrays are represented by **square brackets** `[]`. An array of elements of an a
 
 ### 2.3.2 – Lists
 
-Like an array<sup>[§2.3.1](#231--arrays)</sup>, a **list** is an ordered collection. However, unlike an array, the [size![](../assets/definition.png)](./glossary.md#size) of a list is dynamic. This means that it can grow and shrink: elements can be added and removed.
+Like an array<sup>[§2.3.1](#231--arrays)</sup>, a **list** is an ordered collection. However, unlike an array, the [size![](../assets/definition.png)](#size) of a list is dynamic. This means that it can grow and shrink: elements can be added and removed.
 
 Lists are represented by **angle brackets** `[]`. A list of elements of an arbitrary type `T` would be declared with the type identifier `T<>`.
 
@@ -1179,7 +1179,7 @@ After its initialization, a variable's name can be used as an expression to retr
 
 ### 3.2.1 – Variable names
 
-Variable names in *DeltaScript* must be valid [identifiers![](../assets/definition.png)](./glossary.md#identifier). An identifier must match the following rule<sup>[a](#fn-a)</sup> from the lexical grammar<sup>[§1.2.1](#121--lexical-grammar)</sup>:
+Variable names in *DeltaScript* must be valid [identifiers![](../assets/definition.png)](#identifier). An identifier must match the following rule<sup>[a](#fn-a)</sup> from the lexical grammar<sup>[§1.2.1](#121--lexical-grammar)</sup>:
 
 > **_&lt;IDENTIFIER&gt;_:** &lt;LEADOFF&gt; &lt;FOLLOWING&gt;\*
 > 
@@ -1229,7 +1229,7 @@ Attempting to access the value of an uninitialized variable by using the variabl
 
 Variables, including function parameters, can optionally be declared as **immutable**. An **immutable** variable cannot be reassigned a new value. For variables declared in the body of a function, this means that they can only be assigned a value in an initialization statement. For function parameters, this means that they can only be assigned a value by the arguments that are passed into the function when it is called<sup>[§4.7](#47--function-calls)</sup>.
 
-A variable is declared as immutable by [prepending![](../assets/definition.png)](./glossary.md#prepend) the type identifier in the declaration with the keyword<sup>[§1.3.3](#133--keywords)</sup> `final`<sup>[c](#fn-c)</sup>.
+A variable is declared as immutable by [prepending![](../assets/definition.png)](#prepend) the type identifier in the declaration with the keyword<sup>[§1.3.3](#133--keywords)</sup> `final`<sup>[c](#fn-c)</sup>.
 
 Contrastingly, a variable that **can** have its value reassigned is called **mutable**.
 
@@ -1252,7 +1252,7 @@ Immutability in *DeltaScript* is **shallow**. This means that, for variables rep
 > }
 > ```
 > 
-> `nums` is declared as immutable. Assignments with a [LHS![](../assets/definition.png)](./glossary.md#lhs) of the form `nums[I]`, where `I` is an arbitrary expression that evaluates to a value of type `int`, are permitted. However, direct assignments to `nums` (`nums = ...`) are not.
+> `nums` is declared as immutable. Assignments with a [LHS![](../assets/definition.png)](#lhs) of the form `nums[I]`, where `I` is an arbitrary expression that evaluates to a value of type `int`, are permitted. However, direct assignments to `nums` (`nums = ...`) are not.
 
 ## 3.3 – Function parameters
 
@@ -1275,7 +1275,7 @@ The function `backwards(string) -> string` has a single parameter `word`, which 
 
 ## 3.4 – Variable scope
 
-The **scope** of a variable is the section of a program's source code in which the name of the variable can be used to as a reference to its associated value. Scopes are associated with a language structure, whether it is a function<sup>[§6.1](#61--functions)</sup>, or a [control flow![](../assets/definition.png)](./glossary.md#control-flow) structure like an `if` statement<sup>[§5.6.1](#561--if-statements)</sup> or a loop<sup>[§5.7](#57--loops)</sup>.
+The **scope** of a variable is the section of a program's source code in which the name of the variable can be used to as a reference to its associated value. Scopes are associated with a language structure, whether it is a function<sup>[§6.1](#61--functions)</sup>, or a [control flow![](../assets/definition.png)](#control-flow) structure like an `if` statement<sup>[§5.6.1](#561--if-statements)</sup> or a loop<sup>[§5.7](#57--loops)</sup>.
 
 > **Note:**
 > 
@@ -1551,7 +1551,7 @@ They are matched by the following production rule from the lexical grammar<sup>[
 > 
 > **_&lt;DIGIT&gt;_:** `0..9`
 
-The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity) channel. If it is omitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
+The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](#opacity) channel. If it is omitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
 
 > **Examples:**
 > 
@@ -1694,11 +1694,11 @@ Applying `-` to an arbitrary numeric type expression `P` yields the [additive in
 
 The `#|` operator represents **length** or **size**. It can be applied to expressions of types `string`<sup>[§2.2.1](#221--built-in-types)</sup>, array<sup>[§2.3.1](#231--arrays)</sup> `T[]`, list<sup>[§2.3.2](#232--lists)</sup> `T<>`, set<sup>[§2.3.3](#233--sets)</sup> `T{}` and map<sup>[§2.3.4](#234--mapsdictionaries)</sup> `{K:V}`.
 
-The [length![](../assets/definition.png)](./glossary.md#length) of a `string` is the **number of characters in the string**.
+The [length![](../assets/definition.png)](#length) of a `string` is the **number of characters in the string**.
 
 The length of an array `T[]`<sup>[a](#fn-a)</sup> is the **number of elements allotted to the array**.
 
-The [size![](../assets/definition.png)](./glossary.md#size) of a list `T<>`<sup>[a](#fn-a)</sup> or set `T{}`<sup>[a](#fn-a)</sup> is the **number of elements in the collection**.
+The [size![](../assets/definition.png)](#size) of a list `T<>`<sup>[a](#fn-a)</sup> or set `T{}`<sup>[a](#fn-a)</sup> is the **number of elements in the collection**.
 
 The size of a map `{K:V}`<sup>[b](#fn-b)</sup> is the **number of mappings or key-value pairs contained in the map**.
 
@@ -1822,7 +1822,7 @@ The behaviour of the modulo operator varies across programming languages in its 
 
 * `(a / b) * b + (a % b) == a`
 
-For both the division `/` and modulo `%` operators, attempting to divide by zero (a [RHS![](../assets/definition.png)](./glossary.md#rhs) operand with a value of `0` or `0.0`) will result in a runtime error<sup>[§7.5.3](#753--runtime-errors)</sup>.
+For both the division `/` and modulo `%` operators, attempting to divide by zero (a [RHS![](../assets/definition.png)](#rhs) operand with a value of `0` or `0.0`) will result in a runtime error<sup>[§7.5.3](#753--runtime-errors)</sup>.
 
 The operand and return types of the division `/` and modulo `%` operators can be expressed as follows:
 
@@ -1853,7 +1853,7 @@ For any operand expressions `a`, `b`, `a == b` returns `true`<sup>[§4.3.1](#431
 
 The equality operator `==` can operate over operands of any type. Operands mustn't be the of the same type in order for `==` to operate on them. However, `a == b` will never return `true` if the values of `a` and `b` are of different types.
 
-Equality is defined in the following ways for values of each of the types in the [base language![](../assets/definition.png)](./glossary.md#base-language):
+Equality is defined in the following ways for values of each of the types in the [base language![](../assets/definition.png)](#base-language):
 
 | Type | `a == b`<sup>[c](#fn-c)</sup> |
 | :--- | :------------------ |
@@ -2053,7 +2053,7 @@ They are matched by the following rule production from the syntax grammar<sup>[�
 
 ### 4.7.3 – Scoped function calls
 
-Functions called on a particular [object![](../assets/definition.png)](./glossary.md#object) or namespace<sup>[§8.4](#84--namespaces)</sup> are considered **scoped**.
+Functions called on a particular [object![](../assets/definition.png)](#object) or namespace<sup>[§8.4](#84--namespaces)</sup> are considered **scoped**.
 
 Scoped function calls are matched by the following production rules from the syntax grammar<sup>[§1.2.2](#122--syntax-grammar)</sup>:
 
@@ -2089,8 +2089,8 @@ They are matched by the following rule production from the syntax grammar:
 > }
 > ```
 > 
-> * [`has(T check) -> bool`](./collections-sl.md#has-2) is a member function of type set `T{}`
-> * [`at(int index) -> char`](./string-sl.md#at) is a member function of type `string`
+> * [`has(T check) -> bool`](#has-2) is a member function of type set `T{}`
+> * [`at(int index) -> char`](#at) is a member function of type `string`
 
 <br>
 
@@ -2111,8 +2111,8 @@ Properties are matched by the following rule production from the syntax grammar:
 >   print(new_img.width); // property invocation; prints "160"
 > }
 > ```
-> * [`red -> int`](./color-sl.md#red) is a property of type `color`
-> * [`width -> int`](./image-sl.md#width) is a property of type `image`
+> * [`red -> int`](#red) is a property of type `color`
+> * [`width -> int`](#width) is a property of type `image`
 
 <br>
 
@@ -2508,7 +2508,7 @@ An **assignable** can be:
 
 Assignment statements can be split into standard assignments and compound assignments.
 
-**Standard assignments** consist of an assignable [LHS![](../assets/definition.png)](./glossary.md#lhs), the assignment operator `=`, and the value to be assigned to the assignable as the [RHS![](../assets/definition.png)](./glossary.md#rhs).
+**Standard assignments** consist of an assignable [LHS![](../assets/definition.png)](#lhs), the assignment operator `=`, and the value to be assigned to the assignable as the [RHS![](../assets/definition.png)](#rhs).
 
 **Compound assignments** are a shorthand syntax used to express assignments that reference the assignable's current value to define its updated value. They make use of one of the compound assignment operators<sup>[§4.5.4](#454--compound-assignment-operators)</sup>.
 
@@ -2581,7 +2581,7 @@ Void function calls are matched by the following productions of &lt;stat&gt; fro
 > This script calls two different kinds of void functions: a global function<sup>[§6.3.4](#634--global-functions)</sup> and a member function<sup>[§6.3.5](#635--member-functions)</sup> of the type map<sup>[§2.3.4](#234--mapsdictionaries)</sup> `{K:V}`.
 > 
 > * The global function [`print(T message);`](#print) prints a value to output, but returns nothing
-> * The map function [`MAP.define(K key, V value);`](./collections-sl.md#define) adds a mapping from `key` to `value` to `MAP`, but returns nothing
+> * The map function [`MAP.define(K key, V value);`](#define) adds a mapping from `key` to `value` to `MAP`, but returns nothing
 
 ## 5.6 – Conditional statements
 
@@ -2640,7 +2640,7 @@ If the conditional expression of an `if` or `else if` branch is not of type `boo
 >     factors(int num -> int[]) { /* ... */ }
 >     ```
 > 
->     This script returns `true` [iff![](../assets/definition.png)](./glossary.md#iff) the argument supplied to its parameter `num` is a prime number. Note that the `if` and `else if` blocks in the example consist of a single statement each and are not enclosed in curly braces `{}`.
+>     This script returns `true` [iff![](../assets/definition.png)](#iff) the argument supplied to its parameter `num` is a prime number. Note that the `if` and `else if` blocks in the example consist of a single statement each and are not enclosed in curly braces `{}`.
 
 ### 5.6.2 – `when` statements
 
@@ -2720,7 +2720,7 @@ A value that is defined to be checked against the control expression in an `is` 
 
 > **Note:**
 > 
-> [Under the hood![](../assets/definition.png)](./glossary.md#under-the-hood), an `is` case consisting of multiple match values is "unfolded" into multiple `is` cases consisting of a single match value each.
+> [Under the hood![](../assets/definition.png)](#under-the-hood), an `is` case consisting of multiple match values is "unfolded" into multiple `is` cases consisting of a single match value each.
 
 <br>
 
@@ -3144,7 +3144,7 @@ When an iterator loop is reached by the script's execution<sup>[§7.4](#74--runt
 
 `return` statements can be found in any source code-defined function: a script's header function<sup>[§6.3.1](#631--header-functions)</sup>, its helper functions<sup>[§6.3.2](#632--helper-functions)</sup>, and even anonymous functions<sup>[§6.3.3](#633--anonymous-functions)</sup>. A `return` statement is bound to the **most immediate function scope**. Anonymous functions are defined within the bodies of other functions. The `return` statements contained therein are bound to the scope of the anonymous function, and not to the helper function, header function, or outer anonymous function within which the anonymous function was defined.
 
-`return` statements can be implicit. **Single expression function bodies** are a syntactical shorthand<sup>[§1.3.4](#134--shorthands)</sup> that are treated as a function body comprising a single value-returning `return` statement [under the hood![](../assets/definition.png)](./glossary.md#under-the-hood).
+`return` statements can be implicit. **Single expression function bodies** are a syntactical shorthand<sup>[§1.3.4](#134--shorthands)</sup> that are treated as a function body comprising a single value-returning `return` statement [under the hood![](../assets/definition.png)](#under-the-hood).
 
 `return` statements are matched by the following production of &lt;stat&gt; from the syntax grammar<sup>[§1.2.2](#122--syntax-grammar)</sup>:
 
@@ -3244,7 +3244,7 @@ Functions may define inputs, called **parameters**<sup>[§3.3](#33--function-par
 
 A function's **type signature** comprises the types<sup>[§2](#chapter-2--types)</sup> of its parameters, if any, and its return type, if present.
 
-Two functions `a` and `b` have the same type signature [iff![](../assets/definition.png)](./glossary.md#iff):
+Two functions `a` and `b` have the same type signature [iff![](../assets/definition.png)](#iff):
 
 * `a` and `b` have the same number of parameters *n* (including zero)
 * For *i* from 1 to *n*, the type of parameter P<sub>`a`</sub>*i* is the same<sup>[a](#fn-a)</sup> as the type of parameter P<sub>`b`</sub>*i*
@@ -3329,7 +3329,7 @@ Functions in *DeltaScript* can be split into several categories:
   * **Header functions**<sup>[§6.3.1](#631--header-functions)</sup>
   * **Helper functions**<sup>[§6.3.2](#632--helper-functions)</sup>
   * **Anonymous functions**<sup>[§6.3.3](#633--anonymous-functions)</sup>
-* Standard library functions - functions defined as part of the [base language![](../assets/definition.png)](./glossary.md#base-language) in the [standard library](#deltascript--standard-library)
+* Standard library functions - functions defined as part of the [base language![](../assets/definition.png)](#base-language) in the [standard library](#deltascript--standard-library)
   * **Global functions**<sup>[§6.3.4](#634--global-functions)</sup>
   * **Member functions**<sup>[§6.3.5](#635--member-functions)</sup>
 * **Extension functions**<sup>[§6.3.6](#636--extension-functions)</sup>
@@ -3436,10 +3436,10 @@ Bodies of value-returning functions<sup>[§6.2.1](#621--value-returning-function
 
 For example, the `string` type defines the following member functions:
 
-* [`at(int index -> char)`](./string-sl.md#at)
-* [`has(char character -> bool)`](./string-sl.md#has)
-* [`has(string substring -> bool)`](./string-sl.md#has)
-* [`sub(int beg, int end_ex)`](./string-sl.md#sub)
+* [`at(int index -> char)`](#at)
+* [`has(char character -> bool)`](#has)
+* [`has(string substring -> bool)`](#has)
+* [`sub(int beg, int end_ex)`](#sub)
 
 Member functions of built-in types<sup>[§2.2.1](#221--built-in-types)</sup> are defined by the [standard library](#deltascript--standard-library). Extension types<sup>[§8.3.1](#831--new-types)</sup> may also define member functions.
 
@@ -3470,7 +3470,7 @@ Extensions<sup>[§6.2.1](#621--value-returning-functions)</sup> to *DeltaScript*
 
 * Namespace<sup>[§8.4](#84--namespaces)</sup> functions
 * Member functions<sup>[§6.3.5](#635--member-functions)</sup> of extension types<sup>[§8.3.1](#831--new-types)</sup>
-* New functions implemented as extensions to built-in types<sup>[§2.2.1](#221--built-in-types)</sup> from the [base language![](../assets/definition.png)](./glossary.md#base-language)
+* New functions implemented as extensions to built-in types<sup>[§2.2.1](#221--built-in-types)</sup> from the [base language![](../assets/definition.png)](#base-language)
 
 Extension functions are functions that extend the capabilities of existing types or namespaces.
 
@@ -3497,7 +3497,7 @@ Extension functions are functions that extend the capabilities of existing types
 
 ## 6.4 – Function objects
 
-In *DeltaScript*, some types of functions can be represented as [objects![](../assets/definition.png)](./glossary.md#object).
+In *DeltaScript*, some types of functions can be represented as [objects![](../assets/definition.png)](#object).
 
 **Function objects** are like any other value or object; they can be assigned<sup>[§5.4](#54--assignments)</sup> to assignables like variables<sup>[§3.1](#31--variables)</sup> and used in expressions<sup>[§4](#chapter-4--expressions)</sup>. Function objects are of a functional type<sup>[§2.4](#24--functional-types)</sup> that is determined by their associated function's parameters and return type<sup>[§6.2](#62--type-signatures)</sup>.
 
@@ -3598,7 +3598,7 @@ The particulars of the execution of *DeltaScript* code are highly dependent on t
 
 > **Note:**
 > 
-> *DeltaScript* execution threads are limited to a single source code file. This is a limitation of the [base language![](../assets/definition.png)](./glossary.md#base-language); if necessary, it can be worked around by defining a new type<sup>[§8.3.1](#831--new-types)</sup> to represent scripts in an extension<sup>[§8.2](#82--extensions)</sup> to the language. That way, scripts will be able to call other scripts.
+> *DeltaScript* execution threads are limited to a single source code file. This is a limitation of the [base language![](../assets/definition.png)](#base-language); if necessary, it can be worked around by defining a new type<sup>[§8.3.1](#831--new-types)</sup> to represent scripts in an extension<sup>[§8.2](#82--extensions)</sup> to the language. That way, scripts will be able to call other scripts.
 
 Execution can generally be sorted into three stages:
 
@@ -3701,7 +3701,7 @@ As of this language version, *DeltaScript* has no runtime error suppression mech
 
 ---
 
-This chapter describes the philosophy behind, as well as the scope and possible features of, extensions to the *DeltaScript* [base language![](../assets/definition.png)](./glossary.md#base-language).
+This chapter describes the philosophy behind, as well as the scope and possible features of, extensions to the *DeltaScript* [base language![](../assets/definition.png)](#base-language).
 
 ## 8.1 – Extensions philosophy
 
@@ -3717,12 +3717,12 @@ Thus, the set of types<sup>[§2](#chapter-2--types)</sup> and non-user-defined f
 
 ## 8.2 – Extensions
 
-In practice, an **extension to _DeltaScript_** is a [domain-specific language![](../assets/external.png)](https://en.wikipedia.org/wiki/Domain-specific_language) that borrows *DeltaScript*'s syntax<sup>[§1.2](#12--grammars)</sup> and [ubiquitous![](../assets/definition.png)](./glossary.md#ubiquitous-function) built-in functions from the [standard library](#deltascript--standard-library) as a foundation to build upon. They are intended for use as embedded scripting languages that execute scripts written by users for particular applications.
+In practice, an **extension to _DeltaScript_** is a [domain-specific language![](../assets/external.png)](https://en.wikipedia.org/wiki/Domain-specific_language) that borrows *DeltaScript*'s syntax<sup>[§1.2](#12--grammars)</sup> and [ubiquitous![](../assets/definition.png)](#ubiquitous-function) built-in functions from the [standard library](#deltascript--standard-library) as a foundation to build upon. They are intended for use as embedded scripting languages that execute scripts written by users for particular applications.
 
 Extensions can add the following language features:
 
 * New types<sup>[§8.3.1](#831--new-types)</sup>
-* New member functions<sup>[§1.2](#12--grammars)</sup> and properties<sup>[§4.7.3](#473--scoped-function-calls)</sup> of types included in the [base language![](../assets/definition.png)](./glossary.md#base-language)
+* New member functions<sup>[§1.2](#12--grammars)</sup> and properties<sup>[§4.7.3](#473--scoped-function-calls)</sup> of types included in the [base language![](../assets/definition.png)](#base-language)
 * Namespaces<sup>[§8.4](#84--namespaces)</sup>
 
 This chapter will use the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api/)<sup>[a](#fn-a)</sup> (the first *DeltaScript* extension) for practical examples of each of the extension language features.
@@ -3767,7 +3767,7 @@ Extensions may also extend the functionality of built-in types<sup>[§2.2.1](#22
 
 ## 8.4 – Namespaces
 
-**Namespaces** are identifiers [prepended![](../assets/definition.png)](./glossary.md#prepend) with `$` that act as packages for related functions<sup>[§6.1](#61--functions)</sup> and constants<sup>[§4.7.3](#473--scoped-function-calls)</sup> in an extension.
+**Namespaces** are identifiers [prepended![](../assets/definition.png)](#prepend) with `$` that act as packages for related functions<sup>[§6.1](#61--functions)</sup> and constants<sup>[§4.7.3](#473--scoped-function-calls)</sup> in an extension.
 
 Functions defined as part of a namespace may be either value-returning<sup>[§6.2.1](#621--value-returning-functions)</sup> or void<sup>[§6.2.2](#622--void-functions)</sup>.
 
@@ -3802,19 +3802,19 @@ Functions defined as part of a namespace may be either value-returning<sup>[§6.
 ## Contents
 
 * Built-in types
-  * [`color`](./color-sl.md)
-  * [`image`](./image-sl.md)
-  * [`string`](./string-sl.md)
+  * [`color`](#color)
+  * [`image`](#image)
+  * [`string`](#string)
 
 > **Note:**
 > 
-> *DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with member functions and/or [properties![](../assets/definition.png)](./glossary.md#property) in the base language<sup>[a](#fn-a)</sup>.
+> *DeltaScript* has built-in types that are not listed here. The types listed here are the only built-in types with member functions and/or [properties![](../assets/definition.png)](#property) in the base language<sup>[a](#fn-a)</sup>.
 
-* [Collection types](./collections-sl.md)
-  * [Array – `T[]`](./collections-sl.md#array)
-  * [List – `T<>`](./collections-sl.md#list)
-  * [Set – `T{}`](./collections-sl.md#set)
-  * [Map/dictionary – `{K:V}`](./collections-sl.md#mapdictionary)
+* [Collection types](#collection-types)
+  * [Array – `T[]`](#array)
+  * [List – `T<>`](#list)
+  * [Set – `T{}`](#set)
+  * [Map/dictionary – `{K:V}`](#mapdictionary)
 
 * [Global functions](#global-functions)
   * [`abs`](#abs)
@@ -3840,9 +3840,9 @@ Functions defined as part of a namespace may be either value-returning<sup>[§6.
 
 # `color`
 
-The type `color` represents a [32-bit RGBA color![](../assets/external.png)](https://en.wikipedia.org/wiki/RGBA_color_model). A color is made up of four *channels*: red, green, blue, and alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity). Each channel is assigned 8 bits. Thus, a color channel can have a value ranging from 0 to 255 (inclusive).
+The type `color` represents a [32-bit RGBA color![](../assets/external.png)](https://en.wikipedia.org/wiki/RGBA_color_model). A color is made up of four *channels*: red, green, blue, and alpha/[opacity![](../assets/definition.png)](#opacity). Each channel is assigned 8 bits. Thus, a color channel can have a value ranging from 0 to 255 (inclusive).
 
-Definitions on this page will use `C` to represent an arbitrary [object![](../assets/definition.png)](./glossary.md#object) of type `color`.
+Definitions on this page will use `C` to represent an arbitrary [object![](../assets/definition.png)](#object) of type `color`.
 
 ---
 
@@ -3904,7 +3904,7 @@ The value of the **alpha/opacity** color channel of `C`.
 
 The type `image` represents a digital raster image. An image is a rectangular area of fixed positive width and height (in pixels). Colors of pixels are represented as [32-bit RGBA colors![](../assets/external.png)](https://en.wikipedia.org/wiki/RGBA_color_model).
 
-Definitions on this page will use `IMG` to represent an arbitrary [object![](../assets/definition.png)](./glossary.md#object) of type `image`.
+Definitions on this page will use `IMG` to represent an arbitrary [object![](../assets/definition.png)](#object) of type `image`.
 
 ---
 
@@ -4025,7 +4025,7 @@ The rectangle may include pixels that are out of bounds of `IMG`. Such pixels in
 
 The type `string` represents a sequence of characters.
 
-Definitions on this page will use `STR` to represent an arbitrary [object![](../assets/definition.png)](./glossary.md#object) of type `string`.
+Definitions on this page will use `STR` to represent an arbitrary [object![](../assets/definition.png)](#object) of type `string`.
 
 ---
 
@@ -4044,7 +4044,7 @@ Returns the character at `index` in `STR`.
 > This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
 > 
 > * `index < 0`
-> * `index >= #|STR`: `index` is greater than or equal to the [length![](../assets/definition.png)](./glossary.md#length) of `STR`
+> * `index >= #|STR`: `index` is greater than or equal to the [length![](../assets/definition.png)](#length) of `STR`
 
 > **Note:**
 > 
@@ -4077,7 +4077,7 @@ Returns a substring of `STR` starting from the index `beg` and ending at `end_ex
 > This function will trigger a runtime error that will terminate script execution if any of the following conditions are met:
 > 
 > * `beg < 0`
-> * `end_ex > #|STR`: `end_ex` is greater than the [length![](../assets/definition.png)](./glossary.md#length) of `STR`
+> * `end_ex > #|STR`: `end_ex` is greater than the [length![](../assets/definition.png)](#length) of `STR`
 > * `beg >= end_ex`
 
 > **Note:**
@@ -4088,8 +4088,8 @@ Returns a substring of `STR` starting from the index `beg` and ending at `end_ex
 
 **Collection types** in *DeltaScript* are data structures that contain elements of particular types. There are three types of basic collections:
 
-* [**Arrays**](#array): ordered collection of fixed [length![](../assets/definition.png)](./glossary.md#length)
-* [**Lists**](#list): ordered collection with dynamic [size![](../assets/definition.png)](./glossary.md#size)
+* [**Arrays**](#array): ordered collection of fixed [length![](../assets/definition.png)](#length)
+* [**Lists**](#list): ordered collection with dynamic [size![](../assets/definition.png)](#size)
 * [**Sets**](#set): unordered collection with dynamic size
 
 Additionally, *DeltaScript* supports [**maps**](#mapdictionary) or **dictionaries**. A map is an associative collection that pairs **keys** of a given type with **values** of a given type. Values can be retrieved from a map by providing the matching key.
@@ -4312,7 +4312,7 @@ Has an equal chance of returning `true` or `false`.
 
 > **Note:**
 > 
-> `flip_coin()` is [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) to [`prob(0.5)`](#prob).
+> `flip_coin()` is [semantically equivalent![](../assets/definition.png)](#semantic-equivalence) to [`prob(0.5)`](#prob).
 
 ### `prob`
 
@@ -4455,7 +4455,7 @@ Creates a 32-bit RGBA `color` from its red, green, and blue components. The alph
 
 > **Note:**
 > 
-> `rgb(r, g, b)` is [semantically equivalent![](../assets/definition.png)](./glossary.md#semantic-equivalence) to [`rgba(r, g, b, 255)`](#rgba).
+> `rgb(r, g, b)` is [semantically equivalent![](../assets/definition.png)](#semantic-equivalence) to [`rgba(r, g, b, 255)`](#rgba).
 
 ### `rgba`
 
@@ -4742,7 +4742,7 @@ A constant attribute of an [object![](../assets/definition.png)](#object) define
 > }
 > ```
 > 
-> In this example, [`red`](./color-sl.md#red) is a property defined by the type [`color`](./color-sl.md). Thus, the property can be referenced on all objects of the type.
+> In this example, [`red`](#red) is a property defined by the type [`color`](#color). Thus, the property can be referenced on all objects of the type.
 
 ## Q
 
