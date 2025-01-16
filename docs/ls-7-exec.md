@@ -19,7 +19,7 @@ This chapter describes the proper loading, pre-processing, and execution of *Del
 
 ## 7.1 – General
 
-The execution of *DeltaScript* code is highly dependent on the language implementation. This chapter outlines general steps and guidelines for correct and expected behaviour.
+The particulars of the execution of *DeltaScript* code are highly dependent on the language implementation. This chapter outlines general steps and guidelines for correct and expected behaviour.
 
 Execution can generally be sorted into three stages:
 
@@ -43,39 +43,63 @@ In the event that the contents of the file are a match for &lt;head_rule&gt;, th
 
 ## 7.3 – Semantic analysis
 
-<!-- TODO -->
+**Semantic analysis** involves validating the AST to ensure that the script adheres to the language's semantic rules. This includes type<sup>[§2](./ls-2-types.md)</sup> checking, ensuring variables<sup>[§3.1](./ls-3-vars.md#31--variables)</sup> are in scope<sup>[§3.4](./ls-3-vars.md#34--variable-scope)</sup> wherever they are references, and ensuring that operations<sup>[§4.5](./ls-4-expr.md#45--operators)</sup> are performed on compatible types.
 
-Semantic error checking involves validating the AST to ensure that the script adheres to the language's semantic rules. This includes type checking, scope resolution, and ensuring that operations are performed on compatible types.
+If a semantic error is during the analysis, execution is halted and does not proceed to runtime execution.
 
 ## 7.4 – Runtime execution
 
-<!-- TODO -->
-
-Runtime execution is the final stage where the validated script is executed. The interpreter or compiler processes the AST, performing the operations specified in the script. This stage involves managing the program's state, executing statements, and evaluating expressions.
+Runtime execution is the final stage, where the validated script is executed. The interpreter or compiler processes the AST, performing the operations specified in the script. This stage involves managing the program's state (e.g. updating the values of variables<sup>[§3.1](./ls-3-vars.md#31--variables)</sup>), executing statements<sup>[§5.2](./ls-5-stat.md#52--statements)</sup>, and evaluating expressions<sup>[§4](./ls-4-expr.md)</sup>.
 
 ## 7.5 – Errors
 
-<!-- TODO -->
-
-Errors in *DeltaScript* are categorized based on the stage at which they occur. Each category of errors has specific characteristics and handling mechanisms.
+Errors in *DeltaScript* are categorized based on the stage at which they occur. An error encountered at any stage of the execution process must be resolved in order to progress to the next stage.
 
 ### 7.5.1 – Syntax errors
 
-<!-- TODO -->
+**Syntax errors** occur during the parsing<sup>[§7.2](#72--parsing)</sup> (syntax analysis) stage when the script does not conform to the grammar rules.
 
-Syntax errors occur during the parsing stage when the script does not conform to the grammar rules. These errors prevent the generation of a valid AST and must be corrected before further processing.
+> **Example:**
+> 
+> ```js
+> () {
+>   print("Hello, world!");
+> 
+> ```
+> 
+> This script is missing a curly bracket `}` to close its header function<sup>[§6.3.1](./ls-6-func.md#631--header-functions)</sup>.
 
 ### 7.5.2 – Semantic errors
 
-<!-- TODO -->
+**Semantic errors** are detected during the semantic analysis<sup>[§7.3](#73--semantic-analysis)</sup>. These errors occur when the script violates the language's semantic rules, such as type<sup>[§2](./ls-2-types.md)</sup> mismatches or attempting to evaluate an undefined variable<sup>[§3.1](./ls-3-vars.md#31--variables)</sup>.
 
-Semantic errors are detected during the semantic error checking stage. These errors occur when the script violates the language's semantic rules, such as type mismatches or undefined variables. Semantic errors must be resolved for the script to execute correctly.
+> **Examples of semantic errors:**
+> 
+> ```js
+> int some_var = "This is not an int";
+> ```
+> 
+> ```js
+> int some_var = 10 - false;
+> ```
+> 
+> ```js
+> () {
+>   if (flip_coin()) {
+>     string v = "Vendetta";
+>   }
+> 
+>   print(v);   // semantic error - v is out of scope
+> }
+> ```
+> 
+> These code snippets are all syntacticall correct but fail semantic analysis.
 
 ### 7.5.3 – Runtime errors
 
-<!-- TODO -->
+**Runtime errors** occur during the runtime execution<sup>[§7.4](#74--runtime-execution)</sup> stage. These errors arise from invalid operations performed while the script is running, such as division by zero or accessing out-of-bounds array elements.
 
-Runtime errors occur during the execution stage. These errors arise from invalid operations performed while the script is running, such as division by zero or accessing out-of-bounds array elements. Runtime errors can cause the script to terminate unexpectedly.
+As of this language version, *DeltaScript* has no runtime error suppression mechanisms. Any runtime error triggered during execution<sup>[§7.4](#74--runtime-execution)</sup> will cause the script to terminate abruptly.
 
 ---
 
