@@ -2,7 +2,7 @@
 
 # Glossary
 
-This page provides succinct definitions for terms used throughout the documentation. Links followed by the symbol ![](../assets/definition.png) will lead to glossary entries on this page.
+This section provides succinct definitions for terms used throughout the specification. Links followed by the symbol ![](../assets/definition.png) will lead to a glossary entry below.
 
 ## Sections
 
