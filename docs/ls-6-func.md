@@ -29,7 +29,7 @@ This chapter describes the syntax, semantics and distinctions of the various typ
 
 **Functions** are reusable blocks of code that perform a specific task. Most functions can be repeatedly invoked. The invocation of a function is known as a **function call**. 
 
-Functions may define inputs, called **parameters**, and may produce an output, called a **return value**. The value is "returned" because functions with an output yield the value produced by the invocation of the function back to the place that invoked the function.
+Functions may define inputs, called **parameters**<sup>[§3.3](./ls-3-vars.md#33--function-parameters)</sup>, and may produce an output, called a **return value**. The value is "returned" because functions with an output yield the value produced by the invocation of the function back to the place that invoked the function.
 
 ## 6.2 – Type signatures
 
@@ -112,31 +112,118 @@ The type signatures of void functions are matched by the following production of
 
 > `(` &lt;param_list&gt;? `)`
 
-<!-- TODO - proofread -->
-
 ## 6.3 – Types of functions
 
-There are several types of functions in DeltaScript, each serving a different purpose.
+Functions in *DeltaScript* can be split into several categories:
+
+* Source code functions - functions defined in *DeltaScript* scripts by programmers
+  * **Header functions**<sup>[§6.3.1](#631--header-functions)</sup>
+  * **Helper functions**<sup>[§6.3.2](#632--helper-functions)</sup>
+  * **Anonymous functions**<sup>[§6.3.3](#633--anonymous-functions)</sup>
+* Standard library functions - functions defined as part of the [base language![](../assets/definition.png)](./glossary.md#base-language) in the [standard library](./std-lib.md)
+  * **Global functions**<sup>[§6.3.4](#634--global-functions)</sup>
+  * **Member functions**<sup>[§6.3.5](#635--member-functions)</sup>
+* **Extension functions**<sup>[§6.3.6](#636--extension-functions)</sup>
 
 ### 6.3.1 – Header functions
 
-Header functions are defined in the header section of a script and are available throughout the script.
+**Header functions** are the [entry point![](../assets/external.png)](https://en.wikipedia.org/wiki/Entry_point) of a *DeltaScript* script's execution. They are akin to `main()` functions in languages like C, C++ and Java.
+
+Header functions must be the **first function** in a *DeltaScript* file. They must also be **nameless**. This was a design decision that was made because the header function **cannot be invoked from within the script**.
+
+A header function may have any type signature<sup>[§6.2](#62--type-signatures)</sup>. It may be void<sup>[§6.2.2](#622--void-functions)</sup> or return a value<sup>[§6.2.1](#621--value-returning-functions)</sup>, and may accept any number and types of parameters<sup>[§3.3](./ls-3-vars.md#33--function-parameters)</sup>, including none.
+
+Header functions are matched as part of the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup> production rule &lt;head_rule&gt;. &lt;head_rule&gt; does not only match the header function, it matches the entire script. The contents of an entire *DeltaScript* file must match &lt;head_rule&gt; in order for the script to be syntactically correct.
+
+> **_&lt;head_rule&gt;_:** &lt;signature&gt; &lt;func_body&gt; &lt;helper&gt;\*
 
 ### 6.3.2 – Helper functions
 
-Helper functions are small utility functions that assist in performing common tasks.
+Named functions that follow the header function<sup>[§6.3.1](#631--header-functions)</sup> in a *DeltaScript* file are known as **helper functions**. They can be invoked repeatedly and turned into function objects<sup>[§6.4](#64--function-objects)</sup> with the reference<sup>[§4.8](./ls-4-expr.md#48--helper-function-references)</sup> operator `::`.
+
+Helper functions are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;helper&gt;_:** &lt;ident&gt; &lt;signature&gt; &lt;func_body&gt;
+> 
+> **_&lt;func_body&gt;_:**
+> * &lt;body&gt;
+> * `->` &lt;expr&gt;
+
+Bodies of value-returning functions<sup>[§6.2.1](#621--value-returning-functions)</sup> may be complex and consist of zero or more statements<sup>[§1.2.2](./ls-5-stat.md#52--statements)</sup> enclosed in curly braces `{}`, or consist of an arrow `->` followed by a single expression. **Single expression function bodies** are a shorthand<sup>[§1.3.4](./ls-1-syntax.md#134--shorthands)</sup> for a function body consisting of a single value `return` statement<sup>[§5.8.1](./ls-5-stat.md#581--value-return)</sup>.
+
+> **Note:**
+> 
+> Header functions may also have single expression function bodies.
+> 
+> The following is a valid *DeltaScript* script:
+> 
+> ```js
+> (int a, int b -> int) -> a + b
+> ```
+
+> **Example:**
+> 
+> ```js
+> () {
+>   int[] nums = [ 6, 2, -5, 7, 18, -12, 4 ];
+> 
+>   ~ int method1 = array_sum(nums);
+>   int method2 = nums[0];
+> 
+>   for (int i = 1; i < #|nums; i++)
+>     method2 = a_b_sum(method2, nums[i]);
+> 
+>   if (method1 != method2)
+>     print("Uh-oh!");
+> }
+> 
+> array_sum(int[] arr -> int) {
+>   int sum = 0;
+> 
+>   for (elem in arr)
+>     sum += elem;
+> 
+>   return sum;
+> }
+> 
+> a_b_sum(int a, int b -> int) -> a + b
+> ```
+> 
+> The helper function `array_sum` has a complex body, while the helper function `a_b_sum` has a single expression body.
 
 ### 6.3.3 – Anonymous functions
 
-Anonymous functions are functions without a name. They are often used as arguments to other functions or for short-lived operations.
+[*see §4.9*](./ls-4-expr.md#49--anonymous-functions)
 
 ### 6.3.4 – Global functions
 
-Global functions are functions that are defined at the global scope and can be called from anywhere in the script.
+**Global functions** are defined by the [standard library](./functions-sl.md) and can be called from anywhere within the script.
+
+> **Experimental:**
+> 
+> Due to the ambiguous type signatures of some global functions (e.g. [`prompt(T message) -> string`](./functions-sl.md#prompt)), as of this language version, global functions cannot be turned into function objects<sup>[§6.4](#64--function-objects)</sup> with the reference<sup>[§4.8](./ls-4-expr.md#48--helper-function-references)</sup> operator `::`. However, they can be composed or wrapped by anonymous functions<sup>[§6.3.3](#633--anonymous-functions)</sup> or helper functions<sup>[§6.3.2](#632--helper-functions)</sup> for the same effect.
+> 
+> **Example:**
+> 
+> ```js
+> (int[] -> int) aux_max = arr -> max(arr);
+> ```
+> 
+> The anonymous function `arr -> max(arr)` wraps the global function [`max(int[] collection) -> int`](./functions-sl.md#max) and assigns it to the variable `aux_max`<sup>[§3.1](./ls-3-vars.md#31--variables)</sup>.
+> 
+> Now via helper function `max_wrapper`:
+> 
+> ```js
+> (int[] -> int) aux_max = ::max_wrapper;
+> 
+> /* code in between */
+> 
+> max_wrapper(int[] arr -> int) -> max(arr)
+> ```
 
 ### 6.3.5 – Member functions
 
-**Member functions** are functions that are defined as callable on objects of a particular type.
+**Member functions** are functions that are defined as callable on expressions of a particular type.
 
 For example, the `string` type defines the following member functions:
 
@@ -145,9 +232,28 @@ For example, the `string` type defines the following member functions:
 * [`has(string substring -> bool)`](./string-sl.md#has)
 * [`sub(int beg, int end_ex)`](./string-sl.md#sub)
 
-Member functions of built-in types are defined by the [standard library](./std-lib.md). Extension types<sup>[§TODO - extension type]()</sup> may also define member functions.
+Member functions of built-in types<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> are defined by the [standard library](./std-lib.md). Extension types<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup> may also define member functions.
 
-<!-- TODO - proofread -->
+Member functions can be called on any expression of a valid type, not just variables or literals.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   bool check = [ 1, 2, 3 ].has(1);
+>   string middle = ("half" + "pipe").sub(2, 6);
+> 
+>   print(check);
+>   print(middle);
+> }
+> ```
+> 
+> This script produces the output:
+> 
+> ```
+> true
+> lfpi
+> ```
 
 ### 6.3.6 – Extension functions
 
@@ -163,23 +269,31 @@ Extension functions are functions that extend the capabilities of existing types
 
 Function objects are instances of functions that can be passed around and invoked like any other object.
 
+<!-- TODO -->
+
 ### 6.4.1 – `call()`
 
-The `call()` method is used to invoke a function object.
+The function associated with a function object can be invoked with the special method `call()`.
 
-<!-- TODO - proofread -->
+<!-- TODO -->
 
 ## 6.5 – Function semantics
 
 Function semantics define the behavior and rules of functions in DeltaScript.
 
+<!-- TODO -->
+
 ### 6.5.1 – Parameters and arguments
 
 Parameters are the inputs defined by a function, and arguments are the actual values passed to the function when it is called.
 
+<!-- TODO -->
+
 ### 6.5.2 – Return path completeness
 
 Return path completeness ensures that all possible execution paths in a function return a value if the function's type signature specifies a return type.
+
+<!-- TODO -->
 
 ---
 
