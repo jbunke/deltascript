@@ -267,33 +267,75 @@ Extension functions are functions that extend the capabilities of existing types
 
 ## 6.4 – Function objects
 
-Function objects are instances of functions that can be passed around and invoked like any other object.
+In *DeltaScript*, some types of functions can be represented as [objects![](../assets/definition.png)](./glossary.md#object).
 
-<!-- TODO -->
+**Function objects** are like any other value or object; they can be assigned<sup>[§5.4](./ls-5-stat.md#54--assignments)</sup> to assignables like variables<sup>[§3.1](./ls-3-vars.md#31--variables)</sup> and used in expressions<sup>[§4](./ls-4-expr.md)</sup>. Function objects are of a functional type<sup>[§2.4](./ls-2-types.md#24--functional-types)</sup> that is determined by their associated function's parameters and return type<sup>[§6.2](#62--type-signatures)</sup>.
+
+**Anonymous functions**<sup>[§6.3.3](#633--anonymous-functions)</sup> are inherently objects. An anonymous function is an expression and can only exist in a context where its type signature<sup>[§6.2](#62--type-signatures)</sup> can be inferred, such as an initialization<sup>[§3.2.2](./ls-3-vars.md#322--initialization)</sup> statement.
+
+**Helper functions**<sup>[§6.3.2](#632--helper-functions)</sup> can be turned into function objects with the reference<sup>[§4.8](./ls-4-expr.md#48--helper-function-references)</sup> operator `::`.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   (string -> char)[] s_to_c_funcs = new (string -> char)[2];
+> 
+>   s_to_c_funcs[0] = s -> s.at(0);
+>   s_to_c_funcs[1] = ::last_char;
+> }
+> 
+> last_char(string s -> char) -> s.at(#|s - 1)
+> ```
+> 
+> * `s -> s.at(0)` is an anonymous function and function object. Its parameter `s` is inferred to be of type `string` because it is defined in an assignment of an array element of type `(string -> char)`.
+> * `::last_char` is a functional object created with the reference operator `::` applied to the helper function `last_char`.
 
 ### 6.4.1 – `call()`
 
 The function associated with a function object can be invoked with the special method `call()`.
 
-<!-- TODO -->
+The arguments passed to `call()` are the same arguments one would pass to the function if it were invoked directly. Passing the incorrect number of arguments - or arguments of types that do not match the function object's associated function - to `call()`, will cause a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup>.
+
+`call()` can be invoked on any expression that is a function object.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   (int -> int) func = ::double;
+> 
+>   print(double.call(5));
+> }
+> 
+> double(int i -> int) -> i * 2
+> ```
+> 
+> This script produces the output:
+> 
+> ```
+> 10
+> ```
+> 
+> Here, `call()` accepted a single argument of type `int`, as the function associated with the function object assigned to `func` defines a single parameter `i` of type `int`.
 
 ## 6.5 – Function semantics
 
-Function semantics define the behavior and rules of functions in DeltaScript.
-
-<!-- TODO -->
-
 ### 6.5.1 – Parameters and arguments
 
-Parameters are the inputs defined by a function, and arguments are the actual values passed to the function when it is called.
+An **argument** is a value passed to a parameter of a function when the function is invoked. Passing the incorrect number of arguments to a function, or arguments that do not match the types of the function's defined parameters<sup>[§3.3](./ls-3-vars.md#33--function-parameters)</sup>, will trigger a semantic error<sup>[§7.5.2](./ls-7-exec.md#752--semantic-errors)</sup>.
 
-<!-- TODO -->
+The official *DeltaScript* implementation currently **disallows** [function overloading![](../assets/external.png)](https://en.wikipedia.org/wiki/Function_overloading). This includes writing helper functions<sup>[§6.3.2](#632--helper-functions)</sup> with the same name and number of parameters as a global function<sup>[§6.3.4](#634--global-functions)</sup>.
+
+> **Note:**
+> 
+> This is a current restriction of the official implementation and not an inherent restriction of the language.
 
 ### 6.5.2 – Return path completeness
 
-Return path completeness ensures that all possible execution paths in a function return a value if the function's type signature specifies a return type.
+*DeltaScript* does not enforce return path completeness; not all code paths in a value-returning function<sup>[§6.2.1](#621--value-returning-functions)</sup> must end in a `return` statement<sup>[§5.8.1](./ls-5-stat.md#581--value-return)</sup>.
 
-<!-- TODO -->
+If a value-returning function yields execution<sup>[§7.4](./ls-7-exec.md#74--runtime-execution)</sup> back to its invocation statement without returning a value, a runtime error<sup>[§7.5.3](./ls-7-exec.md#753--runtime-errors)</sup> is triggered and script execution is terminated.
 
 ---
 
