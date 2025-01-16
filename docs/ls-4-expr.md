@@ -13,6 +13,7 @@
   * [**4.3.4**](#434--int-literals) – `int` literals
   * [**4.3.5**](#435--float-literals) – `float` literals
   * [**4.3.6**](#436--string-literals) – `string` literals
+  * [**4.3.7**](#437--escape-sequences) – Escape sequences
 * [**4.4**](#44--variables-as-expressions) – Variables as expressions
 * [**4.5**](#45--operators) – Operators
   * [**4.5.1**](#451--unary-operators) – Unary operators
@@ -72,250 +73,959 @@ Expressions are matched in this order by the following production rule from the 
 > 
 > Definitions for production rules with occurrences in &lt;expr&gt; may be provided in later sections of the chapter.
 
-**Example:**
-
 Consider the following expression:
 
 ```cpp
-((int) 12f) * 2 + 14
+(int) 12f * 2 + 14
 ```
 
-This is the [parse tree![](../assets/external.png)](https://en.wikipedia.org/wiki/Parse_tree) for the expression according to the precedence order of the productions of &lt;expr&gt;:
+This is the [parse tree![](../assets/external.png)](https://en.wikipedia.org/wiki/Parse_tree) for the expression according to the [precedence![](../assets/external.png)](https://en.wikipedia.org/wiki/Order_of_operations) order of the productions of &lt;expr&gt;:
 
 ![](../assets/expression-parse-tree.png)
 
 ## 4.2 – Nested expressions
 
-<!-- TODO -->
+A **nested expression** is merely an expression enclosed in parentheses `()`. This is useful for explicitly redefining the evaluation order of a compound expression.
+
+> **Example:**
+> 
+> ```js
+> 4 + 5 * 6 // evaluates to 34
+> ```
+> 
+> ```js
+> (4 + 5) * 6 // evaluates to 54
+> ```
 
 ## 4.3 – Literals
 
-<!-- TODO -->
+A **literal expression** or simply **literal** is an expression whose evaluation is trivial. Its textual representation in the source code reveals its value.
+
+Literal expressions are matched by the follow production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;literal&gt;_:**
+> * &lt;STRING_LIT&gt;
+> * &lt;CHAR_LIT&gt;
+> * &lt;COLOR_HEX_LIT&gt;
+> * &lt;int_literal&gt;
+> * &lt;FLOAT_LIT&gt;
+> * &lt;bool_literal&gt;
+> 
+> **_&lt;int_literal&gt;_:** &lt;HEX_LIT&gt; | &lt;DEC_LIT&gt;
+> 
+> **_&lt;bool_literal&gt;_:** `true` | `false`
 
 ### 4.3.1 – `bool` literals
 
-<!-- TODO -->
+The literals for type<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> `bool` consist of the keywords<sup>[§1.3.3](./ls-1-syntax.md#133--keywords)</sup> `true` and `false`, which represent the two possible [truth values![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_value).
 
 ### 4.3.2 – `char` literals
 
-<!-- TODO -->
+A **`char` literal** is consists of opening and closing single quotation marks `'`, with a single character or escape sequence<sup>[§4.3.7](#437--escape-sequences)</sup> in between. A char literal is matched by the following lexical grammar<sup>[§1.2.1](./ls-1-syntax.md#121--lexical-grammar)</sup> production rule:
+
+> **_&lt;CHAR_LIT&gt;_:** `'` &lt;CHARACTER&gt; `'`
+> 
+> **_&lt;CHARACTER&gt;_:** &lt;RESTRICTED_CHARSET&gt; | &lt;ESCAPE_CHAR&gt;
+> 
+> **_&lt;RESTRICTED_CHARSET&gt;_:** ~( `\` | `'` | `"` )
+> 
+> **_&lt;ESCAPE_CHAR&gt;_:** `\` ( `0` | `b` | `t` | `n` | `f` | `r` | `"` | `'` | `\` )
+
+Some characters can only be represented by a `char` literal by using an escape sequence. For example, representing a tab character, which is not printed, requires the escape sequence `\t`.
+
+**Examples:**
+
+* `'n'` - a `char` literal representing the lowercase letter `n`
+* `'\n'` - a `char` literal representing a [newline / line break character![](../assets/external.png)](https://en.wikipedia.org/wiki/Newline)
 
 ### 4.3.3 – `color` literals
 
-<!-- TODO -->
+Colors in *DeltaScript* can be represented as [hex codes![](../assets/external.png)](https://en.wikipedia.org/wiki/Web_colors#Hex_triplet). They consist of a hash `#` followed by three or four two-digit [hexadecimal![](../assets/external.png)](https://en.wikipedia.org/wiki/Hexadecimal) numbers representing channels of a [32-bit RGBA color![](../assets/external.png)](https://en.wikipedia.org/wiki/RGBA_color_model).
+
+They are matched by the following production rule from the lexical grammar<sup>[§1.2.1](./ls-1-syntax.md#121--lexical-grammar)</sup>:
+
+> **_&lt;COLOR_HEX_LIT&gt;_:** `#` &lt;CHANNEL&gt; &lt;CHANNEL&gt; &lt;CHANNEL&gt; &lt;CHANNEL&gt;?
+> 
+> **_&lt;CHANNEL&gt;_:** &lt;HEX_DIGIT&gt; &lt;HEX_DIGIT&gt;
+> 
+> **_&lt;HEX_DIGIT&gt;_:** &lt;DIGIT&gt; | `a..f` | `A..F`
+> 
+> **_&lt;DIGIT&gt;_:** `0..9`
+
+The optional fourth color channel represents the alpha/[opacity![](../assets/definition.png)](./glossary.md#opacity) channel. If it is omitted, the color is assigned an opacity of `255` / `0xff` (fully opaque).
+
+> **Examples:**
+> 
+> * `#287de2` = `rgb(40, 125, 226)`
+> * `#03ffa044` = `rgba(3, 255, 160, 68)`
 
 ### 4.3.4 – `int` literals
 
-<!-- TODO -->
+> **Note:**
+> 
+> Negative numbers (e.g. `-2`) are not treated as literals by *DeltaScript*, but rather as an application of the arithmetic negation operator<sup>[§4.5.1](#arith-neg)</sup> to a positive number literal. This is also true for `float` literals (e.g. `-2.0` or `-2f`).
 
-#### Decimal literals
+`int` literals take two forms: decimal (base 10) literals and hexadecimal (base 16) literals. They are matched by the following production rules.
 
-<!-- TODO -->
+> * From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+>   
+>   **_&lt;int_literal&gt;_:** &lt;HEX_LIT&gt; | &lt;DEC_LIT&gt;
+> * From the lexical grammar<sup>[§1.2.1](./ls-1-syntax.md#121--lexical-grammar)</sup>:
+> 
+>   **_&lt;DEC_LIT&gt;_:** &lt;DIGIT&gt;\+
+>   
+>   **_&lt;HEX_LIT&gt;_:** `0x` &lt;HEX_DIGIT&gt;\+
+> 
+>   **_&lt;HEX_DIGIT&gt;_:** &lt;DIGIT&gt; | `a..f` | `A..F`
+> 
+>   **_&lt;DIGIT&gt;_:** `0..9`
 
-#### Hexadecimal literals
+> **Planned:**
+> 
+> Future language versions may support binary (base 2) integer literals of the form `0b` ( `0` | `1` )\+.
 
-<!-- TODO -->
+**Decimal literals** consist of some non-empty sequence of the digits `0`-`9`.
+
+**Hexadecimal literals** are alphanumeric. They are prefixed by `0x` and consist of the digits `0`-`9` and the letters `a`-`f` (`A`-`F`). Uppercase and lowercase letters can be used interchangeably.
+
+In a [hexadecimal number![](../assets/external.png)](https://en.wikipedia.org/wiki/Hexadecimal), the [radix/base![](../assets/external.png)](https://en.wikipedia.org/wiki/Radix) is 16, so the values one through fifteen must be represented as a single digit each. Like with the conventional base 10 numbering system, `0` is a placeholder, and the digits `1`-`9` represent their expected digit values. The letters are used to represent the values ten through fifteen, starting with `a`/`A` as ten and culminating with `f`/`F` as fifteen.
+
+In base 10 numbers, each place represents a power of 10, whereas in hexadecimal numbers, each place represents a power of 16.
+
+> **Examples:**
+> 
+> * `0x3c`
+>   
+>   = `(3 * 16^1) + (12 * 16^0)`
+>   
+>   = `(3 * 16) + 12` = `60`
+> * `0x2d5`
+>   
+>   = `(2 * 16^2) + (13 * 16^1) + (5 * 16^0)`
+>   
+>   = `(2 * 256) + (13 * 16) + 5` 
+>   
+>   = `512 + 208 + 5` = `725`
 
 ### 4.3.5 – `float` literals
 
-<!-- TODO -->
+`float` literals also have two formats. They are matched by the following production rules from the lexical grammar<sup>[§1.2.1](./ls-1-syntax.md#121--lexical-grammar)</sup>:
 
-#### Decimal point notation
+> **_&lt;FLOAT_LIT&gt;_:**
+> * &lt;DIGIT&gt;\+ `.` &lt;DIGIT&gt;\+
+> * &lt;DIGIT&gt;\+ `f`
+> 
+> **_&lt;DIGIT&gt;_:** `0..9`
 
-<!-- TODO -->
+A `float` literal in **decimal point notation** consists of a non-empty sequence of the digits `0`-`9` preceding a decimal point `.` and followed by another non-empty sequence of the digits `0`-`9`.
 
-#### `f` notation
+**`f` notation** is used to express an integer quantity as a floating-point number. A `float` literal using `f` notation consists of some non-empty sequence of the digits `0`-`9` followed by `f` (must be lowercase).
 
-<!-- TODO -->
+> **Note:**
+> 
+> Unlike some other programming languages, where `1.5f` is a valid floating-point number literal, "f" notation in *DeltaScript* is exclusively used to specify that an integer quantity should be treated as a floating-point number. Literals with a fractional component must be expressed in decimal point notation without a trailing `f`.
 
 ### 4.3.6 – `string` literals
 
-<!-- TODO -->
+A **`string` literal** is bounded by opening and closing double quotation marks `"`. Within the quotation marks, zero or more characters define the contents of the string represented. Formally, they are matched by the following production rule from the lexical grammar<sup>[§1.2.1](./ls-1-syntax.md#121--lexical-grammar)</sup>:
+
+> **_&lt;STRING_LIT&gt;_:** `"` ( &lt;CHARACTER&gt; | `'` ) `"`
+> 
+> **_&lt;CHARACTER&gt;_:** &lt;RESTRICTED_CHARSET&gt; | &lt;ESCAPE_CHAR&gt;
+> 
+> **_&lt;RESTRICTED_CHARSET&gt;_:** ~( `\` | `'` | `"` )
+> 
+> **_&lt;ESCAPE_CHAR&gt;_:** `\` ( `0` | `b` | `t` | `n` | `f` | `r` | `"` | `'` | `\` )
+
+Some characters can only be represented inside a `string` literal by using escape sequences<sup>[§4.3.7](#437--escape-sequences)</sup>. For example, representing a quotation mark inside a `string` literal requires the escape sequence `\"`. This is because the mere use of `"` without the preceding `\` would be parsed as the end of the `string` literal.
+
+### 4.3.7 – Escape sequences
+
+**Escape sequences** are sequences of characters beginning with `\` that are used as stand-ins for a single character that could otherwise not be represented in source code, either due to the context of its use clashing with the language's syntax or the character being a non-printing character.
+
+This is the full set of escape sequences supported by *DeltaScript*:
+* `\t` - [Tab![](../assets/external.png)](https://en.wikipedia.org/wiki/Tab_key#Tab_characters)
+* `\n` - [Newline / line break![](../assets/external.png)](https://en.wikipedia.org/wiki/Newline)
+* `\r` - [Carriage return![](../assets/external.png)](https://en.wikipedia.org/wiki/Carriage_return#Computers)
+* `\"` - Double quotation mark `"`
+* `\'` - Apostrophe / single quotation mark `'`
+* `\\` - Backslash `\`
 
 ## 4.4 – Variables as expressions
 
-<!-- TODO -->
+**Variables**<sup>[§3.1](./ls-3-vars.md#31--variables)</sup> can be invoked as expressions by simply typing their names, provided they are defined in the current scope<sup>[§3.4](./ls-3-vars.md#34--variable-scope)</sup> and have been declared prior to the invocation statement that contains the expression.
 
 ## 4.5 – Operators
 
-<!-- TODO -->
+**Operators** are syntactical tokens that accept one or more expressions of certain types as **operands**, and produce a return value of a certain type. This specification categorizes operators based on how many operands they accept:
+
+* Unary operators<sup>[§4.5.1](#451--unary-operators)</sup> - 1 operand
+* Binary operators<sup>[§4.5.2](#452--binary-operators)</sup> - 2 operands
+* The ternary operator<sup>[§4.5.3](#453--ternary-operator)</sup> - 3 operands
 
 ### 4.5.1 – Unary operators
 
-<!-- TODO -->
+Unary operators consist of one of the **unary operators** `!`, `-`, `#|` followed by an expression of a valid type.
 
-#### Not (`!`)
+From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-<!-- TODO -->
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * ( `-` | `!` | `#|` ) &lt;expr&gt;
+> * (... lower precedence productions)
 
-#### Negative (`-`)
+<br>
 
-<!-- TODO -->
+[**Logical negation**![](../assets/external.png)](https://en.wikipedia.org/wiki/Negation) or **not** is represented by the operator `!`. It can only be applied to expressions that evaluate to values of the type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>.
 
-#### Length / size (`#|`)
+This is the [truth table![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_table) for `!` operations with an arbitrary operand `P` of type `bool`:
 
-<!-- TODO -->
+| Value of `P` | Value of `!P` |
+| :----------: | :-----------: |
+| `true` | `false` |
+| `false` | `true` |
+
+<br>
+
+<b id="arith-neg">Arithmetic negation</b> is represented by the operator `-`. It can only be applied to expressions that evaluate to values of a numeric type: either `float`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> or `int`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>.
+
+Applying `-` to an arbitrary numeric type expression `P` yields the [additive inverse![](../assets/external.png)](https://en.wikipedia.org/wiki/Additive_inverse) of `P`. For `P` of type `float`, `-P` can be conceptualized as `0.0 - P`, while for `P` of type `int`, `-P` can be conceptualized as `0 - P`. The return type of the operation `-P` will be the same type as the operand `P`.
+
+<br>
+
+The `#|` operator represents **length** or **size**. It can be applied to expressions of types `string`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, array<sup>[§2.3.1](./ls-2-types.md#231--arrays)</sup> `T[]`, list<sup>[§2.3.2](./ls-2-types.md#232--lists)</sup> `T<>`, set<sup>[§2.3.3](./ls-2-types.md#233--sets)</sup> `T{}` and map<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> `{K:V}`.
+
+The [length![](../assets/definition.png)](./glossary.md#length) of a `string` is the **number of characters in the string**.
+
+The length of an array `T[]`<sup>[a](#fn-a)</sup> is the **number of elements allotted to the array**.
+
+The [size![](../assets/definition.png)](./glossary.md#size) of a list `T<>`<sup>[a](#fn-a)</sup> or set `T{}`<sup>[a](#fn-a)</sup> is the **number of elements in the collection**.
+
+The size of a map `{K:V}`<sup>[b](#fn-b)</sup> is the **number of mappings or key-value pairs contained in the map**.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   ~ color BLACK = #000000;
+>   ~ color PINK = #f5a0a0;
+> 
+>   color{} cs = { BLACK, PINK };
+> 
+>   print(#|"Test phrase"); // prints "11"
+>   print(#|[ 1, 2, 3, 4, 5 ]); // prints "5"
+>   print(#|{ 'a' : 1, 'j' : 10, 'z' : 26 }); // prints "3"
+> 
+>   print(#|cs); // prints "2"
+>   cs.add(rgb(0, 0, 0));
+>   print(#|cs); // prints "2" again; cs already contained the color defined by rgb(0, 0, 0)
+>   cs.add(rgb(0xff, 0, 0));
+>   print(#|cs); // prints "3"
+>   cs.remove(BLACK);
+>   cs.remove(PINK);
+>   print(#|cs); // prints "1"
+> }
+> ```
+> 
+> This script will produce the following output:
+> 
+> ```
+> 11
+> 5
+> 3
+> 2
+> 2
+> 3
+> 1
+> ```
 
 ### 4.5.2 – Binary operators
 
-<!-- TODO -->
+Binary operations consist of two operand expressions separated by a **binary operator**. Binary operators can be categorized into the following categories based on their precedence in the [order of operations![](../assets/external.png)](https://en.wikipedia.org/wiki/Order_of_operations):
 
-#### Additive operators
+* Exponent (`^`) - highest precedence, **deprecated**
+* **Multiplicative operators** (`*`, `/`, `%`)
+* **Additive operators** (`+`, `-`)
+* **Comparison operators** (`==`, `!=`, `>` `>=`, `<=`, `<`)
+* **Logic operators** (`&&`, `||`) - lowest precedence
 
-<!-- TODO -->
+From the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-##### Addition / Concatenation (`+`)
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * &lt;expr&gt; `^` &lt;expr&gt;
+> * &lt;expr&gt; ( `*` | `/` | `%` ) &lt;expr&gt;
+> * &lt;expr&gt; ( `+` | `-` ) &lt;expr&gt;
+> * &lt;expr&gt; ( `==` | `!=` | `>` | `<` | `>=` | `<=` ) &lt;expr&gt;
+> * &lt;expr&gt; ( `||` | `&&` ) &lt;expr&gt;
+> * (... lower precedence productions)
 
-<!-- TODO -->
+Binary operators of the same precedence are left-[associative![](../assets/external.png)](https://en.wikipedia.org/wiki/Operator_associativity).
 
-<!-- TODO - doubles as concatenation operator -->
+> **Examples:**
+> 
+> These chains of operators are shown with and without explicit grouping.
+> 
+> | Expression | With explicit grouping |
+> | :--------- | :--------------------- |
+> | `4 - 5 + 6 - 7` | `((4 - 5) + 6) - 7` |
+> | `10 % 2 * 6` | `(10 % 2) * 6` |
+> | `4 == 5 - 2 \|\| 3 != 4 - 2` | `(4 == (5 - 2)) \|\| (3 != (4 - 2))` |
 
-##### Subtraction (`-`)
+<br>
 
-<!-- TODO -->
+The operator `+` represents both **addition** and [**concatenation**![](../assets/external.png)](https://en.wikipedia.org/wiki/Concatenation).
 
-#### Multiplicative operators
+The operator performs an **addition** operation when both of its operands are of a numeric type. If both operands are of type `int`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, `+` performs an integer addition operation and returns the result as an `int` value. If both operands are of type `float`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>, `+` performs a floating-point number addition operation and returns the result as a `float` value. If one of the operands is of type `float` and the other is of type `int`, the `int` operand is implicitly converted<sup>[§2.5.1](./ls-2-types.md#251--implicit-type-conversion)</sup> to its `float` value, and `+` performs a floating-point number addition operation, returning the result as a `float` value.
 
-<!-- TODO -->
+If either operand is of a non-numeric type, both operands are implicitly converted to `string` values (if they are not already `string` values), and `+` performs a **concatenation** operation, returning the result as a `string` value.
 
-##### Multiplication (`*`)
+> **Examples:**
+> 
+> | Operation | Return value | Return type |
+> | :-------: | :----------: | :---------: |
+> | `1 + 3` | `4` | `int` |
+> | `1.0 + 3` | `4.0` | `float` |
+> | `1 + 3.5` | `4.5` | `float` |
+> | `"stage" + "coach"` | `"stagecoach"` | `string` |
+> | `"race" + 's'` | `"races"` | `string` |
+> | `"It is " + true` | `"It is true"` | `string` |
 
-<!-- TODO -->
+<br>
 
-##### Division (`/`)
+**Subtraction** is represented by the operator `-`. Its behaviour follows from the behaviour of the addition `+` operator. However, note that the subtraction operator `-` does not double as a `string` operator.
 
-<!-- TODO -->
+Its operand and return types can be expressed as follows:
 
-<!-- TODO - divide by 0 results in RTE -->
+* `int - int => int`
+* `float - float => float`
+* `int - float => float`
+* `float - int => float`
 
-##### Modulo (`%`)
+<br>
 
-<!-- TODO -->
+**Multiplication** is represented by the operator `*`. 
 
-<!-- TODO - divide by 0 results in RTE -->
+Its operand and return types can be expressed as follows:
 
-<!-- TODO - handling of negative operands -->
+* `int * int => int`
+* `float * float => float`
+* `int * float => float`
+* `float * int => float`
 
-#### Exponent (`^`)
+<br>
 
-<!-- TODO -->
+**Division** is represented by the operator `/`, while the **[modulo![](../assets/external.png)](https://en.wikipedia.org/wiki/Modulo) operation** is represented by the operator `%`.
 
-<!-- TODO - feature is deprecated -->
+For the arbitrary numeric operands `a`, `b`, the expression `a % b` returns the [remainder![](../assets/external.png)](https://en.wikipedia.org/wiki/Remainder) of the division operation `a / b` (`a` is the dividend, `b` is the divisor).
 
-#### Comparison operators
+The behaviour of the modulo operator varies across programming languages in its handling of negative operands. *DeltaScript* leaves this to the discretion of implementers, but recommends an adherence to the following axiom:
 
-<!-- TODO -->
+* `(a / b) * b + (a % b) == a`
 
-##### Equality (`==`)
+For both the division `/` and modulo `%` operators, attempting to divide by zero (a [RHS![](../assets/definition.png)](./glossary.md#rhs) operand with a value of `0` or `0.0`) will result in a runtime error<sup>[§7.5.3](./ls-7-exec.md#753--runtime-errors)</sup>.
 
-<!-- TODO -->
+The operand and return types of the division `/` and modulo `%` operators can be expressed as follows:
 
-##### Inequality (`!=`)
+* `int OP int => int`
+* `float OP float => float`
+* `int OP float => float`
+* `float OP int => float`
 
-<!-- TODO -->
+> **Note:**
+> 
+> This is in contrast to many other programming languages, which perform an integer or floating-point division operation based purely on the type of the divisor.
 
-##### Greater than (`>`)
+<br>
 
-<!-- TODO -->
+[**Exponentiation**![](../assets/external.png)](https://en.wikipedia.org/wiki/Exponentiation) is represented by the operator `^`.
 
-##### Greater than or equal to (`>=`)
+For the arbitrary numeric operands `a`, `b`, the expression `a ^ b` performs an exponentiation operation with `a` as the **base** and `b` as the **power** or **exponent**.
 
-<!-- TODO -->
+> **Deprecated:**
+> 
+> This language feature is [deprecated![](../assets/external.png)](https://en.wikipedia.org/wiki/Deprecation).
 
-##### Less than or equal to (`<=`)
+<br>
 
-<!-- TODO -->
+**Equality** is represented by the operator `==`, while **inequality** is represented by the operator `!=`.
 
-##### Less than (`<`)
+For any operand expressions `a`, `b`, `a == b` returns `true`<sup>[§4.3.1](#431--bool-literals)</sup> if `a` and `b` are **equal** and `false` if they are not.
 
-<!-- TODO -->
+The equality operator `==` can operate over operands of any type. Operands mustn't be the of the same type in order for `==` to operate on them. However, `a == b` will never return `true` if the values of `a` and `b` are of different types.
 
-#### Logic operators
+Equality is defined in the following ways for values of each of the types in the [base language![](../assets/definition.png)](./glossary.md#base-language):
 
-<!-- TODO -->
+| Type | `a == b`<sup>[c](#fn-c)</sup> |
+| :--- | :------------------ |
+| `bool` | `a` and `b` both evaluate to the same [truth value![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_value), whether `true` or `false` | 
+| `char` | `a` and `b` both evaluate to the same [UTF-8![](../assets/external.png)](https://en.wikipedia.org/wiki/UTF-8) character |
+| `color` | `a` and `b` both evaluate to the same 32-bit [RGBA color![](../assets/external.png)](https://en.wikipedia.org/wiki/RGBA_color_model): `a.red == b.red && a.green == b.green && a.blue == b.blue && a.alpha == b.alpha` |
+| `float` | `a` and `b` both evaluate to equivalent floating-point numbers: `a - b == 0.0` |
+| `image` | `a` and `b` represent identical images: (1) `a.width == b.width && a.height == b.height`, (2) for every `x`,`y` in `a` and `b`: `a.pixel(x, y) == b.pixel(x, y)` |
+| `int` | `a` and `b` both evaluate to equivalent integers: `a - b == 0` |
+| `string` | `a` and `b` both evaluate to the same string: (1) `#\|a == #\|b`, (2) for every index `i` in `a` and `b`: `a.at(i) == b.at(i)` |
+| Array `T[]` | (1) `#\|a == #\|b`, (2) for every index `i` in `a` and `b`: `a[i] == b[i]` |
+| List `T<>` | (1) `#\|a == #\|b`, (2) for every index `i` in `a` and `b`: `a<i> == b<i>` |
+| Set `T{}` | `a` contains every element in `b` and `b` contains every element in `a` |
+| Map `{K:V}` | (1) `a.keys()` contains every element in `b.keys()` and `b.keys()` contains every element in `a.keys()`, (2) for every element `k` in `a.keys()`: `a.lookup(k) == b.lookup(k)` |
+| *Functional type* | `a` and `b` point to the same helper function<sup>[§6.3.2](./ls-6-func.md#632--helper-functions)</sup> or anonymous function<sup>[§6.3.3](./ls-6-func.md#633--anonymous-functions)</sup> in the source code; even if the type signature and logic of two distinct functions are the same, `a != b` |
 
-##### And (`&&`)
+Extension types<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup> should define their own definition of equality internally. The naive definition should be based on sharing the same [object reference![](../assets/external.png)](https://en.wikipedia.org/wiki/Object_(computer_science)).
 
-<!-- TODO -->
+For any operand expressions `a`, `b`, `a != b` is defined as `!(a == b)`.
 
-##### Or (`||`)
+<br>
 
-<!-- TODO -->
+There are four types of [mathematical inequality![](../assets/external.png)](https://en.wikipedia.org/wiki/Inequality_(mathematics)) operators:
+
+* **Greater than** `>`
+* **Greater than or equal to** `>=`
+* **Less than or equal to** `<=`
+* **Less than** `<`
+
+These operators operate on operands of numeric types (`int` or `float`) are return either `true` or `false` (`bool` values).
+
+<br>
+
+[**Logical conjunction**![](../assets/external.png)](https://en.wikipedia.org/wiki/Logical_conjunction) (**and**) is represented by the operator `&&`, while [**logical disjunction**![](../assets/external.png)](https://en.wikipedia.org/wiki/Logical_disjunction) (**or**) is represented by the operator `||`.
+
+Both operators require operands of type `bool`, and return a value of type `bool`.
+
+This is the [truth table![](../assets/external.png)](https://en.wikipedia.org/wiki/Truth_table) for `&&` operations with arbitrary operands `a`, `b` of type `bool`:
+
+| Value of `a` | Value of `b` | Value of `a && b` |
+| :----------: | :----------: | :---------------: |
+| `false` | `false` | `false` |
+| `false` | `true` | `false` |
+| `true` | `false` | `false` |
+| `true` | `true` | `true` |
+
+This is the truth table for `||` operations with arbitrary operands `a`, `b` of type `bool`:
+
+| Value of `a` | Value of `b` | Value of `a \|\| b` |
+| :----------: | :----------: | :---------------: |
+| `false` | `false` | `false` |
+| `false` | `true` | `true` |
+| `true` | `false` | `true` |
+| `true` | `true` | `true` |
 
 ### 4.5.3 – Ternary operator
 
-<!-- TODO -->
+The **ternary operator** or [**conditional operator**![](../assets/external.png)](https://en.wikipedia.org/wiki/Ternary_conditional_operator) returns one of two values depending on the result of a condition check. It takes the form `a ? b : c`, where `a` is an expression of type `bool`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> and `b`, `c` are expressions of the same type. The return type of `a ? b : c` is the same type as `b` and `c`. If `a` evaluates to `true`, `a ? b : c` returns `b`. Otherwise (`a` evaluates to `false`), `a ? b : c` returns `c`.
+
+> **Note:**
+> 
+> "Ternary" refers to any operator with three operands; however, as this is by far the most commonly used (and often only) ternary operator in many programming languages, it is widely referred to as **the** ternary operator.
 
 ### 4.5.4 – Compound assignment operators
 
-<!-- TODO -->
+[**Compound assignment operators**![](../assets/external.png)](https://en.wikipedia.org/wiki/Augmented_assignment) are a type of shorthand syntax used to simplify augmentative assignments of a variable; that is, variable assignments that incorporate the variable's current value to calculate the value being assigned.
 
-#### Increment and decrement
+For reference, this is the production rule for assignment statements<sup>[§5.4](./ls-5-stat.md#54--assignments)</sup> from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-<!-- TODO -->
+> **_&lt;assignment&gt;_:**
+> * &lt;assignable&gt; `=` &lt;expr&gt;
+> * &lt;assignable&gt; `++`
+> * &lt;assignable&gt; `--`
+> * &lt;assignable&gt; `+=` &lt;expr&gt;
+> * &lt;assignable&gt; `-=` &lt;expr&gt;
+> * &lt;assignable&gt; `*=` &lt;expr&gt;
+> * &lt;assignable&gt; `/=` &lt;expr&gt;
+> * &lt;assignable&gt; `%=` &lt;expr&gt;
+> * &lt;assignable&gt; `&=` &lt;expr&gt;
+> * &lt;assignable&gt; `|=` &lt;expr&gt;
 
-<!-- TODO - Unlike some other languages, i++ is not an expression -->
+Most compound assignment operations take the form `v OP e`, where `v` is an assignable expression like a variable<sup>[§3](./ls-3-vars.md)</sup> or an array element or list element<sup>[§4.10](#410--array-and-list-elements)</sup>, `OP` is the operator, and `e` is an expression of a valid type that defines the change value.
+
+The syntax of such compound assignment statements are listed below alongside their expanded forms under the hood. Refer back to the binary operators<sup>[§4.5.2](#452--binary-operators)</sup> for the semantics of each operator.
+
+| Operation | Compound assignment | Expansion under the hood |
+| :-------- | :------------------ | :----------------------- |
+| Addition / concatenation | `v += e;` | `v = v + e;` |
+| Subtraction | `v -= e;` | `v = v - e;` |
+| Multiplication | `v *= e;` | `v = v * e;` |
+| Division | `v /= e;` | `v = v / e;` |
+| Modulo | `v %= e;` | `v = v % e;` |
+| Conjunction (and) | `v &= e;` | `v = v && e;` |
+| Disjunction (or) | `v \|= e;` | `v = v \|\| e;` |
+
+The **incrementation** `++` and **decrementation** `--` are special cases of compound assignments. They are postfix operators, meaning that they follow their operand `v`. `++` increments the value of `v` by `1`, while `--` decrements the value of `v` by `1`.
+
+| Operation | Compound assignment | Expansion under the hood |
+| :-------- | :------------------ | :----------------------- |
+| Incrementation | `v++;` | `v = v + 1;` |
+| Decrementation | `v--;` | `v = v - 1;` |
+
+For incrementation and decrementation operations, the assignable `v` must be of type `int`<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>.
+
+> **Note:**
+> 
+> Unlike some programming languages like C and C++, in *DeltaScript*, **compound assignments are not expressions**.
 
 ## 4.6 – Cast expressions
 
-<!-- TODO -->
+A **cast expression** is used to explicitly convert a value from one type to another<sup>[§2.5.2](./ls-2-types.md#252--explicit-type-conversion-casting)</sup>.
+
+Cast expressions are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * `(` &lt;type&gt; `)` &lt;expr&gt;
+> * (... lower precedence productions)
+
+The type in the cast expression must be a valid type<sup>[§2](./ls-2-types.md)</sup> in *DeltaScript*. The expression being cast must be of a type that can be converted to the target type<sup>[§2.5](./ls-2-types.md#25--type-conversion)</sup>.
+
+> **Example:**
+> 
+> ```js
+> float f = (float) 10; // casts the integer 10 to a float 10.0
+> ```
 
 ## 4.7 – Function calls
 
-<!-- TODO -->
+**Function calls** are expressions that invoke a function and return its result.
+
+They are matched by the following production rules from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * &lt;ident&gt; &lt;args&gt;
+> * &lt;namespace_ident&gt; &lt;args&gt;
+> * &lt;namespace_ident&gt;
+> * (... productions in between)
+> * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
+> * &lt;expr&gt; &lt;sub_ident&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;args&gt;_:** `(` &lt;elements&gt;? `)`
+> 
+> **_&lt;namespace\_ident&gt;_:** `$` &lt;ident&gt; &lt;sub_ident&gt;
+> 
+> **_&lt;sub\_ident&gt;_:**<sup>[d](#fn-d)</sup> `.` &lt;ident&gt;
 
 ### 4.7.1 – Global function calls
 
-<!-- TODO -->
+**Global function calls** invoke functions that are defined globally<sup>[§6.3.4](./ls-6-func.md#634--global-functions)</sup> and are accessible from any scope.
+
+They are matched by the following rule production from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> &lt;ident&gt; &lt;args&gt;
+
+The global functions available in *DeltaScript* are defined by the [standard library](./functions-sl.md).
+
+> **Example:**
+> 
+> ```js
+> print("Hello, world!"); // calls the global function print
+> ```
 
 ### 4.7.2 – Helper function calls
 
-<!-- TODO -->
+**Helper function calls** invoke helper functions<sup>[§6.3.2](./ls-6-func.md#632--helper-functions)</sup>: named functions that follow the header function<sup>[§6.3.1](./ls-6-func.md#631--header-functions)</sup> in the script.
+
+They are matched by the following rule production from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> &lt;ident&gt; &lt;args&gt;
+
+> **Note:**
+> 
+> This is the same rule production that matches global function calls<sup>[§4.7.1](#471--global-function-calls)</sup>.
+
+> **Example:**
+> 
+> ```js
+> (int[][] arrays) {
+>   for (arr in arrays) {
+>     ~ int sum = array_sum(arr); // helper function call
+>     print("The sum of the array " + arr + " is " + sum + ".");
+>   }
+> }
+> 
+> array_sum(int[] arr -> int) {
+>   int sum = 0;
+> 
+>   for (elem in arr)
+>     sum += elem;
+> 
+>   return sum;
+> }
+> ```
 
 ### 4.7.3 – Scoped function calls
 
-<!-- TODO -->
+Functions called on a particular [object![](../assets/definition.png)](./glossary.md#object) or namespace<sup>[§8.4](./ls-8-ext.md#84--namespaces)</sup> are considered **scoped**.
 
-#### Member function calls
+Scoped function calls are matched by the following production rules from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
 
-<!-- TODO -->
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * &lt;namespace_ident&gt; &lt;args&gt;
+> * &lt;namespace_ident&gt;
+> * (... productions in between)
+> * &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
+> * &lt;expr&gt; &lt;sub_ident&gt;
+> * (... lower precedence productions)
 
-#### Properties
+They can be sorted into **member function calls** and **namespace function calls**. **Properties** and **constants** are similar concepts that are also described in this section.
 
-<!-- TODO -->
+<br>
 
-#### Namespace function function calls
+**Member function calls** invoke member functions<sup>[§6.3.5](./ls-6-func.md#635--member-functions)</sup>: functions that are defined as callable on objects of a particular type.
 
-<!-- TODO -->
+They are matched by the following rule production from the syntax grammar:
 
-#### Namespace constants
+> &lt;expr&gt; &lt;sub_ident&gt; &lt;args&gt;
 
-<!-- TODO -->
+> **Example:**
+> 
+> ```js
+> () {
+>   bool check = { 1, 2, 3 }.has(1); // member function call
+>   print(check);  // prints "true"
+> 
+>   string name = "John Doe";
+>   char fourth = name.at(3); // member function call
+>   print(fourth) // prints "n"
+> }
+> ```
+> 
+> * [`has(T check) -> bool`](./collections-sl.md#has-2) is a member function of type set `T{}`
+> * [`at(int index) -> char`](./string-sl.md#at) is a member function of type `string`
+
+<br>
+
+**Properties** are similar to member functions. Like member functions, they are called on objects of a particular type. However, unlike member functions, they take no [arguments![](../assets/external.png)](https://en.wikipedia.org/wiki/Parameter_(computer_programming)#Parameters_and_arguments) and simply return a value without executing any instructions.
+
+Properties are matched by the following rule production from the syntax grammar:
+
+> &lt;expr&gt; &lt;sub_ident&gt;
+
+> **Example:**
+> 
+> ```js
+> () {
+>   int redness = #ff0000.red; // property invocation
+>   print(redness); // prints "255"
+> 
+>   image new_img = new_image_of(160, 90);
+>   print(new_img.width); // property invocation; prints "160"
+> }
+> ```
+> * [`red -> int`](./color-sl.md#red) is a property of type `color`
+> * [`width -> int`](./image-sl.md#width) is a property of type `image`
+
+<br>
+
+**Namespace function calls** invoke namespace functions<sup>[§6.3.6](./ls-6-func.md#636--extension-functions)</sup>: functions defines as part of a namespace<sup>[§8.4](./ls-8-ext.md#84--namespaces)</sup>. A namespace is an identifier used to group functions and constants in a *DeltaScript* extension<sup>[§8.2](./ls-8-ext.md#82--extensions)</sup>.
+
+They are matched by the following rule production from the syntax grammar:
+
+> &lt;namespace_ident&gt; &lt;args&gt;
+
+> **Example:**
+> 
+> Taken from the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api), an extension to *DeltaScript*
+> 
+> ```js
+> (-> color) {
+>   color primary = $SE.get_primary(); // namespace function call
+>   color secondary = $SE.get_secondary(); // namespace function call
+> 
+>   return blended_color(primary, secondary);
+> }
+> 
+> blended_color(color a, color b -> color) {
+>   color blended = $Graphics.lerp_color(a, b, 0.5); // namespace function call
+>   return blended;
+> }
+> ```
+> 
+> This script returns the blended color of the two current system colors in *Stipple Effect*. It invokes the following namespace functions:
+> 
+> * [`$SE.get_primary() -> color`](https://stipple-effect.github.io/api/global#get_primary)
+> * [`$SE.get_secondary() -> color`](https://stipple-effect.github.io/api/global#get_secondary)
+> * [`$Graphics.lerp_color(color a, color b, float t) -> color`](https://stipple-effect.github.io/api/graphics#lerp_color)
+
+<br>
+
+**Constants** are to namespaces what properties are to objects of particular types. Namespaces may define [constants![](../assets/external.png)](https://en.wikipedia.org/wiki/Constant_(computer_programming)).
+
+They are matched by the following rule production from the syntax grammar:
+
+> &lt;namespace_ident&gt;
+
+> **Example:**
+> 
+> Taken from the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api), an extension to *DeltaScript*
+> 
+> ```js
+> () {
+>   project p = $SE.get_project();
+>   save_config psc = p.get_save_config();
+>   psc.set_save_type($SE.GIF); // constant invocation
+>   p.save();
+> }
+> ```
+> 
+> This script changes the save association of the active *Stipple Effect* project to export to a GIF image and then saves the project. [`$SE.GIF`](https://stipple-effect.github.io/api/global#save-type-constants) is an `int` constant defined by the [`$SE` namespace](https://stipple-effect.github.io/api/global).
 
 ## 4.8 – Helper function references
 
-<!-- TODO -->
+**Helper function references** are expressions that return object references to helper functions without invoking them.
+
+They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * `::` &lt;ident&gt;
+> * (... lower precedence productions)
+
+Function objects can be invoked with the special `call()` function<sup>[§6.4.1](./ls-6-func.md#641--call)</sup>, which accepts the function's arguments.
+
+> **Example:**
+> 
+> ```js
+> (color c -> color[]) {
+>   (color -> color)[] transformations = [
+>     ::iso_r,        // helper function reference
+>     ::iso_g,        // helper function reference
+>     ::iso_b,        // helper function reference
+>     ::greyscale     // helper function reference
+>   ];
+>   color[] output = new color[#|transformations];
+> 
+>   for (int i = 0; i < #|transformations; i++)
+>     output[i] = transformations[i].call(c); // call()
+> 
+>   return output;
+> }
+> 
+> iso_r(color c -> color) -> rgba(c.red, 0, 0, c.alpha)
+> iso_g(color c -> color) -> rgba(0, c.green, 0, c.alpha)
+> iso_b(color c -> color) -> rgba(0, 0, c.blue, c.alpha)
+> 
+> greyscale(color c -> color) {
+>   int avg = (c.red + c.green + c.blue) / 3;
+>   return rgba(avg, avg, avg, c.alpha);
+> }
+> ```
+
+> **Planned:**
+> 
+> Future language versions may support a similar syntax for referencing global functions<sup>[§6.3.4](./ls-6-func.md#634--global-functions)</sup> and namespace functions<sup>[§6.3.6](./ls-6-func.md#636--extension-functions)</sup>.
+> 
+> * `::max`
+> * `$Math::tan`
 
 ## 4.9 – Anonymous functions
 
-<!-- TODO -->
+**Anonymous functions**, also known as **lambda expressions**, are functions defined without a name within the body of another function.
 
-<!-- TODO - aka lambda expressions -->
+They are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * &lt;lambda_params&gt; &lt;lambda_body&gt;
+> * (... lower precedence productions)
+> 
+> **_&lt;lambda_params&gt;_:**
+> * `(` `)`
+> * &lt;ident&gt;
+> * `(` &lt;ident&gt; ( `,` &lt;ident&gt; )\+ `)`
+> 
+> **_&lt;lambda_body&gt;_:** `->` ( &lt;body&gt; | &lt;expr&gt; )
+
+Parameters of anonymous functions do not have their types explicitly declared. As anonymous functions are expressions, they are used in contexts where values or objects of a particular type are expected. As such, the types of their parameters can be inferred.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   (string, string -> string) string_function = 
+>           (a, b) -> flip_coin() ? a + b : b + " " + a; // anon. function definition
+> 
+>   string result = string_function.call("race", "car"); // call()
+>   print(result);
+> }
+> ```
+> 
+> This script has a 50% chance of printing `racecar` and a 50% chance of printing `car race`.
+> 
+> The anonymous function `(a, b) -> ...` is defined in the initialization<sup>[§3.2.2](./ls-3-vars.md#322--initialization)</sup> statement for the variable `string_function` with the functional type<sup>[§2.4](./ls-2-types.md#24--functional-types)</sup> `(string, string -> string)`. This context lets the compiler or interpreter to know that the parameters `a`, `b` are of type `string`, and that the anonymous function returns a value of type `string`.
+ 
+Like helper function references<sup>[§4.8](#48--helper-function-references)</sup>, anonymous function expressions are function objects. Thus, they can be invoked with the special `call()` function<sup>[§6.4.1](./ls-6-func.md#641--call)</sup>, which accepts the function's arguments.
 
 ## 4.10 – Array and list elements
 
-<!-- TODO -->
+Array and list elements can be accessed as expressions by using their **indices**.
+
+Array and list element expressions are matched by the following production rule from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * &lt;assignable&gt;
+> * (... lower precedence productions)
+
+**_&lt;assignable&gt;_:**
+* (... higher precedence productions)
+* &lt;ident&gt; `<` &lt;expr&gt; `>`
+* &lt;ident&gt; `[` &lt;expr&gt; `]`
+
+> **Planned:**
+> 
+> The current syntax grammar is overly restrictive, and only allows for array and list element expressions that are assignables: cases where the collection in the expression is a variable<sup>[§3.1](./ls-3-vars.md#31--variables)</sup>.
+> 
+> ```js
+> () {
+>   int[] arr = [ 1, 2, 3, 4 ];
+>   print(arr[0]); // valid in language version 0.1.0
+>   print([ 1, 2, 3, 4 ][0]); // syntax error
+> 
+>   int[][] arr2 = [ arr, [ 5, 6, 7, 8 ] ];
+>   print(arr2[0][0]); // syntax error
+> }
+> ```
+> 
+> 
+> Future language versions will change the syntax grammar rules that match array and list elements to something akin to this:
+> 
+>> **_&lt;expr&gt;_:**
+>> * (... higher precedence productions)
+>> * &lt;expr&gt; `[` &lt;expr&gt; `]`
+>> * &lt;expr&gt; `<` &lt;expr&gt; `>`
+>> * (... lower precedence productions)
+> 
+> That way, the syntax errors indicated above will be valid syntax.
+
+**Array elements** are accessed with square brackets `[]`, and **list elements** are accessed with angle brackets `<>`.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   int[] arr = [1, 2, 3];
+>   int first = arr[0]; // accesses the first element of the array
+> 
+>   string<> words = <>;
+>   words.add("Able");
+>   words.add("was");
+>   words.add("I");
+>   words.add("ere");
+>   words.add("I");
+>   words.add("saw");
+>   words.add("Elba");
+>   string last = words<#|words - 1>; // accesses the last element of the list
+> }
+> ```
+
+> **Note:**
+> 
+> *DeltaScript* uses [zero-based numbering![](../assets/external.png)](https://en.wikipedia.org/wiki/Zero-based_numbering).
 
 ## 4.11 – Explicit collections
 
-<!-- TODO -->
+**Explicit collections** are expressions that define collections directly by writing out their contents (elements or key-value pairs).
+
+They are matched by the following productions of &lt;expr&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * `{` &lt;kv_pairs&gt; `}`
+> * `[` &lt;elements&gt;? `]`
+> * `<` &lt;elements&gt;? `>`
+> * `{` &lt;elements&gt;? `}`
+> * (... lower precedence productions)
+> 
+> **_&lt;kv_pairs&gt;_:** &lt;kv_pair&gt; ( `,` &lt;kv_pair&gt; )\*
+> 
+> **_&lt;kv_pair&gt;_:** &lt;expr&gt; `:` &lt;expr&gt;
+> 
+> **_&lt;elements&gt;_:** &lt;expr&gt; ( `,` &lt;expr&gt; )\*
+
+Each type of collection<sup>[§2.3](./ls-2-types.md#23--collection-types)</sup> has a unique syntax:
+
+* Maps<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> are explicitly defined by outer curly braces `{}`. Key-value pairs are comma-separated `,`. The key and value in a pair are separated by a colon `:`, with the key to the left of the colon and the value to the right.
+* Arrays<sup>[§2.3.1](./ls-2-types.md#231--arrays)</sup> are explicitly defined by outer square brackets `[]`. Elements are comma-separated `,`.
+* Lists<sup>[§2.3.2](./ls-2-types.md#232--lists)</sup> are explicitly defined by outer angle brackets `<>`. Elements are comma-separated `,`.
+* Sets<sup>[§2.3.3](./ls-2-types.md#233--sets)</sup> are explicitly defined by outer curly braces `{}`. Elements are comma-separated `,`.
+
+> **Example:**
+> 
+> ```js
+> () {
+>   ~ float PI_APPROX = 3.1415;
+> 
+>   int[] arr = [ 1, 2, 3, 4 ];
+>   float{} set = { 1.0 - 0.5, PI_APPROX, 4f, 7.9 };
+>   string<> list = <"This", "is", "a", "list">;
+>   {char : int} map = { 'a' : 1, 'b' : 2, 'j' : (int) 'j' - (int) 'a' + 1, 'z' : 26 };
+> }
+> ```
+> 
+> * `arr` - explicit integer array
+> * `set` - explicit set of floating-point numbers
+> * `list` - explicit list of strings
+> * `map` - explicit map of character to integer associations
+> 
+> Note the use of non-literal expressions like `PI_APPROX` and `(int) 'j' - (int) 'a' + 1` within the explicit collections.
 
 ## 4.12 – Collection initializers
 
-<!-- TODO -->
+**Collection initializers** are special ways of creating empty collections. Only arrays<sup>[§2.3.1](./ls-2-types.md#231--arrays)</sup> and maps<sup>[§2.3.4](./ls-2-types.md#234--mapsdictionaries)</sup> have collection initializers.
+
+They are matched by the following productions of &lt;expr&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;expr&gt;_:**
+> * (... higher precedence productions)
+> * `new` &lt;type&gt; `[` &lt;expr&gt; `]`
+> * `new` `{` &lt;type&gt; `:` &lt;type&gt; `}`
+> * (... lower precedence productions)
+
+<br>
+
+To create an empty **array** `T[]` with `n` elements, where `T` is an abstract type representing the type of elements in the array, and `n` is an expression that evaluates to a non-negative `int`:
+
+```js
+new T[n]
+```
+
+<br>
+
+To create an empty **map** `{K:V}`, where `K` is an abstract type representing the type of keys in the map, and `V` is an abstract type representing the type of the map's values:
+
+```js
+new {K:V}
+```
+
+<br>
+
+> **Example:**
+> 
+> ```js
+> () {
+>   final int ALLOWANCE = 10;
+> 
+>   string[] words = new string[5];
+>   int[] nums = new int[rand(3, 7)];
+>   (int -> char)[] int_to_char_fs = new (int -> char)[ALLOWANCE - 2];
+> 
+>   {string : char[]} str_to_letters = new {string : char[]};
+>   {(-> int) : int} first_output = new {(-> int) : int};
+> }
+> ```
+> 
+> * `words` - an empty string array with 5 allocated elements
+> * `nums` - an empty integer array with between 3 and 6 allocated elements
+> * `int_to_char_fs` - an empty array of integer to character functions with 8 (`ALLOWANCE - 2`) allocated elements
+> * `str_to_letters` - an empty map of string to character array mappings
+> * `first_output` - an empty map of integer-returning function to integer mappings
 
 ---
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Here
+* <sup id="fn-a">a</sup> - `T` represents an arbitrary element type
+* <sup id="fn-b">b</sup> - `K` represents an arbitrary type for keys of the map, while `V` represents an arbitrary type for values of the map
+* <sup id="fn-c">c</sup> - `a` and `b` are both arbitrary expressions of the type indicated by the row of the table
+* <sup id="fn-d">d</sup> - The rule &lt;sub_ident&gt; is adapted slightly for the sake of brevity

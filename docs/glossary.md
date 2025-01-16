@@ -2,7 +2,7 @@
 
 # Glossary
 
-This page provides succinct definitions for terms used throughout the documentation. Links followed by the symbol ![](../assets/definition.png) will lead to glossary entries on this page.
+This section provides succinct definitions for terms used throughout the specification. Links followed by the symbol ![](../assets/definition.png) will lead to a glossary entry below.
 
 ## Sections
 
@@ -69,7 +69,7 @@ A list of such languages can be found [here![](../assets/external.png)](https://
 
 ### Control flow
 
-<!-- TODO -->
+The sequence in which statements are executed at runtime. Control flow structures include conditional statements<sup>[§5.6](./ls-5-stat.md#56--conditional-statements)</sup> like `if` and `when`, as well as loops<sup>[§5.7](./ls-5-stat.md#57--loops)</sup>.
 
 ## D
 
@@ -79,10 +79,6 @@ A list of such languages can be found [here![](../assets/external.png)](https://
 
 ## G
 
-### Global function
-
-<!-- TODO -->
-
 ## H
 
 ## I
@@ -90,6 +86,10 @@ A list of such languages can be found [here![](../assets/external.png)](https://
 ### Identifier
 
 The name of a variable, helper function, function parameter, extension type, extension type property, member function, or extension namespace.
+
+### Iff
+
+If and only if
 
 ## J
 
@@ -124,13 +124,9 @@ Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<
 > some_var = "Some " + "concatenated " + "string";
 > ```
 > 
-> This assignment statement has an LHS of `some_var` and an [RHS![](../assets/definition.png)](#rhs) of `"Some " + "concatenated " + "string"`.
+> This assignment statement has a LHS of `some_var` and a [RHS![](../assets/definition.png)](#rhs) of `"Some " + "concatenated " + "string"`.
 
 ## M
-
-### Member function
-
-<!-- TODO -->
 
 ## N
 
@@ -138,7 +134,7 @@ Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<
 
 ### Object
 
-<!-- TODO -->
+An evaluable entity that can be used in expressions. Of a certain type; has a mutable state, defined behaviour, and identity: the same object can change its state but remain the same object. Objects are to composite types<sup>[§2.2.2](./ls-2-types.md#222--primitive-vs-composite-types)</sup> what values are to primitive types.
 
 ### Opacity
 
@@ -178,13 +174,23 @@ A constant attribute of an [object![](../assets/definition.png)](#object) define
 
 ### RHS
 
-<!-- TODO -->
+An acronym for **right-hand side**.
+
+Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<sup>[§4](./ls-4-expr.md)</sup> that lies to the right of an operator.
+
+> **Example:**
+> 
+> ```js
+> some_var = "Some " + "concatenated " + "string";
+> ```
+> 
+> This assignment statement has a [LHS![](../assets/definition.png)](#lhs) of `some_var` and a RHS of `"Some " + "concatenated " + "string"`.
 
 ## S
 
 ### Semantic equivalence
 
-Two or more expressions or units of code that have the same **meaning** and **behaviour** under the hood.
+Two or more expressions or units of code that have the same **meaning** and **behaviour** [under the hood![](../assets/definition.png)](#under-the-hood).
 
 ### Size
 
@@ -207,6 +213,14 @@ The size/length operator in *DeltaScript* is `#|`.
 ## T
 
 ## U
+
+### Ubiquitous function
+
+A function whose inclusion in the [standard library](./std-lib.md) is justified by its fundamental importance and abundance of use cases.
+
+### Under the hood
+
+Describes behaviour of a *DeltaScript* language implementation (compiler or interpreter) that may not be apparent from the syntax of the language.
 
 ## V
 
