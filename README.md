@@ -60,7 +60,7 @@ random_letter(-> char) {
 
 ### Static typing
 
-*DeltaScript* is statically typed, so [type checking](./docs/ls-7-exec.md#73--semantic-error-checking) is performed before scripts are executed.
+*DeltaScript* is statically typed, so [type checking](./docs/ls-7-exec.md#73--semantic-analysis) is performed before scripts are executed.
 
 ### Clear, concise syntax
 

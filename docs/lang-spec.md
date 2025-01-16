@@ -136,7 +136,7 @@ For a more beginner-friendly overview of the language, please see the [guides se
 ### [7 – Execution](./ls-7-exec.md)
 * [**7.1**](./ls-7-exec.md#71--general) – General
 * [**7.2**](./ls-7-exec.md#72--parsing) – Parsing
-* [**7.3**](./ls-7-exec.md#73--semantic-error-checking) – Semantic error checking
+* [**7.3**](./ls-7-exec.md#73--semantic-analysis) – Semantic analysis
 * [**7.4**](./ls-7-exec.md#74--runtime-execution) – Runtime execution
 * [**7.5**](./ls-7-exec.md#75--errors) – Errors
   * [**7.5.1**](./ls-7-exec.md#751--syntax-errors) – Syntax errors

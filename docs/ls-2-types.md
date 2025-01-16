@@ -36,7 +36,7 @@ Types in *DeltaScript* can be broadly categorized into three main groups: **simp
 
 ### 2.1.1 – Type safety
 
-*DeltaScript* is type-safe and statically typed, meaning that type checking<sup>[§7.3](./ls-7-exec.md#73--semantic-error-checking)</sup> is performed at compile-time<sup>[a](#fn-a)</sup> rather than at runtime. This ensures that type errors are caught early in the development process, leading to more reliable and maintainable code.
+*DeltaScript* is type-safe and statically typed, meaning that type checking<sup>[§7.3](./ls-7-exec.md#73--semantic-analysis)</sup> is performed at compile-time<sup>[a](#fn-a)</sup> rather than at runtime. This ensures that type errors are caught early in the development process, leading to more reliable and maintainable code.
 
 ### 2.1.2 – Type inference
 
