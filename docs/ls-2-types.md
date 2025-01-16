@@ -99,9 +99,9 @@ Simple types can be further subdivided into **primitive types** and **composite 
 
 **Primitive types** (`bool`, `char`, `float`, and `int`) represent primitive data values; they cannot be broken down into smaller units.
 
-**Composite types** (`image`, `string`) represent **objects**, which are composed of multiple primitive data values. Objects have mutable states, meaning their internal data can change without altering the object's identity. For example, an object of the type `image` can have one of its pixels change color without becoming a different `image` object. Extension types are also usually composite.
+**Composite types** (`image`, `string`) represent [**objects**![](../assets/definition.png)](./glossary.md#object), which are composed of multiple primitive data values. Objects have mutable states, meaning their internal data can change without altering the object's identity. For example, an object of the type `image` can have one of its pixels change color without becoming a different `image` object. Extension types are also usually composite.
 
-Many composite types will also define [member functions![](../assets/definition.png)](./glossary.md#member-functions) and [properties![](../assets/definition.png)](./glossary.md#properties). The member functions and properties of the built-in composite types are detailed in *DeltaScript*'s [standard library](./std-lib.md).
+Many composite types also define member functions<sup>[§6.3.5](./ls-6-func.md#635--member-functions)</sup> and [properties![](../assets/definition.png)](./glossary.md#properties). The member functions and properties of the built-in composite types are detailed in *DeltaScript*'s [standard library](./std-lib.md).
 
 `color` does not fall neatly into either category. Fundamentally, `color` represents a 32-bit integer. However, the type defines additional behaviours in the form of properties that give it the characteristics of a composite type.
 
@@ -115,7 +115,7 @@ The basic collection types in *DeltaScript* are **arrays**, **lists**, and **set
 
 **Maps**, also known as **dictionaries**, are a special type of collection that represent associations between **keys** and **values**.
 
-The member functions of collection types are detailed in the standard library [here](./collections-sl.md).
+The member functions of collection types are detailed in the [standard library](./collections-sl.md).
 
 ### 2.3.1 – Arrays
 

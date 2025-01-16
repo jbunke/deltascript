@@ -2,7 +2,7 @@
 
 # Global functions
 
-This page describes the [**global functions**![](../assets/definition.png)](./glossary.md#global-function) included in the standard library.
+This page describes the **global functions**<sup>[§6.3.4](./ls-6-func.md#634--global-functions)</sup> included in the standard library.
 
 ## Contents
 

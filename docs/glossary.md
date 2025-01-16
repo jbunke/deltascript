@@ -69,7 +69,7 @@ A list of such languages can be found [here![](../assets/external.png)](https://
 
 ### Control flow
 
-<!-- TODO -->
+The sequence in which statements are executed at runtime. Control flow structures include conditional statements<sup>[§5.6](./ls-5-stat.md#56--conditional-statements)</sup> like `if` and `when`, as well as loops<sup>[§5.7](./ls-5-stat.md#57--loops)</sup>.
 
 ## D
 
@@ -78,10 +78,6 @@ A list of such languages can be found [here![](../assets/external.png)](https://
 ## F
 
 ## G
-
-### Global function
-
-<!-- TODO -->
 
 ## H
 
@@ -132,17 +128,13 @@ Refers to the side of a statement<sup>[§5](./ls-5-stat.md)</sup> or expression<
 
 ## M
 
-### Member function
-
-<!-- TODO -->
-
 ## N
 
 ## O
 
 ### Object
 
-<!-- TODO -->
+An evaluable entity that can be used in expressions. Of a certain type; has a mutable state, defined behaviour, and identity: the same object can change its state but remain the same object. Objects are to composite types<sup>[§2.2.2](./ls-2-types.md#222--primitive-vs-composite-types)</sup> what values are to primitive types.
 
 ### Opacity
 

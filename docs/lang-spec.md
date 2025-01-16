@@ -2,11 +2,9 @@
 
 # *DeltaScript* – Language Specification
 
-<!-- TODO - link to a Delta Time release -->
-
 | Version | Published | Author | Implementation |
 | :-----: | :-------: | :----: | :------------: |
-| 0.1.0 | January 16, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
+| 0.1.0 | January 16, 2025 | Jordan Bunke | [Link![](../assets/external.png)](https://github.com/jbunke/deltascript/releases/tag/v0.1.0) |
 
 *DeltaScript* is a lightweight scripting language skeleton that is designed to be easily extended for the specification and implementation of [domain-specific languages![](../assets/external.png)](https://en.wikipedia.org/wiki/Domain-specific_language).
 

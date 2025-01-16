@@ -2,11 +2,9 @@
 
 # *DeltaScript* – Standard Library
 
-<!-- TODO - link to a Delta Time release -->
-
 | Version | Published | Author | Implementation |
 | :-----: | :-------: | :----: | :------------: |
-| 0.1.0 | January 16, 2025 | Jordan Bunke | [Link![](../assets/external.png)]() |
+| 0.1.0 | January 16, 2025 | Jordan Bunke | [Link![](../assets/external.png)](https://github.com/jbunke/deltascript/releases/tag/v0.1.0) |
 
 The **standard library** describes the built-in functions that are included in the *DeltaScript* [base language![](../assets/definition.png)](./glossary.md#base-language). Functions in the standard library are either global, or member functions of a built-in type or a collection type.
 
