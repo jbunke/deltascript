@@ -79,7 +79,9 @@ Extensions may also extend the functionality of built-in types<sup>[§2.2.1](./l
 
 ## 8.4 – Namespaces
 
-<!-- TODO -->
+**Namespaces** are identifiers [prepended![](../assets/definition.png)](./glossary.md#prepend) with `$` that act as packages for related functions<sup>[§6.1](./ls-6-func.md#61--functions)</sup> and constants<sup>[§4.7.3](./ls-4-expr.md#473--scoped-function-calls)</sup> in an extension.
+
+Functions defined as part of a namespace may be either value-returning<sup>[§6.2.1](./ls-6-func.md#621--value-returning-functions)</sup> or void<sup>[§6.2.2](./ls-6-func.md#622--void-functions)</sup>.
 
 > **Example from _Stipple Effect_:**
 > 
@@ -87,6 +89,19 @@ Extensions may also extend the functionality of built-in types<sup>[§2.2.1](./l
 > * [`$SE`![](../assets/external.png)](https://stipple-effect.github.io/api/global) - used to interface with most program actions
 > * [`$Graphics`![](../assets/external.png)](https://stipple-effect.github.io/api/graphics)
 > * [`$Math`![](../assets/external.png)](https://stipple-effect.github.io/api/math)
+> 
+> ```js
+> () {
+>   string first_10_digits = ((string) $Math.PI).sub(0, 10); // $Math.PI is a constant
+>   print(first_10_digits);
+> 
+>   project p = $SE.get_project();
+>   p.save();
+> }
+> ```
+> 
+> * `$Math.PI` is a constant of the `$Math` namespace
+> * `$SE.get_project() -> project` is a function of the `$SE` namespace that retrieves the project that is currently being edited in the *Stipple Effect* [GUI![](../assets/external.png)](https://en.wikipedia.org/wiki/Graphical_user_interface)
 
 ---
 
