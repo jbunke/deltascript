@@ -257,13 +257,34 @@ Member functions can be called on any expression of a valid type, not just varia
 
 ### 6.3.6 – Extension functions
 
+Extensions<sup>[§6.2.1](#621--value-returning-functions)</sup> to *DeltaScript* can define the following types of functions:
+
+* Namespace<sup>[§8.4](./ls-8-ext.md#84--namespaces)</sup> functions
+* Member functions<sup>[§6.3.5](#635--member-functions)</sup> of extension types<sup>[§8.3.1](./ls-8-ext.md#831--new-types)</sup>
+* New functions implemented as extensions to built-in types<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> from the [base language![](../assets/definition.png)](./glossary.md#base-language)
+
 Extension functions are functions that extend the capabilities of existing types or namespaces.
 
-<!-- TODO - namespace functions -->
-
-<!-- TODO - extension member functions -->
-
-<!-- TODO - proofread -->
+> **Example:**
+> 
+> Taken from the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api), an extension to *DeltaScript*
+> 
+> ```js
+> () {
+>   ~ color RED = #ff0000;
+>   ~ color BLUE = #0000ff;
+>   color in_between = $Graphics.lerp_color(RED, BLUE, 0.5);
+> 
+>   light pl = $Graphics.point_light(1.0, in_between, 5.0, 0, 0, 1.0);
+>   print(pl.is_point()); // prints "true"
+> }
+> ```
+> 
+> This script utilizes the following extension functions:
+> 
+> * [`$Graphics.lerp_color(color a, color b, float t) -> color`![](../assets/external.png)](https://stipple-effect.github.io/api/graphics#lerp_color) - a function of the namespace [`$Graphics`![](../assets/external.png)](https://stipple-effect.github.io/api/graphics)
+> * [`$Graphics.point_light(float luminosity, color c, float radius, int x, int y, float z) -> light`![](../assets/external.png)](https://stipple-effect.github.io/api/graphics#point_light) - also a function of the namespace [`$Graphics`![](../assets/external.png)](https://stipple-effect.github.io/api/graphics)
+> * [`light::is_point() -> bool`![](../assets/external.png)](https://stipple-effect.github.io/api/light#is_point) - a member function of the extension type [`light`![](../assets/external.png)](https://stipple-effect.github.io/api/light)
 
 ## 6.4 – Function objects
 
