@@ -37,15 +37,23 @@ Extensions can add the following language features:
 * New member functions<sup>[§1.2](./ls-1-syntax.md#12--grammars)</sup> and properties<sup>[§4.7.3](./ls-4-expr.md#473--scoped-function-calls)</sup> of types included in the [base language![](../assets/definition.png)](./glossary.md#base-language)
 * Namespaces<sup>[§8.4](#84--namespaces)</sup>
 
-This chapter will use the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api/) (the first *DeltaScript* extension) for practical examples of each of the extension language features.
+This chapter will use the [*Stipple Effect* scripting API](https://stipple-effect.github.io/api/)<sup>[a](#fn-a)</sup> (the first *DeltaScript* extension) for practical examples of each of the extension language features.
 
 ## 8.3 – Types in extensions
 
-<!-- TODO -->
-
 ### 8.3.1 – New types
 
-<!-- TODO -->
+**New types** defined in extensions are simple types<sup>[§2.2](./ls-2-types.md#22--simple-types)</sup> that represent objects not represented by the built-in types<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup>.
+
+They are matched by the following production of &lt;type&gt; from the syntax grammar<sup>[§1.2.2](./ls-1-syntax.md#122--syntax-grammar)</sup>:
+
+> **_&lt;type&gt;_:**
+> * (... higher precedence productions)
+> * &lt;ident&gt;
+
+New types can define their own **definition of equality** for use by the equality `==` and inequality `!=` operators<sup>[§4.5.2](./ls-4-expr.md#452--binary-operators)</sup>.
+
+They may also define member functions<sup>[§6.3.5](./ls-6-func.md#635--member-functions)</sup> and properties<sup>[§4.7.3](./ls-4-expr.md#473--scoped-function-calls)</sup>.
 
 > **Example from _Stipple Effect_:**
 > 
@@ -59,7 +67,7 @@ This chapter will use the [*Stipple Effect* scripting API](https://stipple-effec
 
 ### 8.3.2 – Extending built-in types
 
-<!-- TODO -->
+Extensions may also extend the functionality of built-in types<sup>[§2.2.1](./ls-2-types.md#221--built-in-types)</sup> with new member functions<sup>[§6.3.5](./ls-6-func.md#635--member-functions)</sup> and properties<sup>[§4.7.3](./ls-4-expr.md#473--scoped-function-calls)</sup>.
 
 > **Example from _Stipple Effect_:**
 > 
@@ -84,4 +92,4 @@ This chapter will use the [*Stipple Effect* scripting API](https://stipple-effec
 
 ## Footnotes
 
-* <sup id="fn-a">a</sup> - Here
+* <sup id="fn-a">a</sup> - Examples are from *Stipple Effect* v1.2.2 and accurate as of the date of publication of the specification.
