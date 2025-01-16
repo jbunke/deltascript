@@ -5003,15 +5003,15 @@
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-c1">~</span> <span class="pl-s1">int</span> <span class="pl-c1">REPS</span> <span class="pl-c1">=</span> <span class="pl-c1">100</span><span class="pl-kos">;</span>
+    <span class="pl-c1">~</span> <span class="pl-s1">int</span> <span class="pl-c1">REPS</span> <span class="pl-c1">=</span> <span class="pl-c1">100</span><span class="pl-kos">;</span>
 
-<span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">REPS</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-en">when</span> <span class="pl-kos">(</span><span class="pl-en">flip_coin</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos"></span> <span class="pl-kos">{</span>
-<span class="pl-s1">is</span> <span class="pl-c1">true</span><span class="pl-kos">,</span> <span class="pl-c1">false</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Matched literals"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-s1">matches</span> <span class="pl-s1">_</span> <span class="pl-c1">||</span> <span class="pl-c1">!</span><span class="pl-s1">_</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Matched pattern"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-s1">otherwise</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"No match"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-kos">}</span>
-<span class="pl-kos">}</span>
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">REPS</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-en">when</span> <span class="pl-kos">(</span><span class="pl-en">flip_coin</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos"></span> <span class="pl-kos">{</span>
+            <span class="pl-s1">is</span> <span class="pl-c1">true</span><span class="pl-kos">,</span> <span class="pl-c1">false</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Matched literals"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-s1">matches</span> <span class="pl-s1">_</span> <span class="pl-c1">||</span> <span class="pl-c1">!</span><span class="pl-s1">_</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Matched pattern"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+            <span class="pl-s1">otherwise</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"No match"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+        <span class="pl-kos">}</span>
+    <span class="pl-kos">}</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>This script executes a <code>for</code> loop<sup><a href="#573--for-loops">§5.7.3</a></sup> with a
@@ -5103,15 +5103,15 @@
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-k">while</span> <span class="pl-kos">(</span><span class="pl-s1">i</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">i</span><span class="pl-c1">--</span><span class="pl-kos">;</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">i</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">i</span><span class="pl-c1">--</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">i</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>The body of the <code>while</code> loop contains two statements.</p>
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-k">while</span> <span class="pl-kos">(</span><span class="pl-s1">i</span> <span class="pl-c1">&gt;</span> <span class="pl-c1">0</span><span class="pl-kos">)</span>
-<span class="pl-s1">i</span><span class="pl-c1">--</span><span class="pl-kos">;</span></pre>
+    <span class="pl-s1">i</span><span class="pl-c1">--</span><span class="pl-kos">;</span></pre>
             </div>
             <p>The body of the <code>while</code> loop consists of a single statement <code>i--;</code>.</p>
         </blockquote>
@@ -5155,12 +5155,12 @@
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">int</span> <span class="pl-s1">x</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>
+    <span class="pl-s1">int</span> <span class="pl-s1">x</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>
 
-<span class="pl-k">do</span> <span class="pl-kos">{</span>
-<span class="pl-s1">x</span><span class="pl-c1">++</span><span class="pl-kos">;</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">x</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-kos">}</span> <span class="pl-k">while</span> <span class="pl-kos">(</span><span class="pl-s1">x</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">5</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">do</span> <span class="pl-kos">{</span>
+        <span class="pl-s1">x</span><span class="pl-c1">++</span><span class="pl-kos">;</span>
+        <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">x</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span> <span class="pl-k">while</span> <span class="pl-kos">(</span><span class="pl-s1">x</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">5</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>This script produces the output:</p>
@@ -5223,8 +5223,8 @@
 <span class="pl-c">/* preceding statements */</span>
 <span class="pl-v">I</span><span class="pl-kos">;</span>
 <span class="pl-k">while</span> <span class="pl-kos">(</span><span class="pl-v">C</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-v">B</span>
-<span class="pl-v">A</span><span class="pl-kos">;</span>
+    <span class="pl-v">B</span>
+    <span class="pl-v">A</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span>
 <span class="pl-c">/* following statements */</span></pre>
         </div>
@@ -5252,8 +5252,8 @@
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> <span class="pl-c1">10</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">int</span> <span class="pl-s1">square</span> <span class="pl-c1">=</span> <span class="pl-s1">i</span> <span class="pl-c1">*</span> <span class="pl-s1">i</span><span class="pl-kos">;</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">square</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">int</span> <span class="pl-s1">square</span> <span class="pl-c1">=</span> <span class="pl-s1">i</span> <span class="pl-c1">*</span> <span class="pl-s1">i</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">square</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
         </blockquote>
@@ -5365,11 +5365,11 @@
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-c1">~</span> <span class="pl-s1">string</span> <span class="pl-s1">word</span> <span class="pl-c1">=</span> <span class="pl-s">"Iterate"</span><span class="pl-kos">;</span>
-<span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">s_to_c_funcs</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span> ::<span class="pl-s1">first</span><span class="pl-kos">,</span> ::<span class="pl-s1">last</span><span class="pl-kos">,</span> ::<span class="pl-s1">random</span> <span class="pl-kos">]</span><span class="pl-kos"></span><span class="pl-kos">;</span>
+    <span class="pl-c1">~</span> <span class="pl-s1">string</span> <span class="pl-s1">word</span> <span class="pl-c1">=</span> <span class="pl-s">"Iterate"</span><span class="pl-kos">;</span>
+    <span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">s_to_c_funcs</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span> ::<span class="pl-s1">first</span><span class="pl-kos">,</span> ::<span class="pl-s1">last</span><span class="pl-kos">,</span> ::<span class="pl-s1">random</span> <span class="pl-kos">]</span><span class="pl-kos"></span><span class="pl-kos">;</span>
 
-<span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">f</span> <span class="pl-k">in</span> <span class="pl-s1">s_to_c_funcs</span><span class="pl-kos">)</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">f</span><span class="pl-kos">.</span><span class="pl-en">call</span><span class="pl-kos">(</span><span class="pl-s1">word</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">f</span> <span class="pl-k">in</span> <span class="pl-s1">s_to_c_funcs</span><span class="pl-kos">)</span>
+        <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">f</span><span class="pl-kos">.</span><span class="pl-en">call</span><span class="pl-kos">(</span><span class="pl-s1">word</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span>
 
 <span class="pl-en">first</span><span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-s1">s</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">s</span><span class="pl-kos">.</span><span class="pl-en">at</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">)</span>
@@ -5439,11 +5439,11 @@ t
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-en">helper</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">+</span> <span class="pl-c1">2</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-en">helper</span><span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-c1">+</span> <span class="pl-c1">2</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span>
 
 <span class="pl-en">helper</span><span class="pl-kos">(</span><span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">int</span><span class="pl-kos">)</span><span class="pl-kos"></span> <span class="pl-kos">{</span>
-<span class="pl-k">return</span> <span class="pl-en">rand</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">5</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">return</span> <span class="pl-en">rand</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">5</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
         </blockquote>
@@ -5461,14 +5461,14 @@ t
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-c1">true</span><span class="pl-kos">)</span>
-<span class="pl-k">return</span><span class="pl-kos">;</span>       <span class="pl-c">// script execution terminates here</span>
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-c1">true</span><span class="pl-kos">)</span>
+        <span class="pl-k">return</span><span class="pl-kos">;</span>       <span class="pl-c">// script execution terminates here</span>
 
-<span class="pl-en">dont_do_this</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// never reached</span>
+    <span class="pl-en">dont_do_this</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// never reached</span>
 <span class="pl-kos">}</span>
 
 <span class="pl-en">dont_do_this</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos"></span> <span class="pl-kos">{</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Something mean"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Something mean"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
         </blockquote>
@@ -5708,7 +5708,7 @@ t
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-en">sum</span><span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">a</span><span class="pl-kos">,</span> <span class="pl-s1">int</span> <span class="pl-s1">b</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">int</span><span class="pl-kos">)</span><span class="pl-kos"></span> <span class="pl-kos">{</span>
-<span class="pl-k">return</span> <span class="pl-s1">a</span> <span class="pl-c1">+</span> <span class="pl-s1">b</span><span class="pl-kos">;</span>
+    <span class="pl-k">return</span> <span class="pl-s1">a</span> <span class="pl-c1">+</span> <span class="pl-s1">b</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>For this helper function<sup><a href="#632--helper-functions">§6.3.2</a></sup>, the syntax grammar rule
@@ -5845,25 +5845,25 @@ t
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">int</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">nums</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span> <span class="pl-c1">6</span><span class="pl-kos">,</span> <span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-c1">-</span><span class="pl-c1">5</span><span class="pl-kos">,</span> <span class="pl-c1">7</span><span class="pl-kos">,</span> <span class="pl-c1">18</span><span class="pl-kos">,</span> <span class="pl-c1">-</span><span class="pl-c1">12</span><span class="pl-kos">,</span> <span class="pl-c1">4</span> <span class="pl-kos">]</span><span class="pl-kos">;</span>
+    <span class="pl-s1">int</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">nums</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span> <span class="pl-c1">6</span><span class="pl-kos">,</span> <span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-c1">-</span><span class="pl-c1">5</span><span class="pl-kos">,</span> <span class="pl-c1">7</span><span class="pl-kos">,</span> <span class="pl-c1">18</span><span class="pl-kos">,</span> <span class="pl-c1">-</span><span class="pl-c1">12</span><span class="pl-kos">,</span> <span class="pl-c1">4</span> <span class="pl-kos">]</span><span class="pl-kos">;</span>
 
-<span class="pl-c1">~</span> <span class="pl-s1">int</span> <span class="pl-s1">method1</span> <span class="pl-c1">=</span> <span class="pl-en">array_sum</span><span class="pl-kos">(</span><span class="pl-s1">nums</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-s1">int</span> <span class="pl-s1">method2</span> <span class="pl-c1">=</span> <span class="pl-s1">nums</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span><span class="pl-kos"></span><span class="pl-kos">;</span>
+    <span class="pl-c1">~</span> <span class="pl-s1">int</span> <span class="pl-s1">method1</span> <span class="pl-c1">=</span> <span class="pl-en">array_sum</span><span class="pl-kos">(</span><span class="pl-s1">nums</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">int</span> <span class="pl-s1">method2</span> <span class="pl-c1">=</span> <span class="pl-s1">nums</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span><span class="pl-kos"></span><span class="pl-kos">;</span>
 
-<span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> #<span class="pl-c1">|</span><span class="pl-s1">nums</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span>
-<span class="pl-s1">method2</span> <span class="pl-c1">=</span> <span class="pl-en">a_b_sum</span><span class="pl-kos">(</span><span class="pl-s1">method2</span><span class="pl-kos">,</span> <span class="pl-s1">nums</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">i</span> <span class="pl-c1">=</span> <span class="pl-c1">1</span><span class="pl-kos">;</span> <span class="pl-s1">i</span> <span class="pl-c1">&lt;</span> #<span class="pl-c1">|</span><span class="pl-s1">nums</span><span class="pl-kos">;</span> <span class="pl-s1">i</span><span class="pl-c1">++</span><span class="pl-kos">)</span>
+        <span class="pl-s1">method2</span> <span class="pl-c1">=</span> <span class="pl-en">a_b_sum</span><span class="pl-kos">(</span><span class="pl-s1">method2</span><span class="pl-kos">,</span> <span class="pl-s1">nums</span><span class="pl-kos">[</span><span class="pl-s1">i</span><span class="pl-kos">]</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 
-<span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">method1</span> <span class="pl-c1">!=</span> <span class="pl-s1">method2</span><span class="pl-kos">)</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Uh-oh!"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-s1">method1</span> <span class="pl-c1">!=</span> <span class="pl-s1">method2</span><span class="pl-kos">)</span>
+        <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Uh-oh!"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span>
 
 <span class="pl-en">array_sum</span><span class="pl-kos">(</span><span class="pl-s1">int</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">arr</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">int</span><span class="pl-kos">)</span><span class="pl-kos"></span> <span class="pl-kos">{</span>
-<span class="pl-s1">int</span> <span class="pl-s1">sum</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>
+    <span class="pl-s1">int</span> <span class="pl-s1">sum</span> <span class="pl-c1">=</span> <span class="pl-c1">0</span><span class="pl-kos">;</span>
 
-<span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">elem</span> <span class="pl-k">in</span> <span class="pl-s1">arr</span><span class="pl-kos">)</span>
-<span class="pl-s1">sum</span> <span class="pl-c1">+=</span> <span class="pl-s1">elem</span><span class="pl-kos">;</span>
+    <span class="pl-k">for</span> <span class="pl-kos">(</span><span class="pl-s1">elem</span> <span class="pl-k">in</span> <span class="pl-s1">arr</span><span class="pl-kos">)</span>
+        <span class="pl-s1">sum</span> <span class="pl-c1">+=</span> <span class="pl-s1">elem</span><span class="pl-kos">;</span>
 
-<span class="pl-k">return</span> <span class="pl-s1">sum</span><span class="pl-kos">;</span>
+    <span class="pl-k">return</span> <span class="pl-s1">sum</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span>
 
 <span class="pl-en">a_b_sum</span><span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">a</span><span class="pl-kos">,</span> <span class="pl-s1">int</span> <span class="pl-s1">b</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">int</span><span class="pl-kos">)</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">a</span> <span class="pl-c1">+</span> <span class="pl-s1">b</span></pre>
@@ -5934,11 +5934,11 @@ t
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">bool</span> <span class="pl-s1">check</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span> <span class="pl-c1">1</span><span class="pl-kos">,</span> <span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-c1">3</span> <span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-en">has</span><span class="pl-kos">(</span><span class="pl-c1">1</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-s1">string</span> <span class="pl-s1">middle</span> <span class="pl-c1">=</span> <span class="pl-kos">(</span><span class="pl-s">"half"</span> <span class="pl-c1">+</span> <span class="pl-s">"pipe"</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">sub</span><span class="pl-kos">(</span><span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-c1">6</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">bool</span> <span class="pl-s1">check</span> <span class="pl-c1">=</span> <span class="pl-kos">[</span> <span class="pl-c1">1</span><span class="pl-kos">,</span> <span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-c1">3</span> <span class="pl-kos">]</span><span class="pl-kos">.</span><span class="pl-en">has</span><span class="pl-kos">(</span><span class="pl-c1">1</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">string</span> <span class="pl-s1">middle</span> <span class="pl-c1">=</span> <span class="pl-kos">(</span><span class="pl-s">"half"</span> <span class="pl-c1">+</span> <span class="pl-s">"pipe"</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">sub</span><span class="pl-kos">(</span><span class="pl-c1">2</span><span class="pl-kos">,</span> <span class="pl-c1">6</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">check</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">middle</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">check</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">middle</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>This script produces the output:</p>
@@ -5971,12 +5971,12 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-c1">~</span> <span class="pl-s1">color</span> <span class="pl-c1">RED</span> <span class="pl-c1">=</span> #ff0000<span class="pl-kos">;</span>
-<span class="pl-c1">~</span> <span class="pl-s1">color</span> <span class="pl-c1">BLUE</span> <span class="pl-c1">=</span> #<span class="pl-c1">0000</span><span class="pl-s1">ff</span><span class="pl-kos">;</span>
-<span class="pl-s1">color</span> <span class="pl-s1">in_between</span> <span class="pl-c1">=</span> <span class="pl-s1">$Graphics</span><span class="pl-kos">.</span><span class="pl-en">lerp_color</span><span class="pl-kos">(</span><span class="pl-c1">RED</span><span class="pl-kos">,</span> <span class="pl-c1">BLUE</span><span class="pl-kos">,</span> <span class="pl-c1">0.5</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-c1">~</span> <span class="pl-s1">color</span> <span class="pl-c1">RED</span> <span class="pl-c1">=</span> #ff0000<span class="pl-kos">;</span>
+    <span class="pl-c1">~</span> <span class="pl-s1">color</span> <span class="pl-c1">BLUE</span> <span class="pl-c1">=</span> #<span class="pl-c1">0000</span><span class="pl-s1">ff</span><span class="pl-kos">;</span>
+    <span class="pl-s1">color</span> <span class="pl-s1">in_between</span> <span class="pl-c1">=</span> <span class="pl-s1">$Graphics</span><span class="pl-kos">.</span><span class="pl-en">lerp_color</span><span class="pl-kos">(</span><span class="pl-c1">RED</span><span class="pl-kos">,</span> <span class="pl-c1">BLUE</span><span class="pl-kos">,</span> <span class="pl-c1">0.5</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 
-<span class="pl-s1">light</span> <span class="pl-s1">pl</span> <span class="pl-c1">=</span> <span class="pl-s1">$Graphics</span><span class="pl-kos">.</span><span class="pl-en">point_light</span><span class="pl-kos">(</span><span class="pl-c1">1.0</span><span class="pl-kos">,</span> <span class="pl-s1">in_between</span><span class="pl-kos">,</span> <span class="pl-c1">5.0</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">1.0</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">pl</span><span class="pl-kos">.</span><span class="pl-en">is_point</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// prints "true"</span>
+    <span class="pl-s1">light</span> <span class="pl-s1">pl</span> <span class="pl-c1">=</span> <span class="pl-s1">$Graphics</span><span class="pl-kos">.</span><span class="pl-en">point_light</span><span class="pl-kos">(</span><span class="pl-c1">1.0</span><span class="pl-kos">,</span> <span class="pl-s1">in_between</span><span class="pl-kos">,</span> <span class="pl-c1">5.0</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">1.0</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">pl</span><span class="pl-kos">.</span><span class="pl-en">is_point</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// prints "true"</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>This script utilizes the following extension functions:</p>
@@ -6031,10 +6031,10 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">s_to_c_funcs</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span><span class="pl-kos">[</span><span class="pl-c1">2</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
+    <span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span><span class="pl-kos">[</span><span class="pl-kos">]</span> <span class="pl-s1">s_to_c_funcs</span> <span class="pl-c1">=</span> <span class="pl-k">new</span> <span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span><span class="pl-kos">[</span><span class="pl-c1">2</span><span class="pl-kos">]</span><span class="pl-kos">;</span>
 
-<span class="pl-s1">s_to_c_funcs</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-s1">s</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">s</span><span class="pl-kos">.</span><span class="pl-en">at</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-s1">s_to_c_funcs</span><span class="pl-kos">[</span><span class="pl-c1">1</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> ::<span class="pl-s1">last_char</span><span class="pl-kos"></span><span class="pl-kos">;</span>
+    <span class="pl-s1">s_to_c_funcs</span><span class="pl-kos">[</span><span class="pl-c1">0</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> <span class="pl-s1">s</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">s</span><span class="pl-kos">.</span><span class="pl-en">at</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">s_to_c_funcs</span><span class="pl-kos">[</span><span class="pl-c1">1</span><span class="pl-kos">]</span> <span class="pl-c1">=</span> ::<span class="pl-s1">last_char</span><span class="pl-kos"></span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span>
 
 <span class="pl-en">last_char</span><span class="pl-kos">(</span><span class="pl-s1">string</span> <span class="pl-s1">s</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">char</span><span class="pl-kos">)</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">s</span><span class="pl-kos">.</span><span class="pl-en">at</span><span class="pl-kos">(</span>#<span class="pl-c1">|</span><span class="pl-s1">s</span> <span class="pl-c1">-</span> <span class="pl-c1">1</span><span class="pl-kos">)</span></pre>
@@ -6068,9 +6068,9 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">int</span><span class="pl-kos">)</span> <span class="pl-s1">func</span> <span class="pl-c1">=</span> ::<span class="pl-s1">double</span><span class="pl-kos">;</span>
+    <span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">int</span><span class="pl-kos">)</span> <span class="pl-s1">func</span> <span class="pl-c1">=</span> ::<span class="pl-s1">double</span><span class="pl-kos">;</span>
 
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">double</span><span class="pl-kos">.</span><span class="pl-en">call</span><span class="pl-kos">(</span><span class="pl-c1">5</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">double</span><span class="pl-kos">.</span><span class="pl-en">call</span><span class="pl-kos">(</span><span class="pl-c1">5</span><span class="pl-kos">)</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span>
 
 <span class="pl-en">double</span><span class="pl-kos">(</span><span class="pl-s1">int</span> <span class="pl-s1">i</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">int</span><span class="pl-kos">)</span> <span class="pl-c1">-</span><span class="pl-c1">&gt;</span> <span class="pl-s1">i</span> <span class="pl-c1">*</span> <span class="pl-c1">2</span></pre>
@@ -6257,7 +6257,7 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Hello, world!"</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s">"Hello, world!"</span><span class="pl-kos">)</span><span class="pl-kos">;</span></pre>
             </div>
             <p>This script is missing a curly bracket <code>}</code> to close its header function<sup><a
                         href="#631--header-functions">§6.3.1</a></sup>.</p>
@@ -6284,11 +6284,11 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-en">flip_coin</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">string</span> <span class="pl-s1">v</span> <span class="pl-c1">=</span> <span class="pl-s">"Vendetta"</span><span class="pl-kos">;</span>
-<span class="pl-kos">}</span>
+    <span class="pl-k">if</span> <span class="pl-kos">(</span><span class="pl-en">flip_coin</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
+        <span class="pl-s1">string</span> <span class="pl-s1">v</span> <span class="pl-c1">=</span> <span class="pl-s">"Vendetta"</span><span class="pl-kos">;</span>
+    <span class="pl-kos">}</span>
 
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">v</span><span class="pl-kos">)</span><span class="pl-kos">;</span>   <span class="pl-c">// semantic error - v is out of scope</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">v</span><span class="pl-kos">)</span><span class="pl-kos">;</span>   <span class="pl-c">// semantic error - v is out of scope</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>These code snippets are all syntacticall correct but fail semantic analysis.</p>
@@ -6539,11 +6539,11 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">string</span> <span class="pl-s1">first_10_digits</span> <span class="pl-c1">=</span> <span class="pl-kos">(</span><span class="pl-kos">(</span><span class="pl-s1">string</span><span class="pl-kos">)</span> <span class="pl-s1">$Math</span><span class="pl-kos">.</span><span class="pl-c1">PI</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">sub</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">10</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// $Math.PI is a constant</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">first_10_digits</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">string</span> <span class="pl-s1">first_10_digits</span> <span class="pl-c1">=</span> <span class="pl-kos">(</span><span class="pl-kos">(</span><span class="pl-s1">string</span><span class="pl-kos">)</span> <span class="pl-s1">$Math</span><span class="pl-kos">.</span><span class="pl-c1">PI</span><span class="pl-kos">)</span><span class="pl-kos">.</span><span class="pl-en">sub</span><span class="pl-kos">(</span><span class="pl-c1">0</span><span class="pl-kos">,</span> <span class="pl-c1">10</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// $Math.PI is a constant</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">first_10_digits</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 
-<span class="pl-s1">project</span> <span class="pl-s1">p</span> <span class="pl-c1">=</span> <span class="pl-s1">$SE</span><span class="pl-kos">.</span><span class="pl-en">get_project</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-s1">p</span><span class="pl-kos">.</span><span class="pl-en">save</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">project</span> <span class="pl-s1">p</span> <span class="pl-c1">=</span> <span class="pl-s1">$SE</span><span class="pl-kos">.</span><span class="pl-en">get_project</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">p</span><span class="pl-kos">.</span><span class="pl-en">save</span><span class="pl-kos">(</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <ul>
@@ -7850,8 +7850,8 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">string</span> <span class="pl-s1">word</span> <span class="pl-c1">=</span> <span class="pl-s">"foo"</span><span class="pl-kos">;</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span>#<span class="pl-c1">|</span><span class="pl-s1">word</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints "3"</span>
+    <span class="pl-s1">string</span> <span class="pl-s1">word</span> <span class="pl-c1">=</span> <span class="pl-s">"foo"</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span>#<span class="pl-c1">|</span><span class="pl-s1">word</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints "3"</span>
 <span class="pl-kos">}</span></pre>
             </div>
         </blockquote>
@@ -7928,8 +7928,8 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">color</span> <span class="pl-s1">c</span> <span class="pl-c1">=</span> #ffffff<span class="pl-kos">;</span> <span class="pl-c">// assigns c to the color white (hex code #ffffff)</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">c</span><span class="pl-kos">.</span><span class="pl-c1">red</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints the value of the "red" property of c (255 in this case)</span>
+    <span class="pl-s1">color</span> <span class="pl-s1">c</span> <span class="pl-c1">=</span> #ffffff<span class="pl-kos">;</span> <span class="pl-c">// assigns c to the color white (hex code #ffffff)</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span><span class="pl-s1">c</span><span class="pl-kos">.</span><span class="pl-c1">red</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints the value of the "red" property of c (255 in this case)</span>
 <span class="pl-kos">}</span></pre>
             </div>
             <p>In this example, <a href="#red"><code>red</code></a> is a property defined by the type <a
@@ -7986,11 +7986,11 @@ lfpi
             <div class="highlight highlight-source-js" bis_skin_checked="1">
                 <pre>
 <span class="pl-kos">(</span><span class="pl-kos">)</span> <span class="pl-kos">{</span>
-<span class="pl-s1">string</span><span class="pl-c1">&lt;</span><span class="pl-c1">&gt;</span> <span class="pl-s1">words</span> <span class="pl-c1">=</span> <span class="pl-c1">&lt;</span> <span class="pl-s">"quick"</span><span class="pl-kos">,</span> <span class="pl-s">"brown"</span> <span class="pl-c1">&gt;</span><span class="pl-kos">;</span> <span class="pl-c">// initializes a list of strings</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span>#<span class="pl-c1">|</span><span class="pl-s1">words</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints "2"</span>
-<span class="pl-s1">words</span><span class="pl-kos">.</span><span class="pl-en">add</span><span class="pl-kos">(</span><span class="pl-s">"A"</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-s1">words</span><span class="pl-kos">.</span><span class="pl-en">add</span><span class="pl-kos">(</span><span class="pl-s">"fox"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
-<span class="pl-en">print</span><span class="pl-kos">(</span>#<span class="pl-c1">|</span><span class="pl-s1">words</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints "4"</span>
+    <span class="pl-s1">string</span><span class="pl-c1">&lt;</span><span class="pl-c1">&gt;</span> <span class="pl-s1">words</span> <span class="pl-c1">=</span> <span class="pl-c1">&lt;</span> <span class="pl-s">"quick"</span><span class="pl-kos">,</span> <span class="pl-s">"brown"</span> <span class="pl-c1">&gt;</span><span class="pl-kos">;</span> <span class="pl-c">// initializes a list of strings</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span>#<span class="pl-c1">|</span><span class="pl-s1">words</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints "2"</span>
+    <span class="pl-s1">words</span><span class="pl-kos">.</span><span class="pl-en">add</span><span class="pl-kos">(</span><span class="pl-s">"A"</span><span class="pl-kos">,</span> <span class="pl-c1">0</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-s1">words</span><span class="pl-kos">.</span><span class="pl-en">add</span><span class="pl-kos">(</span><span class="pl-s">"fox"</span><span class="pl-kos">)</span><span class="pl-kos">;</span>
+    <span class="pl-en">print</span><span class="pl-kos">(</span>#<span class="pl-c1">|</span><span class="pl-s1">words</span><span class="pl-kos">)</span><span class="pl-kos">;</span> <span class="pl-c">// Prints "4"</span>
 <span class="pl-kos">}</span></pre>
             </div>
         </blockquote>
